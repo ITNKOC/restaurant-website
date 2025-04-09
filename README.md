@@ -186,7 +186,7 @@ The website follows a mobile-first approach with responsive design principles:
 
 ## 👥 Contributors
 
-- [Your Name](https://github.com/your-profile) - Lead Developer
+- Koceila djaballah (https://github.com/ITNKOC) - Lead Developer
 
 ## 📄 License
 
