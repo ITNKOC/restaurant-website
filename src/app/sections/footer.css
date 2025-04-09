@@ -1,0 +1,460 @@
+/*--------------------------------------------------------------
+# Footer - Modern Design for Di Menna Restaurant
+--------------------------------------------------------------*/
+#footer {
+  background: linear-gradient(to right, #0c0b09 0%, #1a1814 100%);
+  position: relative;
+  padding: 70px 0 30px;
+  color: #fff;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+#footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #cda45e, transparent);
+}
+
+/* Stylish wave decoration */
+.footer-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.footer-wave svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 65px;
+}
+
+.footer-wave .shape-fill {
+  fill: rgba(205, 164, 94, 0.15);
+}
+
+/* Brand Section */
+.footer-brand {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.footer-brand .logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.footer-brand .logo-icon {
+  background-color: #cda45e;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 20px;
+  margin-right: 12px;
+}
+
+.footer-brand h3 {
+  font-size: 28px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 500;
+  font-family: "Playfair Display", serif;
+  color: #fff;
+}
+
+.footer-brand .tagline {
+  font-style: italic;
+  color: #cda45e;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+/* Contact Info */
+.footer-contact {
+  margin-bottom: 30px;
+}
+
+.footer-contact h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-contact h4::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 2px;
+  background: #cda45e;
+  bottom: 0;
+  left: 0;
+}
+
+.contact-info-item {
+  display: flex;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.contact-info-item i {
+  color: #cda45e;
+  font-size: 18px;
+  margin-right: 10px;
+  min-width: 20px;
+  padding-top: 2px;
+}
+
+.contact-info-item .details {
+  flex: 1;
+}
+
+.contact-info-item h5 {
+  margin: 0 0 5px;
+  font-size: 15px;
+  color: #eee;
+}
+
+.contact-info-item p {
+  margin: 0;
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Hours */
+.footer-hours {
+  margin-bottom: 30px;
+}
+
+.footer-hours h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.footer-hours h4::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #cda45e;
+  bottom: 0;
+  left: 0;
+}
+
+.hours-table {
+  width: 100%;
+  font-size: 13px;
+}
+
+.hours-table tr {
+  border-bottom: 1px dashed rgba(205, 164, 94, 0.2);
+}
+
+.hours-table tr:last-child {
+  border-bottom: none;
+}
+
+.hours-table td {
+  padding: 6px 0;
+  color: #aaa;
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+.hours-table td:first-child {
+  font-weight: 500;
+  color: #eee;
+  width: 48%;
+}
+
+.hours-table td:last-child {
+  text-align: right;
+}
+
+/* Social Links Section */
+.footer-social {
+  margin-bottom: 30px;
+}
+
+.footer-social h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-social h4::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 2px;
+  background: #cda45e;
+  bottom: 0;
+  left: 0;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-links a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #cda45e;
+  transform: translateY(100%);
+  transition: all 0.3s ease;
+  z-index: 0;
+}
+
+.social-links a:hover::before {
+  transform: translateY(0);
+}
+
+.social-links a i {
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Subscribe Form */
+.footer-subscribe {
+  margin-bottom: 30px;
+}
+
+.footer-subscribe h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-subscribe h4::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 2px;
+  background: #cda45e;
+  bottom: 0;
+  left: 0;
+}
+
+.footer-subscribe p {
+  color: #aaa;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.subscribe-form {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  padding: 5px;
+}
+
+.subscribe-form input[type="email"] {
+  background: transparent;
+  border: none;
+  padding: 10px 15px;
+  color: #fff;
+  flex: 1;
+  outline: none;
+}
+
+.subscribe-form input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.subscribe-form button {
+  background: #cda45e;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.subscribe-form button:hover {
+  background: #b89451;
+}
+
+/* Copyright Section */
+.footer-bottom {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom .row {
+  align-items: center;
+}
+
+.copyright {
+  color: #aaa;
+  margin: 0;
+}
+
+.copyright a {
+  color: #cda45e;
+  transition: color 0.3s ease;
+}
+
+.copyright a:hover {
+  color: #fff;
+}
+
+/* Navigation Links */
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-nav a {
+  color: #aaa;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.footer-nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -3px;
+  left: 0;
+  background-color: #cda45e;
+  transition: width 0.3s ease;
+}
+
+.footer-nav a:hover {
+  color: #cda45e;
+}
+
+.footer-nav a:hover::after {
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  #footer {
+    padding: 50px 0 30px;
+  }
+
+  .footer-wave svg {
+    height: 40px;
+  }
+
+  .footer-brand,
+  .footer-contact,
+  .footer-hours,
+  .footer-social,
+  .footer-subscribe {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .social-links {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    text-align: center;
+  }
+
+  .footer-nav {
+    margin-top: 15px;
+  }
+
+  .footer-contact h4,
+  .footer-hours h4,
+  .footer-social h4,
+  .footer-subscribe h4 {
+    text-align: center;
+  }
+
+  .footer-contact h4::after,
+  .footer-hours h4::after,
+  .footer-social h4::after,
+  .footer-subscribe h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .contact-info-item {
+    justify-content: center;
+  }
+
+  .hours-table {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .subscribe-form {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}

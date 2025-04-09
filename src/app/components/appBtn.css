@@ -1,0 +1,102 @@
+/*--------------------------------------------------------------
+# Book a table button Menu
+--------------------------------------------------------------*/
+.app-btn {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 0 15px;
+  border: 2px solid #cda45e;
+  color: #fff;
+  border-radius: 50px;
+  padding: 10px 28px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.app-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+.app-btn.with-icon i {
+  margin-right: 8px;
+  font-size: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.app-btn-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #cda45e;
+  transform: translateX(-100%);
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  z-index: 1;
+}
+
+.app-btn:hover {
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(205, 164, 94, 0.3);
+}
+
+.app-btn:hover .app-btn-background {
+  transform: translateX(0);
+}
+
+.app-btn:active {
+  transform: translateY(-1px);
+}
+
+.app-btn.secondary {
+  background-color: transparent;
+  border-color: #fff;
+}
+
+.app-btn.secondary .app-btn-background {
+  background: #fff;
+}
+
+.app-btn.secondary:hover {
+  color: #1a1814;
+}
+
+@media (max-width: 992px) {
+  .app-btn {
+    margin: 10px 15px;
+    padding: 9px 22px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-btn {
+    margin: 8px auto;
+    padding: 12px 24px;
+    font-size: 14px;
+    min-height: 44px;
+    width: 100%;
+    max-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .app-btn.with-icon i {
+    font-size: 18px;
+  }
+}

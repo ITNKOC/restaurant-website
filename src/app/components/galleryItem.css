@@ -1,0 +1,321 @@
+.gallery-item-container {
+  padding: 12px;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transform: translateY(0);
+  height: 280px;
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.gallery-item.loaded .image-loader {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.gallery-item:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.12);
+  filter: brightness(0.85) contrast(1.15);
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-item:hover .gallery-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item:hover .gallery-buttons {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #151515;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transform-origin: center;
+  filter: brightness(0.95);
+}
+
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 2;
+}
+
+/* Info section removed as requested */
+
+.gallery-buttons {
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 3;
+}
+
+.gallery-buttons button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(205, 164, 94, 0.9);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-buttons button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.4s ease;
+}
+
+.gallery-buttons button:hover {
+  background-color: #cda45e;
+  transform: scale(1.15);
+}
+
+.gallery-buttons button:hover::after {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 0;
+}
+
+.gallery-buttons button:active {
+  transform: scale(0.95);
+}
+
+.image-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1a1814;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.loader-spinner {
+  width: 35px;
+  height: 35px;
+  border: 3px solid rgba(205, 164, 94, 0.3);
+  border-top-color: #cda45e;
+  border-radius: 50%;
+  animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+.gallery-filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.gallery-filter button {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #cda45e;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gallery-filter button.active,
+.gallery-filter button:hover {
+  background-color: #cda45e;
+  color: #1a1814;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered animation delay based on item ID */
+.gallery-item-container:nth-child(1) .gallery-item {
+  animation-delay: 0.1s;
+}
+.gallery-item-container:nth-child(2) .gallery-item {
+  animation-delay: 0.15s;
+}
+.gallery-item-container:nth-child(3) .gallery-item {
+  animation-delay: 0.2s;
+}
+.gallery-item-container:nth-child(4) .gallery-item {
+  animation-delay: 0.25s;
+}
+.gallery-item-container:nth-child(5) .gallery-item {
+  animation-delay: 0.3s;
+}
+.gallery-item-container:nth-child(6) .gallery-item {
+  animation-delay: 0.35s;
+}
+.gallery-item-container:nth-child(7) .gallery-item {
+  animation-delay: 0.4s;
+}
+.gallery-item-container:nth-child(8) .gallery-item {
+  animation-delay: 0.45s;
+}
+
+/* Reveal animation when scrolling */
+.gallery-item-container.aos-animate .gallery-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile & tablet responsiveness */
+@media (max-width: 1199px) {
+  .gallery-item {
+    height: 260px;
+  }
+}
+
+@media (max-width: 991px) {
+  .gallery-item-container {
+    padding: 10px;
+  }
+
+  .gallery-item {
+    height: 230px;
+  }
+
+  .gallery-info .image-title {
+    font-size: 16px;
+  }
+
+  .gallery-info .image-category {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 767px) {
+  .gallery-item-container {
+    padding: 8px;
+  }
+
+  .gallery-item {
+    height: 200px;
+  }
+
+  .gallery-buttons {
+    bottom: 20px;
+    gap: 12px;
+  }
+
+  .gallery-buttons button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .gallery-info {
+    bottom: 60px;
+    padding: 0 15px;
+  }
+
+  .gallery-info .image-title {
+    font-size: 15px;
+  }
+
+  .gallery-info .image-category {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 575px) {
+  .gallery-item-container {
+    padding: 5px;
+  }
+
+  .gallery-item {
+    height: 180px;
+    border-radius: 10px;
+  }
+
+  .gallery-buttons button {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .gallery-filter button {
+    padding: 6px 12px;
+    font-size: 13px;
+    margin: 3px;
+  }
+}

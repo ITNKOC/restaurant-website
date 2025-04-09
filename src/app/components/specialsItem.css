@@ -1,0 +1,197 @@
+/*--------------------------------------------------------------
+# Specials Item
+--------------------------------------------------------------*/
+.specials .tab-pane {
+  display: none;
+}
+
+.specials .tab-pane.active {
+  display: block;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.specials .details h3 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #cda45e;
+  font-family: "Playfair Display", serif;
+  position: relative;
+  display: inline-block;
+}
+
+.specials .details h3:after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 80px;
+  height: 2px;
+  background: #cda45e;
+}
+
+.specials .details .fst-italic {
+  font-size: 18px;
+  color: #e0e0e0;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.specials .details p {
+  color: #ddd;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.special-item-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.special-item-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-tag {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.price-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #cda45e;
+  font-family: "Playfair Display", serif;
+}
+
+.special-item-badge {
+  background: rgba(205, 164, 94, 0.1);
+  border: 1px solid #cda45e;
+  border-radius: 30px;
+  padding: 8px 15px;
+}
+
+.special-item-badge span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #cda45e;
+  letter-spacing: 0.5px;
+}
+
+/* Image styling */
+.special-img-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  height: 300px;
+}
+
+.special-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.tab-pane:hover .special-img-container img {
+  transform: scale(1.05);
+}
+
+.special-img-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  padding: 20px;
+  text-align: center;
+}
+
+.special-img-overlay span {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 18px;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Italian flag inspired accent */
+.special-img-container:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(
+    to right,
+    #008c45 33%,
+    #f4f5f0 33%,
+    #f4f5f0 66%,
+    #cd212a 66%
+  );
+}
+
+@media (max-width: 991px) {
+  .special-item-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .special-item-price {
+    align-items: center;
+  }
+
+  .specials .details h3:after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .special-img-container {
+    height: 250px;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .specials .details h3 {
+    font-size: 26px;
+  }
+
+  .specials .details .fst-italic {
+    font-size: 16px;
+  }
+
+  .specials .details p {
+    font-size: 15px;
+  }
+
+  .price-value {
+    font-size: 22px;
+  }
+
+  .special-img-container {
+    height: 220px;
+    max-width: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

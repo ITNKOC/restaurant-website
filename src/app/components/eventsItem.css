@@ -1,0 +1,255 @@
+/*--------------------------------------------------------------
+# Events Item
+--------------------------------------------------------------*/
+.events .event-item {
+  color: #fff;
+  display: flex;
+  align-items: stretch;
+}
+
+.event-image-col {
+  padding: 0;
+}
+
+.event-image-container {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.event-image-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.event-item:hover .event-image-container img {
+  transform: scale(1.05);
+}
+
+.event-image-overlay {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  background: rgba(205, 164, 94, 0.9);
+  padding: 8px 20px 8px 15px;
+  border-radius: 0 30px 30px 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.event-category {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.events .event-item .content {
+  padding: 50px 40px;
+  position: relative;
+}
+
+.event-badge {
+  display: inline-block;
+  background: rgba(205, 164, 94, 0.1);
+  border: 1px solid rgba(205, 164, 94, 0.3);
+  color: #cda45e;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 15px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.events .event-item h3 {
+  font-weight: 700;
+  font-size: 30px;
+  color: #cda45e;
+  margin-bottom: 15px;
+  font-family: "Playfair Display", serif;
+}
+
+.events .event-item .price {
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: baseline;
+}
+
+.events .event-item .price .currency {
+  font-size: 18px;
+  color: #cda45e;
+  font-weight: 600;
+}
+
+.events .event-item .price .amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: #cda45e;
+  padding: 0 5px;
+}
+
+.events .event-item .price .unit {
+  font-size: 14px;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.events .event-item .fst-italic {
+  font-size: 16px;
+  color: #e0e0e0;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.event-features {
+  margin: 25px 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.feature-icon {
+  margin-right: 15px;
+  min-width: 24px;
+}
+
+.feature-icon i {
+  font-size: 20px;
+  color: #cda45e;
+}
+
+.feature-text {
+  color: #ddd;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.event-summary {
+  color: #ddd;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 25px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event-cta {
+  margin-top: 30px;
+}
+
+.btn-book-event {
+  display: inline-block;
+  background: #cda45e;
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-book-event:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #008c45, transparent, #cd212a);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.btn-book-event:hover {
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-book-event:hover:before {
+  opacity: 0.3;
+}
+
+/* Italian flag accent */
+.events .event-item .content:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #008c45 33%,
+    #f4f5f0 33%,
+    #f4f5f0 66%,
+    #cd212a 66%
+  );
+}
+
+@media (max-width: 991px) {
+  .events .event-item {
+    flex-direction: column;
+  }
+
+  .event-image-container {
+    height: 300px;
+  }
+
+  .events .event-item .content {
+    padding: 40px 30px;
+  }
+
+  .events .event-item h3 {
+    font-size: 26px;
+  }
+
+  .events .event-item .price .amount {
+    font-size: 28px;
+  }
+
+  .btn-book-event {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .event-image-container {
+    height: 250px;
+  }
+
+  .events .event-item .content {
+    padding: 30px 20px;
+  }
+
+  .events .event-item h3 {
+    font-size: 24px;
+  }
+
+  .events .event-item .fst-italic {
+    font-size: 15px;
+  }
+
+  .feature-text {
+    font-size: 14px;
+  }
+
+  .event-summary {
+    font-size: 14px;
+  }
+}
