@@ -1,0 +1,223 @@
+/*--------------------------------------------------------------
+# Recruitment Hero Section
+--------------------------------------------------------------*/
+#recruitment-hero {
+  width: 100%;
+  position: relative;
+  padding: 120px 0 60px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  overflow: hidden;
+}
+
+#recruitment-hero h1 {
+  margin: 0 0 20px 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #333;
+  text-align: center;
+}
+
+#recruitment-hero h2 {
+  color: #6c757d;
+  margin-bottom: 30px;
+  font-size: 24px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  #recruitment-hero h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  #recruitment-hero h2 {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+}
+
+/*--------------------------------------------------------------
+  # Recruitment Content
+  --------------------------------------------------------------*/
+#recruitment-content {
+  padding: 60px 0;
+}
+
+.recruitment-box {
+  background: #fff;
+  padding: 40px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.recruitment-box h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.recruitment-box p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.join-button-container {
+  margin-top: 40px;
+}
+
+.btn-join-team {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: #fff;
+  background: #5cb874;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(92, 184, 116, 0.3);
+}
+
+.btn-join-team:hover {
+  background: #4ca368;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(92, 184, 116, 0.4);
+  text-decoration: none;
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+  # Values Section
+  --------------------------------------------------------------*/
+.values {
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+
+.values .value-box {
+  text-align: center;
+  padding: 30px 20px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+}
+
+.values .value-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.values .value-box .icon {
+  margin-bottom: 20px;
+}
+
+.values .value-box .icon i {
+  font-size: 40px;
+  color: #5cb874;
+  border-radius: 50%;
+  padding: 20px;
+  background: rgba(92, 184, 116, 0.1);
+}
+
+.values .value-box h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.values .value-box p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6c757d;
+}
+
+/*--------------------------------------------------------------
+  # Join CTA Section
+  --------------------------------------------------------------*/
+.join-cta {
+  background: linear-gradient(rgba(92, 184, 116, 0.9), rgba(92, 184, 116, 0.9)),
+    url("../assets/img/cta-bg.jpg") fixed center center;
+  background-size: cover;
+  padding: 80px 0;
+  color: #fff;
+}
+
+.join-cta h3 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.join-cta p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.join-cta .btn-join-team {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 50px;
+  transition: 0.3s;
+  background: #fff;
+  color: #5cb874;
+  text-decoration: none;
+}
+
+.join-cta .btn-join-team:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+/*--------------------------------------------------------------
+  # Section Title 
+  --------------------------------------------------------------*/
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  color: #333;
+}
+
+.section-title h2::after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #5cb874;
+  bottom: 0;
+  left: calc(50% - 25px);
+}
+
+/*--------------------------------------------------------------
+  # Sections General
+  --------------------------------------------------------------*/
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-bg {
+  background-color: #f8f9fa;
+}

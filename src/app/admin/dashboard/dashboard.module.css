@@ -1,0 +1,295 @@
+/* dashboard.module.css */
+
+/* General Styles */
+.dashboard {
+  max-width: 1200px;
+  margin: 40px auto; /* Added more top/bottom margin */
+  padding: 25px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+  background-color: #f4f7f9; /* Lighter background for the page */
+  border-radius: 10px; /* Optional: rounded corners for the whole dashboard area */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #dde3e8; /* Lighter border */
+}
+
+.header h1 {
+  font-size: 26px; /* Slightly smaller, more refined */
+  color: #2c3e50; /* Darker, more professional blue/grey */
+  margin: 0;
+  font-weight: 600;
+}
+
+.logoutButton {
+  background-color: #e74c3c; /* Softer red */
+  color: white;
+  border: none;
+  border-radius: 6px; /* Slightly more rounded */
+  padding: 10px 22px;
+  font-weight: 500; /* Less bold */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logoutButton:hover {
+  background-color: #c0392b; /* Darker on hover */
+  transform: translateY(-1px);
+}
+.logoutButton:active {
+  transform: translateY(0px);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #dde3e8; /* Slightly thicker border for tab container */
+  background-color: #fff; /* Give tabs a background if dashboard bg is colored */
+  border-radius: 6px 6px 0 0; /* Rounded top corners for tab bar */
+  padding: 5px 5px 0 5px; /* Padding around tabs */
+}
+
+.tab {
+  padding: 14px 24px;
+  margin-right: 0; /* Remove margin, let padding and potential borders define space */
+  border: none;
+  background: none;
+  color: #566573; /* Subdued tab color */
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent; /* Underline for active state */
+  transition: color 0.2s ease, border-color 0.2s ease;
+  border-radius: 4px 4px 0 0; /* Rounded top corners for individual tabs */
+}
+
+.tab:hover {
+  color: #3498db; /* Accent color on hover - choose your brand color */
+  background-color: #ecf0f1; /* Slight background on hover */
+}
+
+.activeTab {
+  color: #3498db; /* Accent color for active tab */
+  border-bottom: 3px solid #3498db;
+  font-weight: 600;
+  background-color: #fff; /* Ensure active tab bg matches content area if distinct */
+}
+
+/* Content Area */
+.content {
+  background-color: #ffffff; /* Clear white for content */
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+  padding: 30px;
+}
+
+.content h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 22px;
+  font-weight: 600;
+  border-bottom: 1px solid #eaecee; /* Separator for section title */
+  padding-bottom: 15px;
+}
+
+/* Upload Section */
+.uploadSection {
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #fdfdfe; /* Slightly off-white for contrast */
+  border-radius: 6px;
+  border: 1px dashed #bdc3c7; /* Dashed border for dropzone feel */
+}
+
+.uploadButton {
+  background-color: #3498db; /* Primary action color */
+  color: white;
+  padding: 12px 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex; /* To align icon and text if you add one */
+  align-items: center;
+  transition: background-color 0.2s ease-in-out;
+}
+/* Example: Add an icon to upload button if you use an icon font/SVG
+.uploadButton svg {
+  margin-right: 8px;
+}
+*/
+.uploadButton:hover {
+  background-color: #2980b9; /* Darker shade on hover */
+}
+
+.uploadSection p {
+  /* For "Uploading..." text */
+  margin-left: 20px;
+  color: #3498db;
+  font-weight: 500;
+}
+
+/* Files List */
+.filesList {
+  margin-top: 25px;
+  display: grid; /* Using grid for more complex layouts if needed */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* Responsive grid */
+  gap: 20px;
+}
+
+.fileItem {
+  display: flex;
+  flex-direction: column; /* Stack info and actions vertically */
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #e8eaed; /* Lighter border for items */
+  border-radius: 8px;
+  margin-bottom: 0; /* Gap is handled by grid */
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.fileItem:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.fileInfo {
+  flex: 1;
+  margin-bottom: 15px; /* Space between info and actions */
+}
+
+.fileName {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  color: #34495e; /* Darker text color */
+  font-size: 16px; /* Larger file name */
+}
+
+.fileDate {
+  margin: 0;
+  font-size: 13px; /* Smaller date */
+  color: #7f8c8d; /* Softer color for date */
+}
+
+.fileActions {
+  display: flex;
+  gap: 10px; /* Spacing between buttons */
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0; /* Separator line */
+}
+
+/* Generalizing button styles for actions */
+.fileActions > a,
+.fileActions > button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease,
+    box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.fileActions > a:hover,
+.fileActions > button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.downloadButton {
+  background-color: #2980b9; /* Blue for download */
+  color: white;
+}
+.downloadButton:hover {
+  background-color: #1f618d;
+}
+
+.viewButton {
+  background-color: #27ae60; /* Green for view */
+  color: white;
+}
+.viewButton:hover {
+  background-color: #1e8449;
+}
+
+.deleteButton {
+  background-color: #c0392b; /* Red for delete */
+  color: white;
+}
+.deleteButton:hover {
+  background-color: #a93226;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard {
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .tabs {
+    flex-direction: column;
+    border-bottom: none;
+  }
+
+  .tab {
+    width: 100%;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    border: 1px solid #dde3e8;
+    text-align: center;
+  }
+
+  .activeTab {
+    border-bottom: 1px solid #dde3e8; /* Remove thick underline on mobile */
+    background-color: #eaf2f8; /* Slight highlight for active tab */
+  }
+
+  .filesList {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+  }
+
+  .fileItem {
+    flex-direction: column;
+    align-items: stretch; /* Stretch items full width */
+  }
+
+  .fileActions {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically on mobile */
+    gap: 10px; /* Ensure gap between stacked buttons */
+  }
+
+  .fileActions > button,
+  .fileActions > a {
+    margin-left: 0; /* Reset margin for stacked buttons */
+    width: 100%; /* Full width buttons on mobile */
+  }
+}

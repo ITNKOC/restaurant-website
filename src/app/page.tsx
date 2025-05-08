@@ -9,6 +9,7 @@ import Testimonials from "./sections/Testimonials";
 import Gallery from "./sections/Gallery";
 import Chefs from "./sections/Chefs";
 import Contact from "./sections/Contact";
+import Recruitment from "./sections/recruitment";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
         <Testimonials />
         <Gallery />
         <Chefs />
+        <Recruitment />
         <Contact />
       </main>
     </>

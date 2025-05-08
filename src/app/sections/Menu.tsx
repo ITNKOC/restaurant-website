@@ -1,93 +1,199 @@
 "use client";
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
+import styles from "./menu.module.css"; // Si Menu.tsx est dans src/app/sections/, ajustez le chemin
 
-import React from "react";
-import SectionTitle from "../components/SectionTitle";
-import "./menu.css";
+const MENU_TYPES = {
+  RESTAURANT: "restaurant",
+  DELIVERY: "delivery",
+  ALCOHOL: "alcohol",
+};
 
-export default function Menu() {
+interface MenuFile {
+  id: string;
+  name: string;
+  type: string;
+  url: string; // Sera l'URL Cloudinary
+  public_id?: string; // Optionnel ici, mais bon pour la cohérence
+  uploadDate: string;
+}
+
+// Renommé en MenuPage pour éviter confusion si vous avez un composant nommé Menu aussi
+export default function MenuPage() {
+  const [activeTab, setActiveTab] = useState(MENU_TYPES.RESTAURANT);
+  const [menuFiles, setMenuFiles] = useState<MenuFile[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    if (typeof window !== "undefined") {
+      try {
+        const savedMenus = localStorage.getItem("menuFiles");
+        if (savedMenus) {
+          setMenuFiles(JSON.parse(savedMenus));
+        }
+      } catch (e) {
+        console.error(
+          "Erreur lors du parsing des menuFiles depuis localStorage sur la page menu",
+          e
+        );
+        setError("Impossible de charger les informations des menus.");
+        setMenuFiles([]);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false); // Important pour le rendu côté serveur ou build
+    }
+  }, []);
+
+  const filteredFiles = menuFiles.filter((file) => file.type === activeTab);
+
+  // ... (le reste de votre JSX pour la page Menu)
+  // Le JSX que vous avez fourni précédemment devrait fonctionner.
+  // Assurez-vous que les boutons "View Menu" et "Download" utilisent bien file.url
+  // Ex: <a href={file.url} target="_blank" ...>View Menu</a>
+  // Ex: <a href={file.url} download={file.name} ...>Download</a>
+
   return (
-    <section id="menu" className="menu-download">
-      <div className="container" data-aos="fade-up">
-        <SectionTitle title="Our Menu" subtitle="Authentic Italian Cuisine" />
+    <>
+      <Head>
+        <title>Nos Menus | DiMenna</title>
+        <meta
+          name="description"
+          content="Découvrez nos menus restaurant, livraison, et notre sélection d'alcools chez DiMenna."
+        />
+        {/* Assurez-vous que les polices sont chargées, cf. réponse précédente */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
 
-        <div className="row justify-content-center">
-          <div className="col-lg-10">
-            <div
-              className="menu-download-container"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div className="menu-content">
-                <h3>Discover Our Traditional Italian Delights</h3>
-                <p>
-                  Since 1971, Di Menna has been serving authentic Italian
-                  cuisine made with the freshest ingredients and traditional
-                  family recipes. From our handmade pasta to our wood-fired
-                  pizzas and chef's specialties, each dish is prepared with
-                  passion and expertise.
-                </p>
-                <p>
-                  Download our menu below to explore our complete selection of
-                  antipasti, pasta, pizza, secondi, and dolci.
-                </p>
-
-                <div className="menu-categories">
-                  <div className="category">
-                    <i className="bi bi-egg-fried"></i>
-                    <span>Antipasti</span>
-                  </div>
-                  <div className="category">
-                    <i className="bi bi-cup-hot"></i>
-                    <span>Zuppe</span>
-                  </div>
-                  <div className="category">
-                    <i className="bi bi-award"></i>
-                    <span>Pasta</span>
-                  </div>
-                  <div className="category">
-                    <i className="bi bi-circle"></i>
-                    <span>Pizza</span>
-                  </div>
-                  <div className="category">
-                    <i className="bi bi-apple"></i>
-                    <span>Dolci</span>
-                  </div>
-                </div>
-
-                <div className="menu-download-buttons">
-                  <a
-                    href="/assets/menu/dimenna-menu.pdf"
-                    download
-                    className="download-btn"
-                  >
-                    <i className="bi bi-download"></i> Download Dinner Menu
-                  </a>
-                  <a
-                    href="/assets/menu/dimenna-wine.pdf"
-                    download
-                    className="download-btn wine"
-                  >
-                    <i className="bi bi-download"></i> Download Wine List
-                  </a>
-                </div>
-              </div>
-
-              <div className="menu-image">
-                <div className="image-container">
-                  <div className="menu-overlay">
-                    <div className="overlay-content">
-                      <h4>Serving daily from</h4>
-                      <p className="hours">11:00 AM - 11:00 PM</p>
-                      <span className="divider"></span>
-                      <p className="since">Authentic Italian Since 1971</p>
-                    </div>
-                  </div>
-                </div>
+      <div className={styles.menuPageContainer}>
+        {" "}
+        {/* Appliquez le style conteneur principal */}
+        <section id="menu-header" className={styles.menuHeader}>
+          {/* ... Votre code pour le header de la page menu ... */}
+          <div className="container">
+            <div className="row justify-content-center text-center">
+              <div className="col-lg-8">
+                <h1>Nos Menus</h1>
+                <p>Découvrez nos sélections soigneusement élaborées</p>
               </div>
             </div>
           </div>
-        </div>
+        </section>
+        <section id="menu-content" className={styles.menuContent}>
+          {/* ... Votre code pour les onglets et l'affichage des menus ... */}
+          <div className="container">
+            <div className={styles.tabs}>
+              <button
+                className={`${styles.tab} ${
+                  activeTab === MENU_TYPES.RESTAURANT ? styles.activeTab : ""
+                }`}
+                onClick={() => setActiveTab(MENU_TYPES.RESTAURANT)}
+              >
+                Menu Restaurant
+              </button>
+              <button
+                className={`${styles.tab} ${
+                  activeTab === MENU_TYPES.DELIVERY ? styles.activeTab : ""
+                }`}
+                onClick={() => setActiveTab(MENU_TYPES.DELIVERY)}
+              >
+                Menu Livraison
+              </button>
+              <button
+                className={`${styles.tab} ${
+                  activeTab === MENU_TYPES.ALCOHOL ? styles.activeTab : ""
+                }`}
+                onClick={() => setActiveTab(MENU_TYPES.ALCOHOL)}
+              >
+                Sélection d'Alcools
+              </button>
+            </div>
+
+            <div className={styles.menuDisplay}>
+              <h2>
+                {activeTab === MENU_TYPES.RESTAURANT
+                  ? "Menu Restaurant"
+                  : activeTab === MENU_TYPES.DELIVERY
+                  ? "Menu Livraison"
+                  : "Sélection d'Alcools"}
+              </h2>
+
+              {loading ? (
+                <div className={styles.loadingMessage}>
+                  Chargement des menus...
+                </div>
+              ) : error ? (
+                <div
+                  className={styles.noMenusMessage}
+                  style={{ color: "#FF8C00" }}
+                >
+                  {error}
+                </div>
+              ) : filteredFiles.length === 0 ? (
+                <div className={styles.noMenusMessage}>
+                  <p>
+                    Aucun menu disponible pour cette catégorie pour le moment.
+                    Veuillez revenir plus tard.
+                  </p>
+                </div>
+              ) : (
+                <div className={styles.menuList}>
+                  {filteredFiles.map((file) => (
+                    <div key={file.id} className={styles.menuItem}>
+                      <div className={styles.menuItemContent}>
+                        <div className={styles.menuIcon}>
+                          <i className="bi bi-file-earmark-pdf"></i>{" "}
+                          {/* Assurez-vous d'avoir Bootstrap Icons si vous utilisez cette classe */}
+                        </div>
+                        <div className={styles.menuInfo}>
+                          <h3>{file.name}</h3>
+                          {/* Formater la date pour une meilleure lisibilité */}
+                          <p>
+                            Mis à jour le:{" "}
+                            {new Date(file.uploadDate).toLocaleDateString(
+                              "fr-FR"
+                            )}
+                          </p>
+                        </div>
+                        <div className={styles.menuActions}>
+                          <a
+                            href={file.url}
+                            className={styles.viewButton}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Voir Menu
+                          </a>
+                          <a
+                            href={file.url}
+                            className={styles.downloadButton}
+                            download={file.name}
+                          >
+                            Télécharger
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
+    </>
   );
 }

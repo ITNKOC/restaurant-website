@@ -1,0 +1,291 @@
+/* menu.module.css */
+
+/* --- Reset/Base --- */
+.menuPageContainer {
+  /* Add this class to the root div/fragment in Menu.tsx if needed */
+  background-color: #121212; /* Dark background for the whole page */
+  color: #e0e0e0; /* Light grey text for readability */
+  font-family: "Lora", serif; /* Elegant serif for an Italian feel - ensure it's imported */
+}
+
+/* --- Header Section --- */
+.menuHeader {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
+    url("/images/italian-food-background.jpg"); /* Example background image - replace with your own or a dark texture */
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0 80px 0;
+  text-align: center;
+  position: relative; /* For potential pseudo-elements */
+  border-bottom: 2px solid #daa520; /* Gold accent */
+}
+
+.menuHeader::before {
+  /* Optional: subtle overlay */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Darken the image slightly */
+}
+
+.menuHeader h1 {
+  font-size: 48px;
+  font-weight: 700; /* Lora bold */
+  color: #ffffff; /* White title */
+  margin-bottom: 20px;
+  font-family: "Playfair Display", serif; /* More ornate for main title - ensure import */
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.menuHeader p {
+  font-size: 20px;
+  color: #f0f0f0; /* Slightly off-white */
+  font-family: "Roboto", sans-serif; /* Readable sans-serif for subtitle - ensure import */
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- Content Section (Tabs & Menus) --- */
+.menuContent {
+  padding: 60px 20px; /* Add horizontal padding for smaller screens */
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  border-bottom: 1px solid #444; /* Darker border */
+  flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+  gap: 10px; /* Gap between tabs */
+}
+
+.tab {
+  padding: 14px 30px;
+  margin: 0; /* Removed margin, gap handles spacing */
+  background: none;
+  border: 2px solid transparent; /* Transparent border initially */
+  color: #bdbdbd; /* Lighter grey for inactive tabs */
+  font-weight: 600; /* Lora semi-bold */
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s, border-color 0.3s;
+  text-transform: uppercase; /* Italian menu style */
+  letter-spacing: 0.5px;
+  border-radius: 5px; /* Slightly rounded tabs */
+}
+
+.tab:hover {
+  color: #ffffff;
+  border-color: #daa520; /* Gold border on hover */
+}
+
+.activeTab {
+  color: #ffffff; /* White text for active tab */
+  border-color: #daa520; /* Gold border for active tab */
+  background-color: rgba(
+    218,
+    165,
+    32,
+    0.1
+  ); /* Subtle gold background for active */
+}
+
+.activeTab::after {
+  display: none; /* Removed the underline, border is enough */
+}
+
+.menuDisplay {
+  max-width: 900px; /* Wider for better menu display */
+  margin: 0 auto;
+}
+
+.menuDisplay h2 {
+  /* Title for selected menu type */
+  text-align: center;
+  margin-bottom: 40px;
+  color: #daa520; /* Gold color for titles */
+  font-size: 32px;
+  font-weight: 700; /* Lora bold */
+  font-family: "Playfair Display", serif; /* Match header title font */
+}
+
+.loadingMessage,
+.noMenusMessage {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ); /* Very subtle light background */
+  border-radius: 8px;
+  color: #bdbdbd;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+}
+
+.menuList {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column for a list feel */
+  gap: 25px;
+}
+
+.menuItem {
+  background-color: #1f1f1f; /* Slightly lighter than main bg for cards */
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #333; /* Dark border */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menuItem:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 8px 25px rgba(218, 165, 32, 0.15); /* Goldish glow on hover */
+  border-color: #daa520;
+}
+
+.menuItemContent {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Gap between icon and info/actions */
+}
+
+.menuIcon {
+  /* For the PDF icon */
+  font-size: 36px; /* Larger icon */
+  color: #daa520; /* Gold icon */
+}
+/* Example if you use specific icons for menu types
+.menuIconRestaurant { color: #c0392b; } Red for food
+.menuIconDelivery { color: #27ae60; } Green for delivery
+.menuIconAlcohol { color: #8e44ad; } Purple for alcohol
+*/
+
+.menuInfo {
+  flex: 1;
+}
+
+.menuInfo h3 {
+  /* File name */
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  font-weight: 600; /* Lora semi-bold */
+  color: #f5f5f5; /* Very light grey / white */
+  font-family: "Playfair Display", serif;
+}
+
+.menuInfo p {
+  /* Upload date */
+  margin: 0;
+  font-size: 14px;
+  color: #a0a0a0; /* Softer grey */
+  font-family: "Roboto", sans-serif;
+}
+
+.menuActions {
+  display: flex;
+  flex-direction: column; /* Stack buttons for a cleaner look */
+  gap: 12px; /* Space between buttons */
+  align-items: flex-start; /* Align buttons to the start */
+}
+
+.viewButton,
+.downloadButton {
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 500; /* Roboto medium */
+  font-size: 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  border: 2px solid transparent;
+  font-family: "Roboto", sans-serif;
+  min-width: 150px; /* Give buttons a consistent width */
+}
+
+.viewButton {
+  background-color: #daa520; /* Gold button */
+  color: #121212; /* Dark text on gold */
+  border-color: #daa520;
+}
+
+.viewButton:hover {
+  background-color: #c7951e; /* Darker gold */
+  transform: scale(1.03);
+}
+
+.downloadButton {
+  background-color: transparent;
+  color: #daa520; /* Gold text */
+  border: 2px solid #daa520; /* Gold border */
+}
+
+.downloadButton:hover {
+  background-color: rgba(
+    218,
+    165,
+    32,
+    0.1
+  ); /* Subtle gold background on hover */
+  color: #f0f0f0;
+  transform: scale(1.03);
+}
+
+/* Responsive adjustments for Menu Page */
+@media (max-width: 768px) {
+  .menuHeader h1 {
+    font-size: 36px;
+  }
+  .menuHeader p {
+    font-size: 16px;
+  }
+
+  .tabs {
+    gap: 8px; /* Smaller gap for wrapped tabs */
+  }
+  .tab {
+    padding: 10px 15px;
+    font-size: 14px;
+    width: calc(50% - 4px); /* Two tabs per row on mobile, accounting for gap */
+    text-align: center;
+  }
+
+  .menuDisplay h2 {
+    font-size: 26px;
+  }
+
+  .menuItemContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .menuIcon {
+    margin-right: 0; /* Reset margin from previous CSS */
+    margin-bottom: 10px; /* Space below icon */
+  }
+
+  .menuInfo {
+    margin-bottom: 20px; /* Space below info */
+  }
+
+  .menuActions {
+    flex-direction: column; /* Ensure buttons stay stacked */
+    width: 100%;
+    align-items: center; /* Center buttons on mobile */
+  }
+
+  .viewButton,
+  .downloadButton {
+    width: 80%; /* Make buttons wider on mobile for easier tapping */
+    max-width: 250px;
+  }
+}
