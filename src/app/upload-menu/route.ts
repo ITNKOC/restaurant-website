@@ -1,24 +1,43 @@
 // src/app/api/upload-menu/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { v2 as cloudinary } from "cloudinary";
+import {
+  v2 as cloudinary,
+  UploadApiResponse, // Type importé directement
+  UploadApiErrorResponse, // Type pour les erreurs, importé directement
+} from "cloudinary";
 import { Readable } from "stream"; // Nécessaire pour manipuler le flux du fichier
 
 // Configuration de Cloudinary avec vos identifiants
-// Ils seront stockés dans des variables d'environnement (voir Étape 4)
+// Idéalement, ceux-ci devraient être stockés dans des variables d'environnement
+// Exemple: process.env.CLOUDINARY_CLOUD_NAME
 cloudinary.config({
-  cloud_name: "djin03bhl",
-  api_key: "597292933448856",
-  api_secret: "aCNEM6PIob_eONzKvFD7uQhvLaM",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "djin03bhl",
+  api_key: process.env.CLOUDINARY_API_KEY || "597292933448856",
+  api_secret:
+    process.env.CLOUDINARY_API_SECRET || "aCNEM6PIob_eONzKvFD7uQhvLaM",
   secure: true, // Utiliser HTTPS pour les URLs
 });
 
-// Fonction utilitaire pour convertir un ReadableStream en Buffer
-async function streamToBuffer(readableStream: Readable): Promise<Buffer> {
-  const chunks: Buffer[] = [];
-  for await (const chunk of readableStream) {
-    chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+// Fonction utilitaire pour convertir un ReadableStream (Web API) en Buffer (Node.js)
+async function streamToBuffer(
+  readableStream: ReadableStream<Uint8Array>
+): Promise<Buffer> {
+  const chunks: Uint8Array[] = [];
+  const reader = readableStream.getReader();
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      if (value) {
+        chunks.push(value);
+      }
+    }
+    return Buffer.concat(chunks);
+  } finally {
+    reader.releaseLock();
   }
-  return Buffer.concat(chunks);
 }
 
 export async function POST(request: NextRequest) {
@@ -41,35 +60,33 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Convertir le fichier en Buffer pour l'upload
-    // Le `file.stream()` retourne un ReadableStream
-    const fileBuffer = await streamToBuffer(
-      file.stream() as unknown as Readable
-    );
+    // Convertir le fichier (File API) en Buffer pour l'upload
+    // file.stream() retourne un ReadableStream<Uint8Array>
+    const fileBuffer = await streamToBuffer(file.stream());
 
     // Téléverser le buffer vers Cloudinary
-    // resource_type: 'raw' est important pour les fichiers non-image comme les PDF
-    // Vous pouvez spécifier un dossier ('folder') dans Cloudinary
-    const uploadResult = await new Promise<
-      cloudinary.UploadApiResponse | undefined
-    >((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          folder: "restaurant_menus", // Dossier de destination sur Cloudinary
-          resource_type: "raw", // Type de ressource pour les PDF
-          format: "pdf", // Spécifier le format aide Cloudinary
-        },
-        (error, result) => {
-          if (error) {
-            console.error("Cloudinary Upload Error:", error);
-            reject(error);
-          } else {
-            resolve(result);
+    const uploadResult = await new Promise<UploadApiResponse | undefined>(
+      (resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            folder: "restaurant_menus", // Dossier de destination sur Cloudinary
+            resource_type: "raw", // Type de ressource pour les PDF et autres fichiers bruts
+            format: "pdf", // Spécifier le format aide Cloudinary à l'identifier
+          },
+          // Utiliser les types importés pour le callback
+          (error?: UploadApiErrorResponse, result?: UploadApiResponse) => {
+            if (error) {
+              console.error("Cloudinary Upload Error:", error);
+              reject(error);
+            } else {
+              resolve(result);
+            }
           }
-        }
-      );
-      uploadStream.end(fileBuffer);
-    });
+        );
+        // Créer un Readable stream Node.js à partir du Buffer pour le pipe vers Cloudinary
+        Readable.from(fileBuffer).pipe(uploadStream);
+      }
+    );
 
     if (!uploadResult || !uploadResult.secure_url) {
       console.error(
@@ -93,10 +110,17 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error("Erreur API d'upload:", error);
-    const errorMessage =
-      error instanceof Error
-        ? error.message
-        : "Erreur inconnue lors de l'upload.";
+    let errorMessage = "Erreur inconnue lors de l'upload.";
+    let errorDetails: any = error;
+
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    // Si l'erreur provient de Cloudinary et a une structure spécifique
+    if (typeof error === "object" && error !== null && "message" in error) {
+      errorMessage = (error as any).message;
+    }
+
     return NextResponse.json(
       {
         error: "Une erreur est survenue lors de l'upload.",

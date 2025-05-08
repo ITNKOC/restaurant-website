@@ -1,17 +1,18 @@
+// src/app/sections/Booking.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
-import SectionTitle from "../components/SectionTitle";
-import "./booking.css";
+import SectionTitle from "../components/SectionTitle"; // Ensure this path is correct
+import "./booking.css"; // Ensure this path is correct
 
 export default function Booking() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
-  const [partySize, setPartySize] = useState("2");
-  const [isOpenTableLoaded, setIsOpenTableLoaded] = useState(false);
+  const [partySize, setPartySize] = useState("2"); // partySize is a string
+  // const [isOpenTableLoaded, setIsOpenTableLoaded] = useState(false); // This variable is not used, you might remove it if not needed
 
   // OpenTable restaurant ID for Di Menna (this is a placeholder - replace with actual ID)
-  const openTableRestaurantId = "123456"; // Replace with actual OpenTable restaurant ID
+  const openTableRestaurantId = "123456"; // Replace with your actual OpenTable restaurant ID
 
   // Available party sizes
   const partySizes = ["1", "2", "3", "4", "5", "6", "7", "8", "10", "12"];
@@ -30,22 +31,28 @@ export default function Booking() {
     const script = document.createElement("script");
     script.src =
       "https://www.opentable.com/widget/reservation/loader?rid=" +
-      openTableRestaurantId;
+      openTableRestaurantId +
+      "&domain=com&type=standard&theme=standard&lang=en-US&overlay=false&iframe=true";
     script.async = true;
-    script.onload = () => setIsOpenTableLoaded(true);
+    // script.onload = () => setIsOpenTableLoaded(true); // If isOpenTableLoaded is not used, this line can be removed
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      // Clean up the script when the component unmounts
+      // A more robust cleanup might be needed depending on OpenTable's widget behavior
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
-  }, []);
+  }, [openTableRestaurantId]); // Add openTableRestaurantId to dependencies
 
   // Format date for display
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     if (!dateString) return "";
 
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
+      // English locale for date formatting
       weekday: "long",
       month: "long",
       day: "numeric",
@@ -53,17 +60,17 @@ export default function Booking() {
   };
 
   // Get today's date in YYYY-MM-DD format for the date input min attribute
-  const getToday = () => {
+  const getToday = (): string => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
   // Handle OpenTable redirect
-  const handleReservation = (e) => {
-    e.preventDefault();
+  const handleReservation = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevents the default form submission behavior
 
     // Validate inputs
     if (!selectedDate || !selectedTime) {
@@ -71,19 +78,15 @@ export default function Booking() {
       return;
     }
 
-    // Format date for OpenTable
-    const dateObj = new Date(selectedDate);
-    const formattedDate = `${
-      dateObj.getMonth() + 1
-    }/${dateObj.getDate()}/${dateObj.getFullYear()}`;
-
-    // Format time for OpenTable (remove seconds if present)
-    const formattedTime = selectedTime.split(":").slice(0, 2).join(":");
+    // Date for OpenTable parameter (YYYY-MM-DD)
+    const dateForParam = selectedDate;
+    // Time for OpenTable parameter (HH:MM)
+    const timeForParam = selectedTime;
 
     // Construct OpenTable URL
-    const openTableUrl = `https://www.opentable.com/restref/client/?rid=${openTableRestaurantId}&restref=client&datetime=${formattedDate}T${formattedTime}&party=${partySize}`;
+    const openTableUrl = `https://www.opentable.com/restref/client/?rid=${openTableRestaurantId}&restref=client&datetime=${dateForParam}T${timeForParam}&party=${partySize}&domain=com&lang=en-US`;
 
-    // Redirect to OpenTable
+    // Redirect to OpenTable in a new tab
     window.open(openTableUrl, "_blank");
   };
 
@@ -128,7 +131,7 @@ export default function Booking() {
                     <div>
                       <h4>Location</h4>
                       <p>
-                        6313 rue Jarry Est
+                        6313 Jarry Street East
                         <br />
                         Saint-Léonard, Montréal, QC H1P 1W1
                       </p>
@@ -142,7 +145,8 @@ export default function Booking() {
                       <p>
                         (514) 326-4200
                         <br />
-                        reservations@dimenna.com
+                        reservations@dimenna.com{" "}
+                        {/* Ensure this email is correct */}
                       </p>
                     </div>
                   </div>
@@ -161,7 +165,7 @@ export default function Booking() {
                   <div className="opentable-badge">
                     <span>Powered by</span>
                     <img
-                      src="/assets/images/opentable-logo.png"
+                      src="/assets/images/opentable-logo.png" // Ensure this path is correct
                       alt="OpenTable"
                     />
                   </div>
@@ -171,7 +175,7 @@ export default function Booking() {
                   <div className="form-group">
                     <label>Party Size</label>
                     <select
-                      className="form-control"
+                      className="form-control" // Ensure you have styles for .form-control
                       value={partySize}
                       onChange={(e) => setPartySize(e.target.value)}
                     >
@@ -195,6 +199,8 @@ export default function Booking() {
                     />
                     {selectedDate && (
                       <div className="selected-date-display">
+                        {" "}
+                        {/* Style this class for a nice display */}
                         {formatDate(selectedDate)}
                       </div>
                     )}
@@ -203,16 +209,19 @@ export default function Booking() {
                   <div className="form-group time-selection">
                     <label>Time</label>
                     <div className="popular-times">
+                      {" "}
+                      {/* Style this class */}
                       {popularTimes.map((timeOption) => (
                         <button
                           type="button"
                           key={timeOption.time}
                           className={`time-btn ${
+                            /* Style .time-btn and .active */
                             selectedTime === timeOption.time ? "active" : ""
                           }`}
                           onClick={() => setSelectedTime(timeOption.time)}
                         >
-                          {timeOption.label}
+                          {timeOption.label} {/* e.g., "Lunch", "Dinner" */}
                         </button>
                       ))}
                     </div>
@@ -222,16 +231,21 @@ export default function Booking() {
                       value={selectedTime}
                       onChange={(e) => setSelectedTime(e.target.value)}
                       required
+                      step="900" // e.g., 15-minute increments (900 seconds)
                     />
                   </div>
 
                   <div className="form-footer">
                     <button type="submit" className="reservation-btn">
+                      {" "}
+                      {/* Style .reservation-btn */}
                       <span>Find a Table</span>
                       <i className="bi bi-arrow-right-circle"></i>
                     </button>
 
                     <p className="reservation-note">
+                      {" "}
+                      {/* Style .reservation-note */}
                       By clicking "Find a Table" you will be redirected to
                       OpenTable to complete your reservation.
                     </p>
@@ -242,7 +256,8 @@ export default function Booking() {
           </div>
         </div>
 
-        {/* <div
+        {/* Commented section, uncomment if needed
+        <div
           className="reservation-footer"
           data-aos="fade-up"
           data-aos-delay="300"
@@ -251,7 +266,8 @@ export default function Booking() {
             For parties larger than 12 or special events, please contact us
             directly at (514) 326-4200 or email events@dimenna.com
           </p>
-        </div> */}
+        </div>
+        */}
       </div>
     </section>
   );
