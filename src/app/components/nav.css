@@ -1,403 +1,393 @@
-/*--------------------------------------------------------------
-  # Navigation Menu
-  --------------------------------------------------------------*/
-/**
-  * Desktop Navigation 
-  */
-.navbar {
-  padding: 0;
-  /* If Nav component's root div is the flex item in header,
-       these might be useful on it instead of directly on .navbar */
-  /* margin-left: auto; */
+/* nav.css */
+
+/* ===================================================================
+// Conteneur Racine du Composant Nav (optionnel)
+// =================================================================== */
+.nav-component-wrapper {
+  position: relative; /* Contexte de positionnement pour l'overlay si besoin */
 }
 
-/* This new class can be added to Nav.tsx's root div if it's the flex item */
-.nav-container {
-  /* Example: order-last order-lg-0 ms-lg-auto */
-  /* If your header is d-flex, this pushes nav to the end on mobile, 
-       and to its natural order or far right on desktop */
+/* ===================================================================
+// Barre de Navigation Principale <nav id="navbar">
+// =================================================================== */
+.main-navbar {
+  /* Pour desktop, si Header.tsx ne gère pas le flex pour aligner logo, nav, cta */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-between; /* Ou une autre valeur selon le layout du header */
+  padding: 0; /* Pas de padding sur la nav elle-même, gérer dans Header ou enfants */
 }
 
-.navbar ul.nav-menu {
+/* ===================================================================
+// Styles Desktop pour la Liste de Liens
+// =================================================================== */
+.main-navbar .nav-links-list {
   margin: 0;
   padding: 0;
-  display: flex;
   list-style: none;
+  display: flex; /* Afficher les liens en ligne sur desktop */
   align-items: center;
-  gap: 8px; /* Slightly increased gap */
+  gap: 8px;
 }
 
-.navbar li {
+.main-navbar .nav-links-list li {
   position: relative;
 }
 
-.navbar a,
-.navbar a:focus {
+.main-navbar .nav-links-list .nav-link-item {
   display: flex;
   align-items: center;
-  padding: 12px 15px; /* Ensure consistent padding */
+  padding: 12px 15px;
   color: #fff;
   white-space: nowrap;
-  transition: color 0.3s ease, background-color 0.3s ease; /* Added background-color transition */
+  transition: color 0.3s ease, background-color 0.3s ease;
   font-size: 15px;
-  font-weight: 500; /* Slightly bolder for nav links */
+  font-weight: 500;
   border-radius: 30px;
   cursor: pointer;
   position: relative;
-  overflow: hidden; /* Keep for highlight effect */
-  text-decoration: none; /* Ensure no underlines */
+  overflow: hidden;
+  text-decoration: none;
 }
-
-.navbar a span {
+.main-navbar .nav-links-list .nav-link-item span {
   position: relative;
   z-index: 2;
 }
-
-.navbar a i {
-  font-size: 1.1em; /* Relative to font-size */
+.main-navbar .nav-links-list .nav-link-item i {
+  font-size: 1.1em;
   line-height: 0;
   position: relative;
   z-index: 2;
-  margin-right: 8px; /* Increased slightly */
+  margin-right: 8px;
   transition: transform 0.3s ease;
 }
-
-.navbar a:hover i {
+.main-navbar .nav-links-list .nav-link-item:hover i {
   transform: scale(1.1);
 }
 
-.nav-item-highlight {
+.main-navbar .nav-link-highlight {
   position: absolute;
-  bottom: 5px; /* Adjusted position */
+  bottom: 5px;
   left: 50%;
   width: 0;
-  height: 2.5px; /* Slightly thicker */
+  height: 2.5px;
   background-color: #cda45e;
-  transition: width 0.3s ease; /* Only transition width */
+  transition: width 0.3s ease;
   transform: translateX(-50%);
   z-index: 1;
   border-radius: 2px;
 }
-
-.navbar a:hover .nav-item-highlight,
-.navbar .active .nav-item-highlight {
-  width: 50%; /* Adjusted width */
+.main-navbar .nav-links-list .nav-link-item:hover .nav-link-highlight,
+.main-navbar .nav-links-list .nav-link-item.active .nav-link-highlight {
+  width: 50%;
 }
-
-.navbar a:hover,
-.navbar .active,
-.navbar .active:focus,
-.navbar li:hover > a {
+.main-navbar .nav-links-list .nav-link-item:hover,
+.main-navbar .nav-links-list .nav-link-item.active, /* Si la classe active est sur le <a> */
+.main-navbar .nav-links-list li.active-nav-link-item > .nav-link-item, /* Si la classe active est sur le <li> */
+.main-navbar .nav-links-list li:hover > .nav-link-item {
+  /* Pour le hover sur le LI affectant le A */
   color: #cda45e;
-  /* background-color: rgba(205, 164, 94, 0.05); /* Subtle bg on hover/active for desktop */
 }
 
-/* Active Nav Item Background Effect */
-.navbar .active-nav-item a:before {
+/* Effet de fond pour l'élément actif (optionnel) */
+.main-navbar .nav-links-list li.active-nav-link-item > .nav-link-item::before {
   content: "";
   position: absolute;
   height: 100%;
   width: 100%;
-  top: 0; /* Changed from bottom */
+  top: 0;
   left: 0;
-  background-color: rgba(205, 164, 94, 0.1); /* Slightly more visible */
+  background-color: rgba(205, 164, 94, 0.1);
   border-radius: 30px;
-  z-index: 0; /* Behind text and icon */
-  transform: scale(0.9); /* Start slightly smaller */
+  z-index: 0;
+  transform: scale(0.9);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-
-.navbar .active-nav-item a:hover:before,
-  .navbar .active-nav-item.active a:before, /* if .active is on li */
-  .navbar .active-nav-item a.active:before {
-  /* if .active is on a */
+.main-navbar
+  .nav-links-list
+  li.active-nav-link-item
+  > .nav-link-item:hover::before,
+.main-navbar
+  .nav-links-list
+  li.active-nav-link-item
+  > .nav-link-item.active::before {
+  /* Ou .nav-link-item.active::before */
   transform: scale(1);
   opacity: 1;
 }
 
-/**
-   * Mobile Navigation 
-   */
-.mobile-nav-toggle {
+/* Cacher le bouton "Book a Table" du menu mobile sur desktop */
+/* Ce bouton est spécifique au menu mobile et ne devrait pas être dans la nav desktop */
+.main-navbar .mobile-menu-book-btn {
+  display: none;
+}
+
+/* ===================================================================
+// Bouton Hamburger (Toggle)
+// =================================================================== */
+.mobile-nav-toggle-button {
   color: #fff;
   background: transparent;
   border: none;
   cursor: pointer;
-  display: none; /* Hidden by default */
-  padding: 10px;
-  transition: color 0.3s ease, background-color 0.3s ease;
-  outline: none !important; /* Remove outline */
-  position: relative; /* Will be absolute within .navbar-mobile */
-  z-index: 1001; /* Above .navbar-mobile (999) and .nav-overlay (998) */
-  margin-left: 15px; /* Space from nav items if they were visible */
+  padding: 10px; /* Zone de clic */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  outline: none !important;
+  position: fixed; /* Reste fixe sur l'écran */
+  top: 23px; /* Ajuster selon la hauteur du TopBar/Header. Ex: (HauteurHeader / 2) - (HauteurBouton / 2) + TopBarHeight */
+  right: 20px; /* Distance du bord droit */
+  z-index: 1001; /* Au-dessus de la plupart des éléments, mais en dessous du menu ouvert quand il devient 'X' */
+  display: none; /* Caché par défaut, affiché par media query */
+}
+.mobile-nav-toggle-button:hover {
+  transform: scale(1.1);
 }
 
-.hamburger {
-  width: 28px; /* Slightly smaller */
-  height: 20px; /* Slightly smaller */
+.hamburger-icon {
+  width: 28px;
+  height: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease;
 }
-.mobile-nav-toggle:hover .hamburger {
-  transform: scale(1.1);
-}
-
-.hamburger .line {
+.hamburger-line {
   width: 100%;
-  height: 3px; /* Slightly thicker */
+  height: 3px;
   background-color: #fff;
-  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1); /* Smoother transition */
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    background-color 0.3s ease;
   border-radius: 3px;
   transform-origin: center;
 }
-
-/* Hamburger Animation to 'X' */
-.hamburger.active .line:nth-child(1) {
+/* Animation du Hamburger vers 'X' */
+.hamburger-icon.is-active .hamburger-line:nth-child(1) {
   transform: translateY(8.5px) rotate(45deg);
 }
-
-.hamburger.active .line:nth-child(2) {
+.hamburger-icon.is-active .hamburger-line:nth-child(2) {
   opacity: 0;
-  transform: scaleX(0);
+  transform: scaleX(0.8);
 }
-
-.hamburger.active .line:nth-child(3) {
+.hamburger-icon.is-active .hamburger-line:nth-child(3) {
   transform: translateY(-8.5px) rotate(-45deg);
 }
+/* Hover sur le hamburger fermé */
+.mobile-nav-toggle-button:hover
+  .hamburger-icon:not(.is-active)
+  .hamburger-line {
+  background-color: #cda45e;
+}
 
-.nav-overlay {
+/* ===================================================================
+// Styles pour le Mode Mobile (écrans < 992px)
+// =================================================================== */
+@media (max-width: 991px) {
+  /* Cacher la liste de navigation desktop */
+  .main-navbar > .nav-links-list {
+    /* Cible la liste directe de .main-navbar (desktop) */
+    display: none !important;
+  }
+
+  /* Afficher le bouton hamburger */
+  .mobile-nav-toggle-button {
+    display: block; /* Le bouton devient visible */
+  }
+
+  /* Styles pour le CONTENEUR du menu mobile LORSQU'IL EST ACTIF */
+  /* .mobile-menu-active est ajouté à .main-navbar (l'élément <nav>) */
+  .main-navbar.mobile-menu-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; /* Ou 100dvh pour une meilleure gestion sur mobile avec barres de navigateur */
+    background: rgba(12, 11, 9, 0.98); /* Fond sombre presque opaque */
+    backdrop-filter: blur(10px);
+    z-index: 1000; /* Au-dessus du header, en dessous du bouton X */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centre verticalement si le contenu est plus petit que l'écran */
+    padding: 80px 20px 40px 20px; /* Padding pour espacer du bouton X et du bas */
+    overflow-y: auto; /* Permet le défilement SI le contenu dépasse la hauteur */
+
+    opacity: 0;
+    transform: translateY(-15px); /* Effet d'entrée depuis le haut */
+    /* Ou: transform: scale(0.95) translateY(10px); */
+    animation: openMobileMenuAnimation 0.4s cubic-bezier(0.23, 1, 0.32, 1)
+      forwards;
+  }
+
+  @keyframes openMobileMenuAnimation {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      /* Ou: transform: scale(1) translateY(0); */
+    }
+  }
+
+  /* Le bouton hamburger (maintenant "X") est positionné DANS le menu ouvert */
+  .main-navbar.mobile-menu-active .mobile-nav-toggle-button {
+    position: absolute; /* Par rapport à .main-navbar.mobile-menu-active */
+    top: 23px; /* Aligner avec sa position initiale si possible */
+    right: 20px;
+    z-index: 1002; /* Au-dessus de tout le contenu du menu */
+  }
+  /* Hover sur la croix de fermeture */
+  .main-navbar.mobile-menu-active
+    .mobile-nav-toggle-button:hover
+    .hamburger-icon.is-active
+    .hamburger-line {
+    background-color: #cda45e;
+  }
+
+  /* Afficher la LISTE des liens (ul.nav-links-list) dans le menu mobile */
+  .main-navbar.mobile-menu-active .nav-links-list {
+    display: flex !important; /* **CRUCIAL** pour afficher la liste */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    margin: 0 0 25px 0; /* Marge en bas avant le bouton Réserver */
+    padding: 0;
+    order: 1; /* S'affiche avant le bouton Réserver */
+
+    /* Animation d'ensemble pour la liste (optionnel si les items sont animés individuellement) */
+    /* opacity: 0; transform: translateY(10px);
+    animation: fadeInList 0.3s ease-out 0.1s forwards; */
+  }
+  /* @keyframes fadeInList { to { opacity: 1; transform: translateY(0); } } */
+
+  /* Styles pour les ÉLÉMENTS DE LISTE (li) dans le menu mobile */
+  .main-navbar.mobile-menu-active .nav-links-list li {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    justify-content: center;
+    opacity: 0; /* État initial pour l'animation */
+    transform: translateY(15px); /* État initial pour l'animation */
+    animation: fadeInUpMobileMenuItem 0.35s cubic-bezier(0.215, 0.61, 0.355, 1)
+      forwards;
+  }
+  /* Délais d'animation pour les items */
+  .main-navbar.mobile-menu-active .nav-links-list li:nth-child(1) {
+    animation-delay: 0.12s;
+  }
+  .main-navbar.mobile-menu-active .nav-links-list li:nth-child(2) {
+    animation-delay: 0.17s;
+  }
+  .main-navbar.mobile-menu-active .nav-links-list li:nth-child(3) {
+    animation-delay: 0.22s;
+  }
+  .main-navbar.mobile-menu-active .nav-links-list li:nth-child(4) {
+    animation-delay: 0.27s;
+  }
+  .main-navbar.mobile-menu-active .nav-links-list li:nth-child(5) {
+    animation-delay: 0.32s;
+  }
+  /* Ajouter plus si nécessaire */
+
+  @keyframes fadeInUpMobileMenuItem {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Styles pour les LIENS (a) dans le menu mobile */
+  .main-navbar.mobile-menu-active .nav-links-list .nav-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    background-color: transparent; /* Fond par défaut */
+    border: 1px solid transparent; /* Pour la transition au survol */
+    transition: background-color 0.25s ease, color 0.25s ease,
+      border-color 0.25s ease, transform 0.2s ease;
+  }
+  .main-navbar.mobile-menu-active .nav-links-list .nav-link-highlight {
+    display: none; /* Pas de soulignement dans le menu mobile */
+  }
+  .main-navbar.mobile-menu-active .nav-links-list .nav-link-item:hover,
+  .main-navbar.mobile-menu-active
+    .nav-links-list
+    li.active-nav-link-item
+    > .nav-link-item,
+  .main-navbar.mobile-menu-active .nav-links-list .nav-link-item.active {
+    background-color: rgba(205, 164, 94, 0.15);
+    border-color: rgba(205, 164, 94, 0.4);
+    color: #cda45e;
+    transform: scale(1.01); /* Léger agrandissement */
+  }
+
+  /* Afficher le bouton "Book a Table" DANS le menu mobile */
+  .main-navbar.mobile-menu-active .mobile-menu-book-btn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px; /* Espace après les liens nav */
+    order: 2; /* S'affiche après la liste des liens */
+
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInUpMobileMenuItem 0.35s cubic-bezier(0.215, 0.61, 0.355, 1)
+      forwards;
+    animation-delay: 0.4s; /* S'anime après le dernier item de menu typique */
+  }
+  .main-navbar.mobile-menu-active .mobile-menu-book-btn .app-btn {
+    width: 100%;
+    max-width: 320px; /* Correspond à la largeur des items de menu */
+  }
+} /* Fin de @media (max-width: 991px) */
+
+/* ===================================================================
+// Overlay pour le Menu Mobile
+// =================================================================== */
+.mobile-nav-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Darker overlay */
-  z-index: 998; /* Below navbar-mobile, above content */
-  backdrop-filter: blur(5px); /* Adjusted blur */
+  background: rgba(
+    0,
+    0,
+    0,
+    0.6
+  ); /* Peut être ajusté ou enlevé si le menu est 100% opaque */
+  backdrop-filter: blur(3px); /* Peut être ajusté ou enlevé */
+  z-index: 998; /* En dessous du menu mobile (.main-navbar.mobile-menu-active qui est à 1000) */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
     visibility 0s linear 0.4s;
 }
-
-.nav-overlay.active {
+.mobile-nav-overlay.is-active {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
-    visibility 0s linear 0s;
+  transition-delay: 0s;
 }
 
-.mobile-book-btn {
-  margin-top: 25px; /* Reduced margin */
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 0 15px; /* Add padding for the button inside */
+/* ===================================================================
+// Styles d'Accessibilité pour le Focus (Exemple)
+// =================================================================== */
+.main-navbar.mobile-menu-active .nav-links-list .nav-link-item:focus-visible,
+.main-navbar.mobile-menu-active .mobile-menu-book-btn .app-btn:focus-visible {
+  outline: 2px solid #cda45e;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(205, 164, 94, 0.3); /* Halo de focus plus visible */
 }
-
-/* Styles for navbar when menu is closed on mobile */
-@media (max-width: 991px) {
-  .navbar:not(.navbar-mobile) {
-    /* When menu is closed on mobile */
-    display: flex; /* THIS IS IMPORTANT */
-    justify-content: flex-end; /* Pushes toggle to the right */
-    align-items: center;
-    /* min-height: 50px; /* Ensure navbar has some height, adjust as needed */
-    /* padding-right: 15px; /* Space for the toggle if header has no padding */
-  }
-
-  .mobile-nav-toggle {
-    display: block; /* CRITICAL: Show the toggle button */
-  }
-
-  .navbar ul.nav-menu {
-    display: none !important; /* Ensure desktop menu is hidden, !important if needed */
-  }
-}
-
-/* Styles for the mobile menu container when it's open */
-.navbar-mobile {
-  position: fixed;
-  overflow: hidden;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(
-    10,
-    10,
-    10,
-    0.9
-  ); /* Slightly less than pure black, adjust as needed */
-  backdrop-filter: blur(6px); /* Blur background behind menu */
-  z-index: 999;
-  pointer-events: none; /* Default for .navbar-mobile */
-  transition: background-color 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
-    backdrop-filter 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-
-.navbar-mobile.active {
-  /* This class is toggled by JS on the navbar element */
-  background: rgba(10, 10, 10, 0.95); /* Darker when active */
-  pointer-events: auto; /* Enable interaction */
-}
-
-/* Reposition toggle button to act as a close button inside the open mobile menu */
-.navbar-mobile .mobile-nav-toggle {
-  position: absolute;
-  top: 20px; /* Adjusted position */
-  right: 20px; /* Adjusted position */
-  /* Ensure it's visible on dark background if color was white */
-}
-.navbar-mobile .mobile-nav-toggle .hamburger .line {
-  background-color: #fff; /* Ensure lines are white for close 'X' */
-}
-.navbar-mobile .mobile-nav-toggle:hover .hamburger .line {
-  background-color: #cda45e; /* Hover color for 'X' lines */
-}
-
-.navbar-mobile ul.nav-menu {
-  display: flex; /* Overrides display:none from mobile query */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute; /* Fill the .navbar-mobile container */
-  top: 60px; /* Space for close button */
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 20px 0;
-  margin: 0;
-  overflow-y: auto; /* Scroll if content exceeds height */
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.3s ease 0.1s; /* Delayed opacity transition */
-  gap: 15px; /* Reduced gap */
-  background-color: transparent; /* Already handled by .navbar-mobile */
-  transform: translateY(15px); /* Start slightly lower */
-}
-
-.navbar-mobile.active ul.nav-menu {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.navbar-mobile a,
-.navbar-mobile a:focus {
-  padding: 12px 20px; /* Adjusted padding */
-  font-size: 17px; /* Slightly smaller */
-  width: calc(100% - 40px); /* Responsive width */
-  max-width: 280px; /* Max width */
-  text-align: center;
-  justify-content: center;
-  border-radius: 50px; /* Rounded like app-btn */
-  /* transform and opacity handled by li animation */
-  transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.navbar-mobile a:hover,
-  .navbar-mobile .active, /* This targets the .active class on the <a> tag */
-  .navbar-mobile li:hover > a {
-  /* This targets hover on <li> affecting <a> */
-  color: #1a1814; /* Dark text on hover */
-  background-color: #cda45e; /* Gold background on hover */
-}
-.navbar-mobile .active {
-  color: #1a1814;
-  background-color: #cda45e;
-}
-
-.navbar-mobile .nav-item-highlight {
-  display: none; /* No underline highlight in mobile menu */
-}
-
-/* List item animation */
-.navbar-mobile li {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(20px);
-  /* transition properties are set by animation */
-}
-
-.navbar-mobile.active li {
-  /* Animate li when menu is active */
-  animation: fadeInUp 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
-}
-
-/* Staggered animation delays */
-.navbar-mobile.active li:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.navbar-mobile.active li:nth-child(2) {
-  animation-delay: 0.15s;
-}
-.navbar-mobile.active li:nth-child(3) {
-  animation-delay: 0.2s;
-}
-.navbar-mobile.active li:nth-child(4) {
-  animation-delay: 0.25s;
-}
-.navbar-mobile.active li:nth-child(5) {
-  animation-delay: 0.3s;
-}
-.navbar-mobile.active li:nth-child(6) {
-  animation-delay: 0.35s;
-}
-.navbar-mobile.active li:nth-child(7) {
-  animation-delay: 0.4s;
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Mobile Book Button Animation */
-.mobile-book-btn {
-  /* This class is on the div wrapping AppBtn */
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1),
-    transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
-  /* Ensure the AppBtn itself has display block or similar if needed */
-}
-.navbar-mobile.active .mobile-book-btn {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.45s; /* After nav items */
-}
-.navbar-mobile.active .mobile-book-btn .app-btn {
-  width: calc(100% - 40px); /* Match nav link width */
-  max-width: 280px;
-}
-
-/* Hamburger hover effects for CLOSED state */
-.mobile-nav-toggle:not(a) .hamburger .line {
-  /* Specificity to avoid affecting 'X' state unnecessarily */
-  /* background-color: #fff; /* Default line color */
-}
-.mobile-nav-toggle:hover .hamburger:not(.active) .line {
-  background-color: #cda45e; /* Gold lines on hover when it's a hamburger */
-}
-
-/* Focus trap for accessibility - already good */
-.navbar-mobile a:focus {
-  outline: 2px solid rgba(205, 164, 94, 0.6); /* More visible focus */
-  outline-offset: 2px; /* Ensure outline is outside */
-}
-
-/* Body class when mobile nav is active - for potential global effects */
-body.mobile-nav-active {
-  /* overflow: hidden; /* Handled by JS for better control */
+.mobile-nav-toggle-button:focus-visible {
+  outline: 2px solid #fff; /* Outline blanc pour le hamburger/croix */
+  outline-offset: 2px;
 }

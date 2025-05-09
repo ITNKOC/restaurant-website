@@ -20,10 +20,10 @@ export default function Home() {
         <WhyUs />
         <Menu />
         {/* <Specials /> */}
-        <Events />
+        {/* <Events /> */}
         <Booking />
-        <Testimonials />
-        <Gallery />
+        {/* <Testimonials /> */}
+        {/* <Gallery /> */}
         <Chefs />
         <Recruitment />
         <Contact />
