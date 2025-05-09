@@ -1,291 +1,386 @@
 /* menu.module.css */
 
-/* --- Reset/Base --- */
+/* --- Fonts (Ensure these are imported in Menu.tsx via <Head> or globally) ---
+font-family: 'Playfair Display', serif; // For titles
+font-family: 'Lora', serif; // For body text, or alternative titles
+font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
+*/
+
+/* --- Base Page Styling --- */
 .menuPageContainer {
-  /* Add this class to the root div/fragment in Menu.tsx if needed */
-  background-color: #121212; /* Dark background for the whole page */
+  background-color: #0c0b09; /* Very dark, almost black, matching booking page */
   color: #e0e0e0; /* Light grey text for readability */
-  font-family: "Lora", serif; /* Elegant serif for an Italian feel - ensure it's imported */
+  font-family: "Lora", serif;
+  min-height: 100vh; /* Ensure it takes full viewport height */
 }
 
-/* --- Header Section --- */
+/* --- Menu Header Section (Similar to Booking Section Title) --- */
 .menuHeader {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
-    url("/images/italian-food-background.jpg"); /* Example background image - replace with your own or a dark texture */
+  /* Using a gradient similar to booking form background, less reliant on image */
+  background: linear-gradient(rgba(12, 11, 9, 0.85), rgba(12, 11, 9, 0.95)),
+    url("/images/menu-hero-background.jpg") center center no-repeat; /* Replace with a high-quality, dark, food/ambiance image */
   background-size: cover;
-  background-position: center;
-  padding: 100px 0 80px 0;
+  background-attachment: fixed; /* Parallax effect */
+  padding: 120px 0 100px 0; /* More padding for a grander feel */
   text-align: center;
-  position: relative; /* For potential pseudo-elements */
-  border-bottom: 2px solid #daa520; /* Gold accent */
+  position: relative;
+  border-bottom: 3px solid #cda45e; /* Gold accent border, matching booking */
 }
 
 .menuHeader::before {
-  /* Optional: subtle overlay */
+  /* Subtle overlay to ensure text readability */
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3); /* Darken the image slightly */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.menuHeader .container {
+  /* Ensure container content is above the overlay */
+  position: relative;
+  z-index: 1;
 }
 
 .menuHeader h1 {
-  font-size: 48px;
-  font-weight: 700; /* Lora bold */
-  color: #ffffff; /* White title */
+  font-size: clamp(36px, 6vw, 56px); /* Responsive title size */
+  font-weight: 700;
+  color: #ffffff;
   margin-bottom: 20px;
-  font-family: "Playfair Display", serif; /* More ornate for main title - ensure import */
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: "Playfair Display", serif;
+  letter-spacing: 1.5px;
+  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.6);
 }
 
 .menuHeader p {
-  font-size: 20px;
-  color: #f0f0f0; /* Slightly off-white */
-  font-family: "Roboto", sans-serif; /* Readable sans-serif for subtitle - ensure import */
-  max-width: 600px;
-  margin: 0 auto;
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: #f0f0f0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300; /* Lighter weight for subtitle */
+  max-width: 700px;
+  margin: 0 auto 20px auto; /* Added bottom margin */
+  line-height: 1.6;
 }
 
-/* --- Content Section (Tabs & Menus) --- */
+/* --- Menu Content Section (Tabs & Menu Display) --- */
 .menuContent {
-  padding: 60px 20px; /* Add horizontal padding for smaller screens */
+  padding: 80px 20px; /* Generous padding */
 }
 
+/* Tabs - Styling them to look like sophisticated filters */
 .tabs {
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
-  border-bottom: 1px solid #444; /* Darker border */
-  flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
-  gap: 10px; /* Gap between tabs */
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+  gap: 15px; /* Gap between tab buttons */
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(205, 164, 94, 0.2); /* Subtle gold underline for the tabs area */
 }
 
 .tab {
-  padding: 14px 30px;
-  margin: 0; /* Removed margin, gap handles spacing */
-  background: none;
-  border: 2px solid transparent; /* Transparent border initially */
-  color: #bdbdbd; /* Lighter grey for inactive tabs */
-  font-weight: 600; /* Lora semi-bold */
-  font-size: 18px;
+  padding: 12px 28px;
+  background: transparent;
+  border: 2px solid rgba(205, 164, 94, 0.4); /* Gold-ish border, less prominent when inactive */
+  color: #b0a68f; /* Muted gold/beige for inactive tabs */
+  font-weight: 500;
+  font-size: clamp(14px, 2vw, 16px);
   cursor: pointer;
-  position: relative;
-  transition: color 0.3s, border-color 0.3s;
-  text-transform: uppercase; /* Italian menu style */
-  letter-spacing: 0.5px;
-  border-radius: 5px; /* Slightly rounded tabs */
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 50px; /* Pill-shaped tabs, similar to AppBtn */
+  font-family: "Roboto", sans-serif;
 }
 
 .tab:hover {
   color: #ffffff;
-  border-color: #daa520; /* Gold border on hover */
+  border-color: #cda45e;
+  background-color: rgba(205, 164, 94, 0.1);
+  transform: translateY(-2px);
 }
 
 .activeTab {
-  color: #ffffff; /* White text for active tab */
-  border-color: #daa520; /* Gold border for active tab */
-  background-color: rgba(
-    218,
-    165,
-    32,
-    0.1
-  ); /* Subtle gold background for active */
+  color: #0c0b09; /* Dark text on active */
+  border-color: #cda45e;
+  background-color: #cda45e; /* Solid gold background for active */
+  box-shadow: 0 4px 15px rgba(205, 164, 94, 0.25);
 }
 
-.activeTab::after {
-  display: none; /* Removed the underline, border is enough */
+/* Title for the currently selected menu type (e.g., "Restaurant Menu") */
+.menuTypeTitle {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #cda45e;
+  font-size: clamp(28px, 4.5vw, 38px);
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
+  letter-spacing: 0.5px;
 }
 
-.menuDisplay {
-  max-width: 900px; /* Wider for better menu display */
+/* Container for loading/error/no menus messages */
+.messageContainer {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: rgba(255, 255, 255, 0.03); /* Very subtle */
+  border-radius: 8px;
+  border: 1px dashed rgba(205, 164, 94, 0.2);
+  color: #a0a0a0;
+  font-family: "Roboto", sans-serif;
+  font-size: clamp(16px, 2.5vw, 18px);
+  max-width: 700px;
+  margin: 40px auto;
+}
+.errorMessage p {
+  color: #ff6b6b; /* A soft red for errors */
+  font-weight: 500;
+}
+
+/* Menu List and Items */
+.menuList {
+  display: grid;
+  grid-template-columns: 1fr; /* Default to single column */
+  gap: 30px;
+  max-width: 800px; /* Constrain width of menu list for readability */
   margin: 0 auto;
 }
 
-.menuDisplay h2 {
-  /* Title for selected menu type */
-  text-align: center;
-  margin-bottom: 40px;
-  color: #daa520; /* Gold color for titles */
-  font-size: 32px;
-  font-weight: 700; /* Lora bold */
-  font-family: "Playfair Display", serif; /* Match header title font */
-}
-
-.loadingMessage,
-.noMenusMessage {
-  text-align: center;
-  padding: 60px 20px;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.05
-  ); /* Very subtle light background */
-  border-radius: 8px;
-  color: #bdbdbd;
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-}
-
-.menuList {
-  display: grid;
-  grid-template-columns: 1fr; /* Single column for a list feel */
-  gap: 25px;
-}
-
 .menuItem {
-  background-color: #1f1f1f; /* Slightly lighter than main bg for cards */
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #333; /* Dark border */
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba(18, 17, 15, 0.7); /* Match booking form item bg */
+  border-radius: 10px; /* Match booking form item radius */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: hidden; /* If using image thumbnails later */
+  position: relative; /* For pseudo-elements like flag */
+}
+
+/* Optional: Italian flag accent for menu items, similar to booking form */
+.menuItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #008c45 33.33%,
+    #f4f5f0 33.33%,
+    #f4f5f0 66.66%,
+    #cd212a 66.66%
+  ); /* Italian flag colors */
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
 .menuItem:hover {
-  transform: translateY(-5px) scale(1.01);
-  box-shadow: 0 8px 25px rgba(218, 165, 32, 0.15); /* Goldish glow on hover */
-  border-color: #daa520;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(205, 164, 94, 0.15);
+  border-color: #cda45e;
+}
+.menuItem:hover::before {
+  opacity: 1;
 }
 
 .menuItemContent {
-  padding: 30px;
+  padding: 25px 30px 25px 45px; /* More padding on left due to accent */
   display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
   align-items: center;
-  gap: 25px; /* Gap between icon and info/actions */
+  gap: 20px;
 }
 
 .menuIcon {
-  /* For the PDF icon */
-  font-size: 36px; /* Larger icon */
-  color: #daa520; /* Gold icon */
+  font-size: clamp(30px, 5vw, 40px);
+  color: #cda45e;
+  margin-right: 15px; /* Space between icon and info */
+  flex-shrink: 0;
 }
-/* Example if you use specific icons for menu types
-.menuIconRestaurant { color: #c0392b; } Red for food
-.menuIconDelivery { color: #27ae60; } Green for delivery
-.menuIconAlcohol { color: #8e44ad; } Purple for alcohol
-*/
+.menuIcon i {
+  display: block; /* Ensures icon is block for better alignment control */
+}
 
 .menuInfo {
-  flex: 1;
+  flex: 1 1 300px; /* Allow flex grow and shrink, with a base width */
+  min-width: 200px; /* Prevent info from becoming too narrow */
 }
 
 .menuInfo h3 {
-  /* File name */
-  margin: 0 0 10px 0;
-  font-size: 22px;
-  font-weight: 600; /* Lora semi-bold */
-  color: #f5f5f5; /* Very light grey / white */
+  margin: 0 0 8px 0;
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 600;
+  color: #f0f0f0;
   font-family: "Playfair Display", serif;
+  line-height: 1.3;
 }
 
 .menuInfo p {
   /* Upload date */
   margin: 0;
-  font-size: 14px;
-  color: #a0a0a0; /* Softer grey */
+  font-size: clamp(12px, 1.8vw, 14px);
+  color: #a0a0a0;
   font-family: "Roboto", sans-serif;
+  font-weight: 300;
 }
 
 .menuActions {
   display: flex;
-  flex-direction: column; /* Stack buttons for a cleaner look */
-  gap: 12px; /* Space between buttons */
-  align-items: flex-start; /* Align buttons to the start */
+  gap: 15px;
+  flex-wrap: nowrap; /* Keep buttons side-by-side if space allows */
+  margin-left: auto; /* Push actions to the right on wider screens */
+  flex-shrink: 0;
 }
 
-.viewButton,
-.downloadButton {
-  padding: 10px 20px;
-  border-radius: 5px;
+.menuButton {
+  /* Common styling for view and download buttons */
+  padding: 10px 22px;
+  border-radius: 50px; /* Pill shape to match tabs and AppBtn */
   text-align: center;
-  font-weight: 500; /* Roboto medium */
-  font-size: 15px;
+  font-weight: 500;
+  font-size: clamp(13px, 2vw, 15px);
   text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   border: 2px solid transparent;
   font-family: "Roboto", sans-serif;
-  min-width: 150px; /* Give buttons a consistent width */
+  display: inline-flex; /* For icon alignment */
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Space between icon and text */
+  min-width: 160px; /* Consistent button width */
+  cursor: pointer;
+}
+.menuButton i {
+  font-size: 1.1em; /* Relative to button font size */
+  line-height: 0; /* Align icon better */
 }
 
 .viewButton {
-  background-color: #daa520; /* Gold button */
-  color: #121212; /* Dark text on gold */
-  border-color: #daa520;
+  background-color: #cda45e;
+  color: #0c0b09; /* Dark text for contrast */
+  border-color: #cda45e;
 }
-
 .viewButton:hover {
-  background-color: #c7951e; /* Darker gold */
-  transform: scale(1.03);
+  background-color: #b89151; /* Darker gold */
+  border-color: #b89151;
+  color: #0c0b09;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 10px rgba(205, 164, 94, 0.2);
 }
 
 .downloadButton {
   background-color: transparent;
-  color: #daa520; /* Gold text */
-  border: 2px solid #daa520; /* Gold border */
+  color: #cda45e;
+  border-color: #cda45e;
 }
-
 .downloadButton:hover {
-  background-color: rgba(
-    218,
-    165,
-    32,
-    0.1
-  ); /* Subtle gold background on hover */
-  color: #f0f0f0;
-  transform: scale(1.03);
+  background-color: rgba(205, 164, 94, 0.15);
+  color: #f0f0f0; /* Lighter text on hover */
+  border-color: #cda45e;
+  transform: translateY(-2px) scale(1.02);
 }
 
-/* Responsive adjustments for Menu Page */
+/* --- Responsive Adjustments --- */
+@media (max-width: 991px) {
+  /* Tablet */
+  .menuHeader {
+    padding: 100px 0 80px 0;
+    background-attachment: scroll; /* Disable parallax for performance */
+  }
+  .menuItemContent {
+    padding-left: 30px; /* Adjust padding when accent is less prominent or removed */
+  }
+  .menuItem::before {
+    width: 4px; /* Thinner accent */
+  }
+}
+
 @media (max-width: 768px) {
+  /* Mobile */
   .menuHeader h1 {
-    font-size: 36px;
+    font-size: 32px; /* Further reduce title size */
   }
   .menuHeader p {
     font-size: 16px;
   }
 
   .tabs {
-    gap: 8px; /* Smaller gap for wrapped tabs */
+    gap: 10px;
+    justify-content: stretch; /* Make tabs stretch to fill width */
   }
   .tab {
     padding: 10px 15px;
-    font-size: 14px;
-    width: calc(50% - 4px); /* Two tabs per row on mobile, accounting for gap */
+    font-size: 13px;
+    flex-grow: 1; /* Allow tabs to grow and take equal width */
+    min-width: calc(33.333% - 10px); /* Aim for 3 tabs, adjust if more */
     text-align: center;
   }
 
-  .menuDisplay h2 {
-    font-size: 26px;
+  .menuTypeTitle {
+    font-size: 28px;
+    margin-bottom: 40px;
   }
 
   .menuItemContent {
-    flex-direction: column;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align stacked items */
     text-align: center;
-    gap: 20px;
+    gap: 15px;
+    padding: 20px 25px; /* Adjust padding for stacked layout */
+  }
+  .menuItem::before {
+    /* Optionally hide accent on mobile */
+    display: none;
   }
 
   .menuIcon {
-    margin-right: 0; /* Reset margin from previous CSS */
-    margin-bottom: 10px; /* Space below icon */
+    margin-right: 0;
+    margin-bottom: 5px;
+    font-size: 32px;
   }
 
   .menuInfo {
-    margin-bottom: 20px; /* Space below info */
+    margin-bottom: 15px;
+    flex-basis: auto; /* Reset flex-basis */
+  }
+  .menuInfo h3 {
+    font-size: 20px;
   }
 
   .menuActions {
-    flex-direction: column; /* Ensure buttons stay stacked */
+    flex-direction: column; /* Stack buttons */
     width: 100%;
-    align-items: center; /* Center buttons on mobile */
+    align-items: center; /* Center buttons */
+    margin-left: 0; /* Reset margin */
+    gap: 12px;
   }
+  .menuButton {
+    width: 90%; /* Make buttons wider */
+    max-width: 280px;
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+}
 
-  .viewButton,
-  .downloadButton {
-    width: 80%; /* Make buttons wider on mobile for easier tapping */
-    max-width: 250px;
+@media (max-width: 480px) {
+  /* Smaller mobile */
+  .tab {
+    min-width: calc(50% - 5px); /* Two tabs per row */
+  }
+  .menuHeader h1 {
+    font-size: 28px;
+  }
+  .menuHeader p {
+    font-size: 14px;
+  }
+  .menuTypeTitle {
+    font-size: 24px;
+  }
+  .menuButton {
+    font-size: 13px;
+    padding: 10px 15px;
   }
 }
