@@ -4,18 +4,14 @@
 // Conteneur Racine du Composant Nav (optionnel)
 // =================================================================== */
 .nav-component-wrapper {
-  position: relative; /* Contexte de positionnement pour l'overlay si besoin */
+  position: relative;
 }
 
 /* ===================================================================
 // Barre de Navigation Principale <nav id="navbar">
 // =================================================================== */
 .main-navbar {
-  /* Pour desktop, si Header.tsx ne gère pas le flex pour aligner logo, nav, cta */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-between; /* Ou une autre valeur selon le layout du header */
-  padding: 0; /* Pas de padding sur la nav elle-même, gérer dans Header ou enfants */
+  padding: 0;
 }
 
 /* ===================================================================
@@ -25,7 +21,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex; /* Afficher les liens en ligne sur desktop */
+  display: flex;
   align-items: center;
   gap: 8px;
 }
@@ -82,14 +78,12 @@
   width: 50%;
 }
 .main-navbar .nav-links-list .nav-link-item:hover,
-.main-navbar .nav-links-list .nav-link-item.active, /* Si la classe active est sur le <a> */
-.main-navbar .nav-links-list li.active-nav-link-item > .nav-link-item, /* Si la classe active est sur le <li> */
+.main-navbar .nav-links-list .nav-link-item.active,
+.main-navbar .nav-links-list li.active-nav-link-item > .nav-link-item,
 .main-navbar .nav-links-list li:hover > .nav-link-item {
-  /* Pour le hover sur le LI affectant le A */
   color: #cda45e;
 }
 
-/* Effet de fond pour l'élément actif (optionnel) */
 .main-navbar .nav-links-list li.active-nav-link-item > .nav-link-item::before {
   content: "";
   position: absolute;
@@ -112,13 +106,10 @@
   .nav-links-list
   li.active-nav-link-item
   > .nav-link-item.active::before {
-  /* Ou .nav-link-item.active::before */
   transform: scale(1);
   opacity: 1;
 }
 
-/* Cacher le bouton "Book a Table" du menu mobile sur desktop */
-/* Ce bouton est spécifique au menu mobile et ne devrait pas être dans la nav desktop */
 .main-navbar .mobile-menu-book-btn {
   display: none;
 }
@@ -131,14 +122,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 10px; /* Zone de clic */
+  padding: 10px;
   transition: transform 0.3s ease, opacity 0.3s ease;
   outline: none !important;
-  position: fixed; /* Reste fixe sur l'écran */
-  top: 23px; /* Ajuster selon la hauteur du TopBar/Header. Ex: (HauteurHeader / 2) - (HauteurBouton / 2) + TopBarHeight */
-  right: 20px; /* Distance du bord droit */
-  z-index: 1001; /* Au-dessus de la plupart des éléments, mais en dessous du menu ouvert quand il devient 'X' */
-  display: none; /* Caché par défaut, affiché par media query */
+  position: relative; /* CHANGEMENT: Positionné par le flux de .navigation-wrapper */
+  /* top: 23px;       COMMENTÉ - laissons flexbox centrer */
+  /* right: 20px;   COMMENTÉ */
+  z-index: 1001;
+  display: none;
 }
 .mobile-nav-toggle-button:hover {
   transform: scale(1.1);
@@ -162,7 +153,6 @@
   border-radius: 3px;
   transform-origin: center;
 }
-/* Animation du Hamburger vers 'X' */
 .hamburger-icon.is-active .hamburger-line:nth-child(1) {
   transform: translateY(8.5px) rotate(45deg);
 }
@@ -173,7 +163,6 @@
 .hamburger-icon.is-active .hamburger-line:nth-child(3) {
   transform: translateY(-8.5px) rotate(-45deg);
 }
-/* Hover sur le hamburger fermé */
 .mobile-nav-toggle-button:hover
   .hamburger-icon:not(.is-active)
   .hamburger-line {
@@ -184,19 +173,19 @@
 // Styles pour le Mode Mobile (écrans < 992px)
 // =================================================================== */
 @media (max-width: 991px) {
-  /* Cacher la liste de navigation desktop */
   .main-navbar > .nav-links-list {
-    /* Cible la liste directe de .main-navbar (desktop) */
     display: none !important;
   }
 
-  /* Afficher le bouton hamburger */
   .mobile-nav-toggle-button {
-    display: block; /* Le bouton devient visible */
+    display: block;
+    /* Le centrage vertical est maintenant géré par align-items: center dans .navigation-wrapper (header.css)
+       et le fait que .mobile-nav-toggle-button est un enfant flex.
+       Assurez-vous que .navigation-wrapper a une hauteur qui permet ce centrage
+       par rapport aux autres éléments du header (logo).
+    */
   }
 
-  /* Styles pour le CONTENEUR du menu mobile LORSQU'IL EST ACTIF */
-  /* .mobile-menu-active est ajouté à .main-navbar (l'élément <nav>) */
   .main-navbar.mobile-menu-active {
     position: fixed;
     top: 0;
@@ -204,21 +193,19 @@
     bottom: 0;
     left: 0;
     width: 100vw;
-    height: 100vh; /* Ou 100dvh pour une meilleure gestion sur mobile avec barres de navigateur */
-    background: rgba(12, 11, 9, 0.98); /* Fond sombre presque opaque */
+    height: 100vh;
+    background: rgba(12, 11, 9, 0.98);
     backdrop-filter: blur(10px);
-    z-index: 1000; /* Au-dessus du header, en dessous du bouton X */
-
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centre verticalement si le contenu est plus petit que l'écran */
-    padding: 80px 20px 40px 20px; /* Padding pour espacer du bouton X et du bas */
-    overflow-y: auto; /* Permet le défilement SI le contenu dépasse la hauteur */
-
+    justify-content: center;
+    padding-top: 70px;
+    padding-bottom: 30px;
+    overflow-y: auto;
     opacity: 0;
-    transform: translateY(-15px); /* Effet d'entrée depuis le haut */
-    /* Ou: transform: scale(0.95) translateY(10px); */
+    transform: translateY(-15px);
     animation: openMobileMenuAnimation 0.4s cubic-bezier(0.23, 1, 0.32, 1)
       forwards;
   }
@@ -227,18 +214,15 @@
     to {
       opacity: 1;
       transform: translateY(0);
-      /* Ou: transform: scale(1) translateY(0); */
     }
   }
 
-  /* Le bouton hamburger (maintenant "X") est positionné DANS le menu ouvert */
   .main-navbar.mobile-menu-active .mobile-nav-toggle-button {
-    position: absolute; /* Par rapport à .main-navbar.mobile-menu-active */
-    top: 23px; /* Aligner avec sa position initiale si possible */
+    position: absolute;
+    top: 23px;
     right: 20px;
-    z-index: 1002; /* Au-dessus de tout le contenu du menu */
+    z-index: 1002;
   }
-  /* Hover sur la croix de fermeture */
   .main-navbar.mobile-menu-active
     .mobile-nav-toggle-button:hover
     .hamburger-icon.is-active
@@ -246,35 +230,27 @@
     background-color: #cda45e;
   }
 
-  /* Afficher la LISTE des liens (ul.nav-links-list) dans le menu mobile */
   .main-navbar.mobile-menu-active .nav-links-list {
-    display: flex !important; /* **CRUCIAL** pour afficher la liste */
+    display: flex !important;
     flex-direction: column;
     align-items: center;
     width: 100%;
     gap: 10px;
-    margin: 0 0 25px 0; /* Marge en bas avant le bouton Réserver */
+    margin: 0 0 25px 0;
     padding: 0;
-    order: 1; /* S'affiche avant le bouton Réserver */
-
-    /* Animation d'ensemble pour la liste (optionnel si les items sont animés individuellement) */
-    /* opacity: 0; transform: translateY(10px);
-    animation: fadeInList 0.3s ease-out 0.1s forwards; */
+    order: 1;
   }
-  /* @keyframes fadeInList { to { opacity: 1; transform: translateY(0); } } */
 
-  /* Styles pour les ÉLÉMENTS DE LISTE (li) dans le menu mobile */
   .main-navbar.mobile-menu-active .nav-links-list li {
     width: 100%;
-    max-width: 320px;
+    max-width: 300px;
     display: flex;
     justify-content: center;
-    opacity: 0; /* État initial pour l'animation */
-    transform: translateY(15px); /* État initial pour l'animation */
+    opacity: 0;
+    transform: translateY(15px);
     animation: fadeInUpMobileMenuItem 0.35s cubic-bezier(0.215, 0.61, 0.355, 1)
       forwards;
   }
-  /* Délais d'animation pour les items */
   .main-navbar.mobile-menu-active .nav-links-list li:nth-child(1) {
     animation-delay: 0.12s;
   }
@@ -290,7 +266,6 @@
   .main-navbar.mobile-menu-active .nav-links-list li:nth-child(5) {
     animation-delay: 0.32s;
   }
-  /* Ajouter plus si nécessaire */
 
   @keyframes fadeInUpMobileMenuItem {
     to {
@@ -299,7 +274,6 @@
     }
   }
 
-  /* Styles pour les LIENS (a) dans le menu mobile */
   .main-navbar.mobile-menu-active .nav-links-list .nav-link-item {
     display: flex;
     align-items: center;
@@ -310,13 +284,13 @@
     color: #fff;
     border-radius: 50px;
     text-align: center;
-    background-color: transparent; /* Fond par défaut */
-    border: 1px solid transparent; /* Pour la transition au survol */
+    background-color: transparent;
+    border: 1px solid transparent;
     transition: background-color 0.25s ease, color 0.25s ease,
       border-color 0.25s ease, transform 0.2s ease;
   }
   .main-navbar.mobile-menu-active .nav-links-list .nav-link-highlight {
-    display: none; /* Pas de soulignement dans le menu mobile */
+    display: none;
   }
   .main-navbar.mobile-menu-active .nav-links-list .nav-link-item:hover,
   .main-navbar.mobile-menu-active
@@ -327,28 +301,26 @@
     background-color: rgba(205, 164, 94, 0.15);
     border-color: rgba(205, 164, 94, 0.4);
     color: #cda45e;
-    transform: scale(1.01); /* Léger agrandissement */
+    transform: scale(1.01);
   }
 
-  /* Afficher le bouton "Book a Table" DANS le menu mobile */
   .main-navbar.mobile-menu-active .mobile-menu-book-btn {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 15px; /* Espace après les liens nav */
-    order: 2; /* S'affiche après la liste des liens */
-
+    margin-top: 15px;
+    order: 2;
     opacity: 0;
     transform: translateY(15px);
     animation: fadeInUpMobileMenuItem 0.35s cubic-bezier(0.215, 0.61, 0.355, 1)
       forwards;
-    animation-delay: 0.4s; /* S'anime après le dernier item de menu typique */
+    animation-delay: 0.4s;
   }
   .main-navbar.mobile-menu-active .mobile-menu-book-btn .app-btn {
     width: 100%;
-    max-width: 320px; /* Correspond à la largeur des items de menu */
+    max-width: 300px;
   }
-} /* Fin de @media (max-width: 991px) */
+}
 
 /* ===================================================================
 // Overlay pour le Menu Mobile
@@ -359,14 +331,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(
-    0,
-    0,
-    0,
-    0.6
-  ); /* Peut être ajusté ou enlevé si le menu est 100% opaque */
-  backdrop-filter: blur(3px); /* Peut être ajusté ou enlevé */
-  z-index: 998; /* En dessous du menu mobile (.main-navbar.mobile-menu-active qui est à 1000) */
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 998;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
@@ -385,9 +352,9 @@
 .main-navbar.mobile-menu-active .mobile-menu-book-btn .app-btn:focus-visible {
   outline: 2px solid #cda45e;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(205, 164, 94, 0.3); /* Halo de focus plus visible */
+  box-shadow: 0 0 0 4px rgba(205, 164, 94, 0.3);
 }
 .mobile-nav-toggle-button:focus-visible {
-  outline: 2px solid #fff; /* Outline blanc pour le hamburger/croix */
+  outline: 2px solid #fff;
   outline-offset: 2px;
 }

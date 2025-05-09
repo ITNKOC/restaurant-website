@@ -1,174 +1,142 @@
+/* header.css */
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 #header {
-  background: rgba(12, 11, 9, 0.8);
-  backdrop-filter: blur(8px);
+  background: rgba(12, 11, 9, 0.75);
+  backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1); /* Changed from 0.5s for snappier feel */
-  z-index: 997; /* Ensure Nav's overlay (998) and menu (999) are above */
-  padding: 18px 0;
-  top: 40px; /* Initial position below TopBar */
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 997;
+  padding: 10px 0; /* Réduit un peu le padding pour mieux centrer verticalement */
+  top: 40px;
   position: fixed;
   width: 100%;
 }
 
 #header.header-scrolled {
-  top: 0; /* Moves to top when TopBar is scrolled away */
-  background: rgba(0, 0, 0, 0.9);
+  top: 0;
+  background: rgba(10, 9, 7, 0.9);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 14px 0; /* Slightly adjusted padding */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 8px 0; /* Réduit aussi ici */
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
 }
 
 #header.header-hidden {
-  transform: translateY(calc(-100% - 1px)); /* Ensure border is also hidden */
-  /* opacity: 0; Consider adding opacity for smoother visual hide */
+  transform: translateY(calc(-100% - 2px));
 }
 
-/* Styles for the logo */
+#header.mobile-header-bg {
+  background: rgba(10, 9, 7, 0.92);
+  backdrop-filter: blur(10px);
+}
+
 .logo-container {
-  /* This class is on the div wrapping the Link/logo */
   display: flex;
   align-items: center;
-  /* flex-shrink: 0; /* Prevent logo from shrinking if space is tight */
+  flex-shrink: 0;
 }
 
 #header .logo {
-  /* This is the className on the Link component */
-  font-size: 26px; /* This might not be used if logo is only an image */
-  margin: 0;
-  padding: 0;
+  display: block;
   line-height: 1;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-family: "Poppins", sans-serif; /* Ensure Poppins is loaded if text logo is used */
-  color: #fff; /* For text logo */
-  display: flex; /* if logo has text + image */
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  transition: opacity 0.3s ease; /* Transition for potential text logo */
+  transition: opacity 0.3s ease;
+}
+#header .logo:hover {
+  opacity: 0.85;
 }
 
 #header .logo img {
-  max-height: 42px; /* Matched Header.tsx state */
-  width: auto; /* Maintain aspect ratio */
-  transition: transform 0.3s ease, filter 0.3s ease;
+  max-height: 38px; /* Ajuster cette valeur pour l'alignement vertical */
+  width: auto;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 #header .logo:hover img {
-  transform: scale(1.05);
-  filter: drop-shadow(0 0 10px rgba(205, 164, 94, 0.4)); /* Enhanced shadow */
-}
-#header .logo:hover {
-  opacity: 0.9;
+  transform: scale(1.03);
+  filter: drop-shadow(0 2px 8px rgba(205, 164, 94, 0.35));
 }
 
-/* Wrapper for Nav component */
+/* Wrapper pour Nav component dans Header.tsx */
 .navigation-wrapper {
-  /* This div wraps the Nav component */
-  /* On mobile, it will just contain the hamburger toggle from Nav.tsx */
-  /* On desktop, it contains the full nav list */
-  /* margin-left: auto; /* This can be done with ms-lg-auto in Header.tsx */
+  display: flex;
+  align-items: center; /* Essentiel pour centrer le hamburger verticalement */
+  margin-left: auto; /* Pousse le Nav (hamburger sur mobile, nav sur desktop) vers la droite */
+}
+
+@media (min-width: 992px) {
+  /* Desktop (lg breakpoint) */
+  .navigation-wrapper {
+    margin-left: 0; /* Réinitialiser pour desktop car order-* et justify-content-between s'en occupent */
+    /* Si tu veux que la nav desktop soit collée à droite AVANT le CTA, tu peux ajouter : */
+    /* margin-left: auto; */
+    /* margin-right: 20px; /* Espace avant le CTA */
+  }
 }
 
 .header-cta {
-  /* display: flex; /* Handled by d-none d-lg-flex in Header.tsx */
-  /* align-items: center; */
   gap: 15px;
-  /* transition: opacity 0.3s ease; /* If it were to be faded in/out */
 }
 
 @media (max-width: 991px) {
-  /* Bootstrap 'lg' breakpoint */
   #header {
-    padding: 15px 0; /* Adjusted padding */
+    padding: 8px 0; /* Ajuster padding pour la hauteur */
   }
   #header.header-scrolled {
-    padding: 12px 0;
+    padding: 6px 0; /* Ajuster padding */
   }
-  /* .header-cta is already display:none via d-none d-lg-flex */
-
   #header .logo img {
-    max-height: 38px; /* Adjusted for smaller header */
+    max-height: 34px; /* Ajuster */
   }
-
-  /* The Nav component itself handles hamburger visibility now.
-     No need to hide .navigation-wrapper here.
-     The .mobile-nav-toggle inside Nav will become visible.
-  */
 }
 
 @media (max-width: 768px) {
-  /* Bootstrap 'md' breakpoint */
   #header {
-    padding: 12px 0;
-    top: 32px; /* Assuming TopBar height is 32px on mobile */
+    padding: 8px 0; /* Ajuster padding */
+    top: 32px;
   }
-
-  #header.mobile-header {
-    /* Applied when mobile and menu is NOT open */
-    background: rgba(0, 0, 0, 0.92); /* Slightly darker */
-    backdrop-filter: blur(10px);
-  }
-
   #header.header-scrolled {
     top: 0;
-    padding: 10px 0;
+    padding: 6px 0; /* Ajuster padding */
   }
-
-  #header .logo {
-    font-size: 22px; /* For text logo part if any */
-  }
-
   #header .logo img {
-    max-height: 34px; /* Further reduce logo size */
+    max-height: 30px; /* Ajuster */
   }
-
-  #header .container-fluid {
-    /* Ensure this uses full width with appropriate padding */
+  #header .container-fluid.container-xl {
     padding-left: 15px;
     padding-right: 15px;
   }
 }
 
-/* Animation for page load (already good) */
 @keyframes fadeInDownHeader {
-  /* Renamed to avoid conflict if used elsewhere */
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-25px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
-#header .container-fluid {
-  /* Target container inside header */
-  animation: fadeInDownHeader 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+#header .container-fluid.container-xl {
+  animation: fadeInDownHeader 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  animation-fill-mode: both;
 }
 
-/* Menu open state (when mobile nav is active) */
 #header.menu-is-open {
-  background: transparent !important; /* Force transparent */
+  background: transparent !important;
   border-bottom-color: transparent !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
-  /* This makes Header blend with Nav's mobile overlay */
   transition: background 0.3s ease, border-color 0.3s ease,
     backdrop-filter 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Accessible focus styles (already good) */
 #header a:focus-visible,
 #header button:focus-visible {
-  /* Added button for AppBtn */
   outline: 2px solid #cda45e;
-  outline-offset: 3px; /* Slightly more offset */
-  border-radius: 3px; /* Add radius to outline for consistency */
+  outline-offset: 2px;
+  border-radius: 3px;
 }
