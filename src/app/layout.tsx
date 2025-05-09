@@ -72,18 +72,18 @@ export default function RootLayout({
         />
         <meta
           name="description"
-          content="Restaurant Gourmet - La meilleure expérience culinaire"
+          content="Restaurant DiMenna - La meilleure expérience culinaire"
         />
         <meta name="theme-color" content="#0c0b09" />
         <link rel="icon" href="/favicon.ico" />
-        <title>Restaurant Gourmet</title>
+        <title>Restaurant Di Menna</title>
       </head>
       <body className={`${playfair.variable} ${openSans.variable}`}>
         {loading ? (
           <LoadingScreen />
         ) : (
           <>
-            <TopBar />
+            {/* <TopBar /> */}
             <Header />
             <main id="main">{children}</main>
             <Footer />

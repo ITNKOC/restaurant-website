@@ -2,28 +2,33 @@
 # Book A Table
 --------------------------------------------------------------*/
 .book-a-table {
-  background: url("../../../public/assets/images/booking.jpg") center center;
+  background: url("../../../public/assets/images/booking.jpg") center center
+    no-repeat; /* Added no-repeat */
   background-size: cover;
-  position: relative;
-  padding: 100px 0;
+  background-attachment: fixed; /* Creates a parallax effect on scroll */
   position: relative;
   padding: 100px 0;
   color: #fff;
+  overflow: hidden; /* To contain pseudo-elements if they extend */
 }
 
 .book-a-table:before {
   content: "";
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7));
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.75)
+  ); /* Slightly darker gradient */
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
+  z-index: 0; /* Ensure it's behind the container */
 }
 
 .book-a-table .container {
   position: relative;
-  z-index: 1;
+  z-index: 1; /* Ensures container content is above the overlay */
 }
 
 .booking-wrapper {
@@ -32,85 +37,107 @@
 
 /* Booking content (left side) */
 .booking-content {
-  padding: 30px 30px 30px 0;
+  padding: 20px; /* Unified padding for all sides initially */
 }
 
 .booking-info h3 {
-  font-size: 32px;
+  font-size: clamp(28px, 4vw, 32px); /* Responsive font size */
   font-weight: 700;
   color: #cda45e;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-family: "Playfair Display", serif;
 }
 
 .booking-info p {
-  font-size: 16px;
+  font-size: clamp(15px, 2.5vw, 16px); /* Responsive font size */
   line-height: 1.7;
   color: #e0e0e0;
   margin-bottom: 30px;
 }
 
 .booking-details {
-  margin-top: 40px;
+  margin-top: 30px; /* Slightly reduced margin */
 }
 
 .detail-item {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 25px;
+  margin-bottom: 20px; /* Slightly reduced margin */
 }
 
 .detail-item i {
-  font-size: 24px;
+  font-size: clamp(20px, 3vw, 24px); /* Responsive icon size */
   color: #cda45e;
-  margin-right: 20px;
-  margin-top: 5px;
+  margin-right: 15px; /* Slightly reduced margin */
+  margin-top: 3px; /* Fine-tune alignment */
+  flex-shrink: 0; /* Prevent icon from shrinking */
 }
 
 .detail-item h4 {
-  font-size: 18px;
+  font-size: clamp(16px, 2.8vw, 18px); /* Responsive font size */
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 8px; /* Increased space below h4 */
   color: #fff;
 }
 
 .detail-item p {
-  font-size: 15px;
+  font-size: clamp(14px, 2.3vw, 15px); /* Responsive font size */
   line-height: 1.6;
-  color: #ddd;
+  color: #d8d8d8; /* Slightly lighter */
   margin-bottom: 0;
 }
 
-/* Booking form (right side) */
-.booking-form-wrapper {
-  padding: 30px 0 30px 30px;
+/* Booking form and OpenTable widget area (right side) */
+.opentable-widget-area {
+  /* New class from your TSX for the right column */
+  padding: 20px; /* Unified padding */
 }
 
-.booking-form-container {
-  background: rgba(26, 24, 20, 0.8);
-  border-radius: 10px;
-  padding: 40px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+.custom-booking-form-container,
+.opentable-direct-widget-container {
+  background: rgba(18, 17, 15, 0.85); /* Slightly adjusted background */
+  border-radius: 12px; /* Slightly larger radius */
+  padding: clamp(25px, 5vw, 40px); /* Responsive padding */
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25); /* Softer shadow */
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Softer border */
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* Good for ::before/::after accents */
 }
 
-.booking-form-container:before {
+/* Italian flag accent - side border */
+.custom-booking-form-container:before {
   content: "";
   position: absolute;
   left: 0;
   top: 0;
-  width: 5px;
+  width: 6px; /* Slightly thicker */
   height: 100%;
   background: linear-gradient(
     to bottom,
-    #008c45 33%,
-    #f4f5f0 33%,
-    #f4f5f0 66%,
-    #cd212a 66%
+    #008c45 33.33%,
+    #f4f5f0 33.33%,
+    #f4f5f0 66.66%,
+    #cd212a 66.66%
   );
+  z-index: 1;
+}
+/* Italian flag accent - bottom border */
+.custom-booking-form-container:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0; /* Start from the edge */
+  width: 100%;
+  height: 4px; /* Slightly thicker */
+  background: linear-gradient(
+    to right,
+    #008c45 33.33%,
+    #f4f5f0 33.33%,
+    #f4f5f0 66.66%,
+    #cd212a 66.66%
+  );
+  z-index: 1;
 }
 
 .reservation-header {
@@ -118,12 +145,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 20px; /* Increased padding */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* More visible border */
 }
 
 .reservation-header h4 {
-  font-size: 22px;
+  font-size: clamp(20px, 3.5vw, 22px); /* Responsive font size */
   font-weight: 600;
   color: #cda45e;
   margin-bottom: 0;
@@ -132,197 +159,185 @@
 .opentable-badge {
   display: flex;
   align-items: center;
+  flex-shrink: 0; /* Prevent shrinking on small screens */
 }
 
 .opentable-badge span {
   font-size: 12px;
-  color: #aaa;
+  color: #b0b0b0; /* Lighter text */
   margin-right: 8px;
 }
 
 .opentable-badge img {
-  height: 20px;
+  height: 22px; /* Slightly larger */
+  filter: brightness(0.9) contrast(1.1); /* Subtle image adjustment */
 }
 
 /* Form styling */
 .booking-form .form-group {
-  margin-bottom: 25px;
+  margin-bottom: 20px; /* Slightly reduced margin */
 }
 
-.booking-form label {
+.booking-form label,
+.popular-times-label {
+  /* Target both labels */
   display: block;
   font-size: 14px;
   font-weight: 500;
   color: #cda45e;
-  margin-bottom: 8px;
+  margin-bottom: 10px; /* Increased margin */
 }
 
-.booking-form .form-control {
-  border-radius: 6px;
+.booking-form .form-control,
+.booking-form .form-select {
+  /* Target both */
+  border-radius: 8px; /* Consistent radius */
   box-shadow: none;
   font-size: 15px;
-  background: rgba(12, 11, 9, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 9, 7, 0.7); /* Darker input background */
+  border: 1px solid rgba(255, 255, 255, 0.12); /* More visible border */
   color: white;
-  padding: 12px 15px;
-  height: auto;
+  padding: 12px 18px; /* Increased padding */
+  height: auto; /* Let padding define height */
   width: 100%;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.booking-form .form-control::placeholder {
+  /* Style placeholder */
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 1; /* Override browser defaults */
 }
 
-.booking-form .form-control:focus {
+.booking-form .form-control:focus,
+.booking-form .form-select:focus {
   border-color: #cda45e;
-  background: rgba(12, 11, 9, 0.8);
-  box-shadow: 0 0 0 3px rgba(205, 164, 94, 0.1);
+  background: rgba(0, 0, 0, 0.5); /* Darken on focus */
+  box-shadow: 0 0 0 0.2rem rgba(205, 164, 94, 0.25); /* Bootstrap-like focus shadow */
+  color: #fff; /* Ensure text color remains white on focus */
 }
 
-.booking-form select.form-control {
+/* Custom select arrow for .form-select (Bootstrap 5 uses this class) */
+.booking-form .form-select {
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23cda45e'%3E%3Cpath d='M8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 11.708-.708L8 10.293z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cda45e' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right 15px center;
-  background-size: 16px 16px;
-  padding-right: 40px;
+  background-position: right 1rem center; /* Bootstrap 5 positioning */
+  background-size: 16px 12px;
+  padding-right: 2.5rem; /* Space for arrow */
 }
 
 /* Date picker styling */
 .booking-form input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  opacity: 0.7;
+  filter: invert(80%) sepia(60%) saturate(600%) hue-rotate(0deg)
+    brightness(100%) contrast(90%); /* Gold-ish color */
+  opacity: 0.8;
   cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.booking-form input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }
 
 .selected-date-display {
-  font-size: 13px;
+  font-size: 0.85rem; /* Relative unit */
   color: #cda45e;
-  margin-top: 5px;
+  margin-top: 8px;
   font-style: italic;
+  display: block; /* Ensure it takes full width if needed */
+  text-align: left; /* Align with input fields */
 }
 
 /* Time selection */
-.time-selection {
+.popular-times-container {
   margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 .popular-times {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 15px;
-  gap: 10px;
+  gap: 10px; /* Consistent gap */
 }
 
 .time-btn {
-  padding: 8px 15px;
+  padding: 8px 16px; /* Adjusted padding */
   background: transparent;
-  border: 1px solid rgba(205, 164, 94, 0.4);
-  color: #ddd;
-  border-radius: 20px;
+  border: 1px solid rgba(205, 164, 94, 0.5); /* Slightly more visible border */
+  color: #e0e0e0; /* Lighter text */
+  border-radius: 25px; /* More rounded */
   font-size: 13px;
+  font-weight: 500; /* Slightly bolder */
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease-in-out;
+  flex-grow: 1; /* Allow buttons to grow if space allows (on larger screens) */
+  text-align: center;
 }
 
 .time-btn:hover {
-  background: rgba(205, 164, 94, 0.1);
+  background: rgba(205, 164, 94, 0.2);
   border-color: #cda45e;
+  color: #fff;
+  transform: translateY(-2px); /* Subtle lift */
 }
 
 .time-btn.active {
   background: #cda45e;
-  color: #fff;
+  color: #1a1814; /* Dark text on gold for better contrast */
   border-color: #cda45e;
+  box-shadow: 0 2px 8px rgba(205, 164, 94, 0.3);
+  transform: translateY(-1px);
 }
 
-/* Submit button */
-.form-footer {
-  margin-top: 35px;
-}
-
-.reservation-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Submit button (using .app-btn styles from TSX) */
+.book-a-table .app-btn {
+  /* Targeting the app-btn specifically within this section */
   width: 100%;
-  background: #cda45e;
-  color: #fff;
-  border: none;
-  padding: 14px 20px;
-  border-radius: 50px;
+  max-width: 300px; /* Max width for the button */
+  margin-left: auto;
+  margin-right: auto; /* Center button */
   font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  cursor: pointer;
+  padding: 12px 25px;
+}
+.book-a-table .app-btn i {
+  margin-left: 8px;
 }
 
-.reservation-btn i {
-  margin-left: 10px;
-  font-size: 18px;
-  transition: transform 0.3s ease;
+/* OpenTable Direct Widget Container styling */
+.opentable-direct-widget-container h4 {
+  color: #cda45e;
+  margin-bottom: 20px;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(18px, 3vw, 20px);
+}
+#ot-widget-container-dimenna iframe {
+  /* Style the iframe once loaded */
+  border-radius: 8px;
+  min-height: 400px; /* Ensure it has some height */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Override potential inline styles */
 }
 
-.reservation-btn:hover {
-  background: #d3af71;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.reservation-btn:hover i {
-  transform: translateX(5px);
-}
-
-.reservation-note {
-  text-align: center;
-  font-size: 12px;
-  color: #aaa;
-  margin-top: 15px;
-}
-
-/* Reservation footer */
-.reservation-footer {
-  text-align: center;
-  margin-top: 50px;
-  color: #ddd;
-  font-size: 15px;
-}
-
-/* Italian accent colors */
-.booking-form-container:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(
-    to right,
-    #008c45 33%,
-    #f4f5f0 33%,
-    #f4f5f0 66%,
-    #cd212a 66%
-  );
-}
-
+/* Responsive Adjustments */
 @media (max-width: 991px) {
   .book-a-table {
     padding: 80px 0;
+    background-attachment: scroll; /* Disable parallax on tablets/mobile for performance */
   }
 
+  .booking-wrapper .row {
+    flex-direction: column; /* Stack columns */
+  }
+  .booking-content,
+  .opentable-widget-area {
+    width: 100%; /* Full width when stacked */
+    padding: 20px 15px; /* Consistent padding */
+  }
   .booking-content {
-    padding: 0 15px 40px;
+    margin-bottom: 30px; /* Space between content and form */
   }
 
-  .booking-form-wrapper {
-    padding: 0 15px;
-  }
-
-  .booking-form-container {
-    padding: 30px;
-  }
-
-  .booking-info h3 {
-    font-size: 28px;
+  .custom-booking-form-container {
+    padding: 30px 25px; /* Adjust padding */
   }
 }
 
@@ -331,28 +346,70 @@
     padding: 60px 0;
   }
 
-  .booking-form-container {
-    padding: 25px 20px;
+  .custom-booking-form-container,
+  .opentable-direct-widget-container {
+    padding: 25px 20px; /* Smaller padding for mobile */
+  }
+  .custom-booking-form-container:before, /* Hide side accent on mobile if too busy */
+  .custom-booking-form-container:after {
+    /* display: none; */ /* Optional: uncomment to hide flag borders on small screens */
   }
 
   .reservation-header {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center; /* Center header items */
+    text-align: center;
+    gap: 15px;
+  }
+  .reservation-header h4 {
+    margin-bottom: 5px; /* Space for badge below */
+  }
+
+  .booking-form .row > .form-group {
+    /* Target form groups inside a row */
+    margin-bottom: 15px; /* Reduce bottom margin for stacked items */
+  }
+  .booking-form .row > .form-group:last-child {
+    margin-bottom: 20px; /* Keep original margin for last item in row */
   }
 
   .popular-times {
-    flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 8px; /* Reduce gap */
   }
-
   .time-btn {
-    width: calc(50% - 5px);
+    width: calc(50% - 6px); /* Ensure two buttons fit per row with gap */
+    padding: 10px 5px; /* Adjust padding for smaller buttons */
+    font-size: 12px;
+    margin-bottom: 0; /* Gap handles spacing */
+  }
+  /* If you prefer buttons to stack on smallest screens: */
+  /* @media (max-width: 480px) {
+    .time-btn {
+      width: 100%;
+    }
+  } */
+
+  .book-a-table .app-btn {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .booking-info p {
+    font-size: 14px; /* Further reduce for very small screens */
+  }
+  .detail-item {
+    flex-direction: column; /* Stack icon and text */
+    align-items: center;
     text-align: center;
+  }
+  .detail-item i {
+    margin-right: 0;
     margin-bottom: 10px;
   }
-
-  .detail-item i {
-    font-size: 20px;
+  .custom-booking-form-container:before, /* Definitely hide side accent on mobile */
+  .custom-booking-form-container:after {
+    display: none;
   }
 }

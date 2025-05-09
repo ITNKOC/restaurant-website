@@ -1,119 +1,212 @@
 // src/app/sections/Booking.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
-import SectionTitle from "../components/SectionTitle"; // Ensure this path is correct
-import "./booking.css"; // Ensure this path is correct
+import React, { useState, useEffect, useRef } from "react";
+import SectionTitle from "../components/SectionTitle"; // Adjust path if necessary
+import "./booking.css"; // Your styles for this section
+
+// Define a unique ID for the OpenTable container
+const OPENTABLE_WIDGET_CONTAINER_ID = "ot-widget-container-dimenna-booking";
 
 export default function Booking() {
   const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
-  const [partySize, setPartySize] = useState("2"); // partySize is a string
-  // const [isOpenTableLoaded, setIsOpenTableLoaded] = useState(false); // This variable is not used, you might remove it if not needed
+  const [selectedTime, setSelectedTime] = useState("19:00"); // Default to a common time
+  const [partySize, setPartySize] = useState("2");
+  const openTableContainerRef = useRef<HTMLDivElement>(null); // Ref for the direct widget container
 
-  // OpenTable restaurant ID for Di Menna (this is a placeholder - replace with actual ID)
-  const openTableRestaurantId = "123456"; // Replace with your actual OpenTable restaurant ID
+  // --- IMPORTANT: REPLACE WITH YOUR ACTUAL OPENTABLE RESTAURANT ID ---
+  const openTableRestaurantId = "YOUR_REAL_OPENTABLE_RESTAURANT_ID_HERE";
+  // --- IMPORTANT: REPLACE WITH YOUR ACTUAL OPENTABLE RESTAURANT ID ---
 
-  // Available party sizes
-  const partySizes = ["1", "2", "3", "4", "5", "6", "7", "8", "10", "12"];
-
-  // Popular times for quick selection
-  const popularTimes = [
-    { label: "Lunch", time: "12:00" },
-    { label: "Early Dinner", time: "17:30" },
-    { label: "Dinner", time: "19:00" },
-    { label: "Late Dinner", time: "21:00" },
+  const partySizes = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "10",
+    "12",
+    "15",
+    "20",
   ];
 
-  // Initialize OpenTable widget when component mounts
+  const popularTimes = [
+    { label: "Lunch (12:00 PM)", time: "12:00" },
+    { label: "Early Eve (5:30 PM)", time: "17:30" },
+    { label: "Dinner (7:00 PM)", time: "19:00" },
+    { label: "Late Eve (9:00 PM)", time: "21:00" },
+  ];
+
   useEffect(() => {
-    // Load OpenTable script
+    if (
+      !openTableRestaurantId ||
+      openTableRestaurantId === "YOUR_REAL_OPENTABLE_RESTAURANT_ID_HERE"
+    ) {
+      console.warn(
+        "OpenTable Restaurant ID is not set. Booking widget will not load."
+      );
+      if (openTableContainerRef.current) {
+        openTableContainerRef.current.innerHTML =
+          "<p style='color: orange; text-align: center;'>Booking widget configuration is pending.</p>";
+      }
+      return;
+    }
+
+    // Ensure the container exists before trying to load the script (for direct widget embed)
+    if (!openTableContainerRef.current) {
+      // This check is more relevant if you ONLY use the direct embed.
+      // If you also have the redirect form, this might not be an issue.
+      // console.warn("OpenTable container ref for direct widget not found initially.");
+    }
+
+    const scriptId = "opentable-widget-loader-script";
+    // Prevent duplicate script injection if component re-renders for other reasons
+    if (document.getElementById(scriptId)) {
+      // console.log("OpenTable script already in DOM.");
+      return;
+    }
+
     const script = document.createElement("script");
-    script.src =
-      "https://www.opentable.com/widget/reservation/loader?rid=" +
-      openTableRestaurantId +
-      "&domain=com&type=standard&theme=standard&lang=en-US&overlay=false&iframe=true";
+    script.id = scriptId;
+    script.src = `https://www.opentable.com/widget/reservation/loader?rid=${openTableRestaurantId}&domain=com&type=standard&theme=standard&lang=en-US&overlay=false&iframe=true&widgetview=true`;
     script.async = true;
-    // script.onload = () => setIsOpenTableLoaded(true); // If isOpenTableLoaded is not used, this line can be removed
+
     document.body.appendChild(script);
+    // The script, when loaded, is expected to find and populate the div with id OPENTABLE_WIDGET_CONTAINER_ID
 
     return () => {
-      // Clean up the script when the component unmounts
-      // A more robust cleanup might be needed depending on OpenTable's widget behavior
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
+      // Clean up the loader script tag itself
+      const existingScript = document.getElementById(scriptId);
+      if (existingScript && document.body.contains(existingScript)) {
+        document.body.removeChild(existingScript);
       }
+
+      // Clean up the OpenTable widget from its designated container
+      if (openTableContainerRef.current) {
+        // OpenTable often injects an iframe.
+        const otIframe = openTableContainerRef.current.querySelector(
+          `iframe[src*="opentable.com/widget"], iframe[src*="otrestaurant.com"]` // More specific iframe selectors
+        );
+        if (otIframe) {
+          otIframe.remove();
+        }
+        // Clear any other content OpenTable might have put in our designated container
+        openTableContainerRef.current.innerHTML = "";
+      }
+
+      // AGGRESSIVE GLOBAL CLEANUP FOR ROGUE OPENTABLE ELEMENTS
+      // These selectors target common global elements OpenTable might inject.
+      // You might need to inspect your page and add/modify these based on what you find.
+      const rogueSelectors = [
+        'iframe[src*="opentable.com"][style*="display: none"]', // Hidden tracking iframes
+        'iframe[name^="opentable"]',
+        'iframe[id^="ot-"]',
+        'div[id^="ot-"]',
+        'div[class*="ot-"]', // Be cautious with class-based general selectors
+        'div[class*="OT_"]',
+        "div[data-ot-template]",
+        ".ot-reservations-widget-modal-open", // Modal related classes
+        ".ot-modal-container",
+        ".ot-widget-overlay",
+        'div[aria-labelledby^="ot-modal-title"]',
+        'script[src*="opentable.com/widget"]', // Other OT scripts
+        'link[href*="opentable.com/widget"]', // OT stylesheets
+      ];
+
+      rogueSelectors.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((el) => {
+          // Safety check: Only remove if it's a direct child of body OR
+          // not contained within your main React app root (adjust 'root' if your app's root ID is different)
+          // AND ensure it's not our script loader or our designated container.
+          const mainReactAppRoot =
+            document.getElementById("root") || document.body; // Fallback to body if no 'root'
+          if (el.id !== scriptId && el.id !== OPENTABLE_WIDGET_CONTAINER_ID) {
+            if (
+              el.parentElement === document.body ||
+              !mainReactAppRoot.contains(el)
+            ) {
+              // console.log("Attempting to remove rogue OpenTable element:", el);
+              el.remove();
+            }
+          }
+        });
+      });
+
+      // Remove classes OpenTable might add to the body for modals etc.
+      document.body.classList.remove(
+        "ot-modal-open",
+        "ot-body-no-scroll",
+        "ReactModal__Body--open"
+      );
     };
-  }, [openTableRestaurantId]); // Add openTableRestaurantId to dependencies
+  }, [openTableRestaurantId]); // Re-run if restaurant ID changes
 
-  // Format date for display
-  const formatDate = (dateString: string): string => {
+  const formatDateForDisplay = (dateString: string): string => {
     if (!dateString) return "";
-
-    const date = new Date(dateString);
+    // Appending T00:00:00 helps ensure consistent date parsing across browsers
+    const date = new Date(dateString + "T00:00:00");
     return date.toLocaleDateString("en-US", {
-      // English locale for date formatting
+      // English (US) locale for date formatting
       weekday: "long",
       month: "long",
       day: "numeric",
     });
   };
 
-  // Get today's date in YYYY-MM-DD format for the date input min attribute
-  const getToday = (): string => {
+  const getTodayForMinDate = (): string => {
     const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
-    const day = String(today.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    return today.toISOString().split("T")[0]; // YYYY-MM-DD format
   };
 
-  // Handle OpenTable redirect
-  const handleReservation = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevents the default form submission behavior
-
-    // Validate inputs
+  const handleReservationRedirect = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!selectedDate || !selectedTime) {
       alert("Please select both date and time for your reservation.");
       return;
     }
 
-    // Date for OpenTable parameter (YYYY-MM-DD)
+    // Format date and time for OpenTable URL parameter (YYYY-MM-DD and HH:MM)
     const dateForParam = selectedDate;
-    // Time for OpenTable parameter (HH:MM)
     const timeForParam = selectedTime;
 
-    // Construct OpenTable URL
-    const openTableUrl = `https://www.opentable.com/restref/client/?rid=${openTableRestaurantId}&restref=client&datetime=${dateForParam}T${timeForParam}&party=${partySize}&domain=com&lang=en-US`;
+    // Construct OpenTable URL (check OpenTable documentation for the most current URL structure)
+    // This is a common structure for redirecting to the reservation page with pre-filled details
+    const openTableUrl = `https://www.opentable.com/restaurant/profile/${openTableRestaurantId}/search?dtpDate=${dateForParam}&dtpTime=${timeForParam}&partySize=${partySize}&徠form=true&corrid=some-unique-identifier`;
+    // Alternative structure:
+    // const openTableUrl = `https://www.opentable.com/restref/client/?rid=${openTableRestaurantId}&restref=${openTableRestaurantId}&datetime=${dateForParam}T${timeForParam}&partysize=${partySize}&domain=com&lang=en-US&corrid=optional-correlation-id`;
 
-    // Redirect to OpenTable in a new tab
-    window.open(openTableUrl, "_blank");
+    window.open(openTableUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
     <section id="book-a-table" className="book-a-table">
       <div className="container" data-aos="fade-up">
         <SectionTitle title="Reservations" subtitle="Book Your Table" />
-
         <div className="booking-wrapper">
-          <div className="row">
+          <div className="row gy-4">
+            {" "}
+            {/* gy-4 for vertical gutter between columns on mobile */}
             <div
-              className="col-lg-6 booking-content"
-              data-aos="fade-right"
+              className="col-lg-5 booking-content"
+              data-aos="fade-up"
               data-aos-delay="100"
             >
               <div className="booking-info">
-                <h3>Dine with Us at Di Menna</h3>
+                <h3>Dine With Us at Di Menna</h3>
                 <p>
                   Experience authentic Italian cuisine in an elegant atmosphere.
-                  Our tables are available for reservation through OpenTable.
+                  Easily book your table using our form or directly via
+                  OpenTable.
                 </p>
 
                 <div className="booking-details">
                   <div className="detail-item">
-                    <i className="bi bi-clock"></i>
+                    <i className="bi bi-clock-fill"></i>
                     <div>
-                      <h4>Hours</h4>
+                      <h4>Opening Hours</h4>
                       <p>
                         Tuesday - Thursday: 11:00 AM - 10:00 PM
                         <br />
@@ -127,7 +220,7 @@ export default function Booking() {
                   </div>
 
                   <div className="detail-item">
-                    <i className="bi bi-geo-alt"></i>
+                    <i className="bi bi-geo-alt-fill"></i>
                     <div>
                       <h4>Location</h4>
                       <p>
@@ -139,27 +232,26 @@ export default function Booking() {
                   </div>
 
                   <div className="detail-item">
-                    <i className="bi bi-telephone"></i>
+                    <i className="bi bi-telephone-fill"></i>
                     <div>
                       <h4>Contact</h4>
                       <p>
                         (514) 326-4200
-                        <br />
-                        reservations@dimenna.com{" "}
-                        {/* Ensure this email is correct */}
+                        {/* <br />
+                        reservations@dimenna.com {/* Optional if all bookings via OT */}
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <div
-              className="col-lg-6 booking-form-wrapper"
-              data-aos="fade-left"
+              className="col-lg-7 opentable-widget-area"
+              data-aos="fade-up"
               data-aos-delay="200"
             >
-              <div className="booking-form-container">
+              {/* OPTION 1: Custom Form to Redirect to OpenTable */}
+              <div className="custom-booking-form-container">
                 <div className="reservation-header">
                   <h4>Make a Reservation</h4>
                   <div className="opentable-badge">
@@ -170,104 +262,110 @@ export default function Booking() {
                     />
                   </div>
                 </div>
-
-                <form className="booking-form" onSubmit={handleReservation}>
-                  <div className="form-group">
-                    <label>Party Size</label>
-                    <select
-                      className="form-control" // Ensure you have styles for .form-control
-                      value={partySize}
-                      onChange={(e) => setPartySize(e.target.value)}
-                    >
-                      {partySizes.map((size) => (
-                        <option key={size} value={size}>
-                          {size} {parseInt(size) === 1 ? "Guest" : "Guests"}
-                        </option>
-                      ))}
-                    </select>
+                <form
+                  className="booking-form validate-form"
+                  onSubmit={handleReservationRedirect}
+                >
+                  <div className="row">
+                    <div className="col-md-4 form-group">
+                      <label htmlFor="booking-party-size">Guests</label>
+                      <select
+                        id="booking-party-size"
+                        className="form-select" // Use Bootstrap 5 class or your custom styled select
+                        value={partySize}
+                        onChange={(e) => setPartySize(e.target.value)}
+                        required
+                      >
+                        {partySizes.map((size) => (
+                          <option key={size} value={size}>
+                            {size} {parseInt(size) === 1 ? "Guest" : "Guests"}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="col-md-4 form-group">
+                      <label htmlFor="booking-date">Date</label>
+                      <input
+                        id="booking-date"
+                        type="date"
+                        className="form-control"
+                        min={getTodayForMinDate()}
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="col-md-4 form-group">
+                      <label htmlFor="booking-time">Time</label>
+                      <input
+                        id="booking-time"
+                        type="time"
+                        className="form-control"
+                        value={selectedTime}
+                        onChange={(e) => setSelectedTime(e.target.value)}
+                        required
+                        step="900" // 15-minute intervals (900 seconds)
+                      />
+                    </div>
                   </div>
-
-                  <div className="form-group">
-                    <label>Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      min={getToday()}
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      required
-                    />
-                    {selectedDate && (
-                      <div className="selected-date-display">
-                        {" "}
-                        {/* Style this class for a nice display */}
-                        {formatDate(selectedDate)}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="form-group time-selection">
-                    <label>Time</label>
+                  {selectedDate && (
+                    <div className="selected-date-display">
+                      {formatDateForDisplay(selectedDate)}
+                    </div>
+                  )}
+                  <div className="popular-times-container">
+                    <label className="popular-times-label">
+                      Popular Times:
+                    </label>
                     <div className="popular-times">
-                      {" "}
-                      {/* Style this class */}
                       {popularTimes.map((timeOption) => (
                         <button
                           type="button"
                           key={timeOption.time}
                           className={`time-btn ${
-                            /* Style .time-btn and .active */
                             selectedTime === timeOption.time ? "active" : ""
                           }`}
                           onClick={() => setSelectedTime(timeOption.time)}
                         >
-                          {timeOption.label} {/* e.g., "Lunch", "Dinner" */}
+                          {timeOption.label}
                         </button>
                       ))}
                     </div>
-                    <input
-                      type="time"
-                      className="form-control"
-                      value={selectedTime}
-                      onChange={(e) => setSelectedTime(e.target.value)}
-                      required
-                      step="900" // e.g., 15-minute increments (900 seconds)
-                    />
                   </div>
-
-                  <div className="form-footer">
-                    <button type="submit" className="reservation-btn">
-                      {" "}
-                      {/* Style .reservation-btn */}
-                      <span>Find a Table</span>
-                      <i className="bi bi-arrow-right-circle"></i>
+                  <div className="text-center">
+                    <button type="submit" className="app-btn mt-3">
+                      {/* Using your existing AppBtn styling potentially */}
+                      Check Availability
                     </button>
-
-                    <p className="reservation-note">
-                      {" "}
-                      {/* Style .reservation-note */}
-                      By clicking "Find a Table" you will be redirected to
-                      OpenTable to complete your reservation.
-                    </p>
                   </div>
                 </form>
+              </div>
+
+              {/* OPTION 2: Embed the OpenTable Widget Directly */}
+              {/* The loader script in useEffect is meant to populate the div below */}
+              <div className="opentable-direct-widget-container mt-5">
+                <h4 className="text-center mb-3">Or Book Directly Here:</h4>
+                <div
+                  ref={openTableContainerRef}
+                  id={OPENTABLE_WIDGET_CONTAINER_ID}
+                  style={{ minHeight: "300px" }}
+                >
+                  {/* OpenTable widget will be injected here by its script */}
+                  {/* You can add a loading spinner here that gets replaced by the widget */}
+                  <div
+                    style={{
+                      textAlign: "center",
+                      padding: "20px",
+                      color: "#ccc",
+                    }}
+                  >
+                    Loading reservation module...
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Commented section, uncomment if needed
-        <div
-          className="reservation-footer"
-          data-aos="fade-up"
-          data-aos-delay="300"
-        >
-          <p>
-            For parties larger than 12 or special events, please contact us
-            directly at (514) 326-4200 or email events@dimenna.com
-          </p>
-        </div>
-        */}
       </div>
     </section>
   );

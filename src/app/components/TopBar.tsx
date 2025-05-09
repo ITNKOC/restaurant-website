@@ -13,19 +13,22 @@ interface SocialLink {
 interface Language {
   code: string;
   name: string;
-  active: boolean;
+  flag: string; // Added for image path
 }
 
 export default function TopBar() {
-  const [scroll, setScroll] = useState(0);
+  const [scrolled, setScrolled] = useState(false); // Changed from 'scroll' to 'scrolled' boolean
   const [currentTime, setCurrentTime] = useState("");
   const [isMobile, setIsMobile] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // This state is key
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>({
+    code: "FR",
+    name: "Français",
+    flag: "fr",
+  }); // Store object
   const languageDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Updated social links with additional information
   const socialLinks: SocialLink[] = [
     {
       id: 1,
@@ -47,29 +50,30 @@ export default function TopBar() {
     },
   ];
 
-  // Available languages
-  const languages: Language[] = [
-    { code: "FR", name: "Français", active: true },
-    { code: "EN", name: "English", active: false },
-    { code: "JP", name: "日本語", active: false },
+  const availableLanguages: Language[] = [
+    { code: "FR", name: "Français", flag: "fr" },
+    { code: "EN", name: "English", flag: "en" },
+    { code: "JP", name: "日本語", flag: "jp" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setScroll(window.scrollY);
+      setScrolled(window.scrollY > 100); // Set boolean based on scroll position
     };
 
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    // Function to check if menu is open (for external state changes)
     const checkMenuState = () => {
-      const navbarMobile = document.querySelector(".navbar-mobile");
-      setMenuOpen(navbarMobile?.classList.contains("active") || false);
+      // Check if the body has the class 'mobile-nav-active' (set by Nav.tsx)
+      // Or check the navbar element directly
+      const navbarMobileActive =
+        document.body.classList.contains("mobile-nav-active") ||
+        document.querySelector(".navbar-mobile.active");
+      setMenuOpen(!!navbarMobileActive);
     };
 
-    // Function to handle clicking outside of language dropdown
     const handleClickOutside = (event: MouseEvent) => {
       if (
         languageDropdownRef.current &&
@@ -80,53 +84,64 @@ export default function TopBar() {
       }
     };
 
-    // Initial checks
     handleScroll();
     handleResize();
     updateTime();
+    checkMenuState(); // Initial check
 
-    // Event listeners
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleResize, { passive: true });
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Check menu state periodically
-    const menuCheckInterval = setInterval(checkMenuState, 300);
+    // Use MutationObserver for more reliable menu state checking if class is added/removed from body or navbar
+    const observer = new MutationObserver(checkMenuState);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    const navbarElement = document.getElementById("navbar");
+    if (navbarElement) {
+      observer.observe(navbarElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
 
-    // Update time every minute
     const timeInterval = setInterval(updateTime, 60000);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("mousedown", handleClickOutside);
-      clearInterval(menuCheckInterval);
+      observer.disconnect();
       clearInterval(timeInterval);
     };
   }, [showLanguageDropdown]);
 
-  // Update current time
   const updateTime = () => {
     const now = new Date();
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-    setCurrentTime(`${hours}:${minutes}`);
+    // Consider locale for time formatting if you have multi-language
+    setCurrentTime(
+      now.toLocaleTimeString(
+        selectedLanguage.code === "FR" ? "fr-CA" : "en-US",
+        { hour: "2-digit", minute: "2-digit", hour12: false }
+      )
+    );
   };
 
-  // Handle language selection
-  const handleLanguageChange = (code: string) => {
-    setSelectedLanguage(code);
+  const handleLanguageChange = (language: Language) => {
+    setSelectedLanguage(language);
     setShowLanguageDropdown(false);
-
-    // In a real application, you would handle language change here
-    // For example, by updating a language context or triggering an API call
+    // Here you would typically i18n.changeLanguage(language.code);
+    console.log("Language changed to:", language.code);
+    updateTime(); // Update time format if necessary
   };
 
   return (
-    <div
+    <header // Changed div to header for semantics, ensure it's the actual top bar
       id="topbar"
       className={`d-flex align-items-center fixed-top ${
-        scroll > 100 ? "topbar-scrolled" : ""
+        scrolled ? "topbar-scrolled" : ""
       } ${isMobile ? "mobile-topbar" : ""} ${menuOpen ? "menu-is-open" : ""}`}
     >
       <div className="container d-flex justify-content-between align-items-center">
@@ -146,77 +161,86 @@ export default function TopBar() {
         </div>
 
         <div className="topbar-right d-flex align-items-center">
-          <div className="current-time d-none d-md-flex me-4">
-            <i className="bi bi-clock"></i>
-            <span>{currentTime}</span>
-          </div>
-
-          <div className="social-links d-none d-md-flex align-items-center">
-            {socialLinks.map((link) => (
-              <a
-                href={link.url}
-                key={link.id}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Visitez notre page ${link.label}`}
-              >
-                <i className={`bi bi-${link.icon}`}></i>
-              </a>
-            ))}
-          </div>
+          {!isMobile && ( // Hide time and social on very small screens if needed, or use d-none d-sm-flex
+            <>
+              <div className="current-time d-none d-lg-flex me-3">
+                {" "}
+                {/* Changed to d-lg-flex */}
+                <i className="bi bi-clock"></i>
+                <span>{currentTime}</span>
+              </div>
+              <div className="social-links d-none d-lg-flex align-items-center me-3">
+                {" "}
+                {/* Changed to d-lg-flex */}
+                {socialLinks.map((link) => (
+                  <a
+                    href={link.url}
+                    key={link.id}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visitez notre page ${link.label}`}
+                    title={link.label} // Added title
+                  >
+                    <i className={`bi bi-${link.icon}`}></i>
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
 
           <div
             className="languages"
             ref={languageDropdownRef}
+            onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ")
+                setShowLanguageDropdown(!showLanguageDropdown);
+              if (e.key === "Escape" && showLanguageDropdown)
+                setShowLanguageDropdown(false);
+            }}
             tabIndex={0}
             role="button"
-            aria-haspopup="true"
+            aria-haspopup="listbox" // More appropriate for language selection
             aria-expanded={showLanguageDropdown}
             aria-label="Sélectionnez une langue"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                setShowLanguageDropdown(!showLanguageDropdown);
-              } else if (e.key === "Escape" && showLanguageDropdown) {
-                setShowLanguageDropdown(false);
-              }
-            }}
-            onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
           >
             <div className="selected-language">
-              <span>{selectedLanguage}</span>
+              <span
+                className={`flag flag-${selectedLanguage.flag.toLowerCase()} me-2`}
+              ></span>
+              <span>{selectedLanguage.code}</span>
               <i
-                className={`bi bi-chevron-down ${
+                className={`bi bi-chevron-down ms-1 ${
                   showLanguageDropdown ? "rotate-180" : ""
                 }`}
               ></i>
             </div>
 
-            {/* Language dropdown with conditional rendering for better performance */}
             {showLanguageDropdown && (
               <ul
                 className="language-dropdown"
-                style={{
-                  opacity: 1,
-                  visibility: "visible",
-                  transform: "translateY(0)",
-                }}
-                role="menu"
+                role="listbox" // ARIA role
+                aria-activedescendant={selectedLanguage.code} // Points to current selection
               >
-                {languages.map((lang) => (
-                  <li key={lang.code} role="menuitem">
+                {availableLanguages.map((lang) => (
+                  <li
+                    key={lang.code}
+                    role="option"
+                    id={lang.code} // For aria-activedescendant
+                    aria-selected={selectedLanguage.code === lang.code}
+                  >
                     <a
                       href="#"
                       onClick={(e) => {
                         e.preventDefault();
-                        handleLanguageChange(lang.code);
+                        handleLanguageChange(lang);
                       }}
-                      className={selectedLanguage === lang.code ? "active" : ""}
-                      aria-current={
-                        selectedLanguage === lang.code ? "true" : "false"
+                      className={
+                        selectedLanguage.code === lang.code ? "active" : ""
                       }
                     >
                       <span
-                        className={`flag flag-${lang.code.toLowerCase()}`}
+                        className={`flag flag-${lang.flag.toLowerCase()}`}
                       ></span>
                       {lang.name}
                     </a>
@@ -227,6 +251,6 @@ export default function TopBar() {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
