@@ -1,10 +1,11 @@
 // src/app/admin/dashboard/page.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react"; // useCallback et useEffect sont maintenant dans useMenus
 import { useRouter } from "next/navigation";
-import AuthCheck from "../../components/AuthCheck"; // Vérifiez ce chemin
+import AuthCheck from "../../components/AuthCheck";
 import styles from "./dashboard.module.css";
+import { useMenus, MenuFile } from "../../hooks/useMenus"; // Importer le hook et l'interface
 
 const MENU_TYPES = {
   RESTAURANT: "restaurant",
@@ -12,122 +13,102 @@ const MENU_TYPES = {
   ALCOHOL: "alcohol",
 };
 
-interface MenuFile {
-  id: string;
-  name: string;
-  type: string;
-  url: string; // Sera l'URL Cloudinary
-  public_id?: string; // ID public de Cloudinary pour la gestion (ex: suppression)
-  uploadDate: string;
-}
-
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState(MENU_TYPES.RESTAURANT);
-  const [menuFiles, setMenuFiles] = useState<MenuFile[]>([]);
+  // Utiliser notre hook personnalisé !
+  const {
+    menuFiles,
+    loading: loadingMenus,
+    error: fetchError,
+    refreshMenus,
+  } = useMenus();
+
   const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState<string | null>(null); // Pour les erreurs d'upload
+  const [actionError, setActionError] = useState<string | null>(null); // Erreur spécifique aux actions (upload/delete)
   const router = useRouter();
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedMenus = localStorage.getItem("menuFiles");
-      if (savedMenus) {
-        try {
-          setMenuFiles(JSON.parse(savedMenus));
-        } catch (e) {
-          console.error(
-            "Erreur lors du parsing des menuFiles depuis localStorage",
-            e
-          );
-          setMenuFiles([]); // Réinitialiser en cas de données corrompues
-        }
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("menuFiles", JSON.stringify(menuFiles));
-    }
-  }, [menuFiles]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     if (file.type !== "application/pdf") {
-      alert("Veuillez téléverser uniquement des fichiers PDF.");
+      alert("Please upload PDF files only.");
+      e.target.value = "";
       return;
     }
 
     setUploading(true);
-    setError(null); // Réinitialiser les erreurs précédentes
-
+    setActionError(null);
     const formData = new FormData();
-    formData.append("file", file); // La clé 'file' doit correspondre à ce que l'API attend
+    formData.append("file", file);
+    formData.append("menuType", activeTab);
 
     try {
       const response = await fetch("/api/upload-menu", {
-        // L'URL de votre API route
         method: "POST",
         body: formData,
       });
-
       const result = await response.json();
-
-      if (!response.ok) {
+      if (!response.ok)
         throw new Error(
-          result.error || `Échec du téléversement: ${response.statusText}`
+          result.error || `Upload failed: ${response.statusText}`
         );
-      }
 
-      const newFile: MenuFile = {
-        id: Date.now().toString(), // Ou un ID unique généré autrement
-        name: file.name,
-        type: activeTab,
-        url: result.url, // L'URL retournée par Cloudinary via votre API
-        public_id: result.public_id, // L'ID public retourné par Cloudinary
-        uploadDate: new Date().toLocaleString(),
-      };
-
-      setMenuFiles((prevFiles) => [...prevFiles, newFile]);
+      await refreshMenus(); // Rafraîchir la liste des menus après l'upload
+      alert("Menu uploaded successfully!");
     } catch (err: any) {
-      console.error("Échec du téléversement:", err);
-      setError(
-        err.message || "Une erreur inconnue est survenue lors du téléversement."
-      );
+      console.error("Upload failed:", err);
+      setActionError(err.message || "An unknown error occurred during upload.");
     } finally {
       setUploading(false);
-      // Réinitialiser l'input de fichier pour permettre de retéléverser le même fichier si nécessaire
-      if (e.target) {
-        e.target.value = "";
-      }
+      if (e.target) e.target.value = "";
     }
   };
 
-  const handleDeleteFile = (id: string) => {
-    // TODO IMPORTANT : Cette fonction supprime uniquement de localStorage.
-    // Pour supprimer de Cloudinary, vous aurez besoin d'une autre API route
-    // qui utilise cloudinary.uploader.destroy(public_id, { resource_type: 'raw' }).
-    // C'est une étape cruciale pour une gestion complète.
-    const fileToDelete = menuFiles.find((file) => file.id === id);
+  const handleDeleteFile = async (menuId: string, menuName: string) => {
     if (
-      confirm(
-        `Êtes-vous sûr de vouloir supprimer "${fileToDelete?.name}" de la liste ?\n(Cela ne supprime PAS encore le fichier de Cloudinary.)`
+      !confirm(
+        `Are you sure you want to delete the menu "${menuName}"? This action is permanent.`
       )
-    ) {
-      setMenuFiles((prevFiles) => prevFiles.filter((file) => file.id !== id));
+    )
+      return;
+
+    setActionError(null);
+    // On pourrait mettre un état de chargement spécifique à la suppression ici
+    try {
+      const response = await fetch("/api/delete-menu", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ menuIdToDelete: menuId }),
+      });
+      const result = await response.json();
+      if (!response.ok)
+        throw new Error(result.error || "Failed to delete menu.");
+
+      await refreshMenus(); // Rafraîchir la liste
+      alert(result.message || "Menu deleted successfully.");
+    } catch (err: any) {
+      console.error("Deletion failed:", err);
+      setActionError(err.message || "Could not delete the menu.");
     }
   };
 
-  const handleLogout = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("isAdminLoggedIn");
-    }
-    router.push("/admin/login");
-  };
+  const handleLogout = () => router.push("/admin/login");
 
   const filteredFiles = menuFiles.filter((file) => file.type === activeTab);
+
+  const getTabDisplayName = (tabKey: string) => {
+    /* ... comme avant ... */
+    switch (tabKey) {
+      case MENU_TYPES.RESTAURANT:
+        return "Restaurant";
+      case MENU_TYPES.DELIVERY:
+        return "Delivery";
+      case MENU_TYPES.ALCOHOL:
+        return "Wine & Spirits";
+      default:
+        return "";
+    }
+  };
 
   return (
     <AuthCheck>
@@ -140,11 +121,13 @@ export default function DashboardPage() {
         </header>
 
         <div className={styles.tabs}>
+          {/* ... boutons d'onglets, s'assurer que `disabled` utilise `uploading || loadingMenus` ... */}
           <button
             className={`${styles.tab} ${
               activeTab === MENU_TYPES.RESTAURANT ? styles.activeTab : ""
             }`}
             onClick={() => setActiveTab(MENU_TYPES.RESTAURANT)}
+            disabled={uploading || loadingMenus}
           >
             Restaurant Menu
           </button>
@@ -153,6 +136,7 @@ export default function DashboardPage() {
               activeTab === MENU_TYPES.DELIVERY ? styles.activeTab : ""
             }`}
             onClick={() => setActiveTab(MENU_TYPES.DELIVERY)}
+            disabled={uploading || loadingMenus}
           >
             Delivery Menu
           </button>
@@ -161,79 +145,99 @@ export default function DashboardPage() {
               activeTab === MENU_TYPES.ALCOHOL ? styles.activeTab : ""
             }`}
             onClick={() => setActiveTab(MENU_TYPES.ALCOHOL)}
+            disabled={uploading || loadingMenus}
           >
-            Alcohol Menu
+            Wine & Spirits
           </button>
         </div>
 
         <div className={styles.content}>
-          <h2>
-            {activeTab === MENU_TYPES.RESTAURANT
-              ? "Restaurant"
-              : activeTab === MENU_TYPES.DELIVERY
-              ? "Delivery"
-              : "Alcohol"}{" "}
-            Menu Management
-          </h2>
-
+          <h2>{getTabDisplayName(activeTab)} Menu Management</h2>
           <div className={styles.uploadSection}>
-            <label className={styles.uploadButton}>
-              {/* Le texte du bouton change si en cours d'upload */}
-              {uploading ? "Téléversement..." : "Téléverser Menu PDF"}
+            {/* ... input de fichier ... */}
+            <label
+              className={`${styles.uploadButton} ${
+                uploading || loadingMenus ? styles.uploadButtonDisabled : ""
+              }`}
+            >
+              {uploading ? "Uploading..." : "Upload New PDF Menu"}
               <input
                 type="file"
-                accept="application/pdf" // Accepter uniquement les PDF
+                accept="application/pdf"
                 onChange={handleFileUpload}
-                disabled={uploading}
-                style={{ display: "none" }} // Cacher l'input standard
+                disabled={uploading || loadingMenus}
+                style={{ display: "none" }}
               />
             </label>
+            {uploading && <div className={styles.spinner}></div>}
           </div>
-          {/* Afficher les messages d'erreur */}
-          {error && (
-            <p style={{ color: "red", marginTop: "10px" }}>Erreur: {error}</p>
+
+          {/* Afficher l'erreur de fetch OU l'erreur d'action */}
+          {(fetchError || actionError) && (
+            <p
+              className={styles.errorMessage}
+              style={{ color: "red", marginTop: "10px" }}
+            >
+              Error: {fetchError || actionError}
+            </p>
+          )}
+          {loadingMenus && (
+            <p className={styles.loadingMessage}>Loading menus...</p>
           )}
 
           <div className={styles.filesList}>
-            {filteredFiles.length === 0 ? (
-              <p>Aucun menu téléversé pour cette catégorie.</p>
-            ) : (
-              filteredFiles.map((file) => (
+            {/* ... affichage de la liste des fichiers, comme avant ... */}
+            {!loadingMenus && filteredFiles.length === 0 && !fetchError && (
+              <p>No menus uploaded for this category yet.</p>
+            )}
+            {filteredFiles.map(
+              (
+                file: MenuFile // Spécifier le type ici
+              ) => (
                 <div key={file.id} className={styles.fileItem}>
                   <div className={styles.fileInfo}>
                     <p className={styles.fileName}>{file.name}</p>
                     <p className={styles.fileDate}>
-                      Téléversé le: {file.uploadDate}
+                      Uploaded:{" "}
+                      {new Date(file.uploadDate).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      })}
                     </p>
-                    {/* <p className={styles.fileDate}>Public ID: {file.public_id}</p> */}{" "}
-                    {/* Pour débogage */}
                   </div>
                   <div className={styles.fileActions}>
                     <a
-                      href={file.url} // URL Cloudinary
-                      download={file.name} // Permet de télécharger avec le nom original
+                      href={file.blobUrl}
+                      download={file.name}
                       className={styles.downloadButton}
+                      title={`Download ${file.name}`}
                     >
                       Download
                     </a>
                     <a
-                      href={file.url} // URL Cloudinary
-                      target="_blank" // Ouvre dans un nouvel onglet
+                      href={file.blobUrl}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className={styles.viewButton}
+                      title={`View ${file.name}`}
                     >
                       View
                     </a>
                     <button
-                      onClick={() => handleDeleteFile(file.id)}
+                      onClick={() => handleDeleteFile(file.id, file.name)}
                       className={styles.deleteButton}
+                      disabled={uploading}
+                      title={`Delete ${file.name}`}
                     >
-                      Supprimer (Liste){" "}
-                      {/* Préciser que ça supprime de la liste seulement pour l'instant */}
+                      Delete
                     </button>
                   </div>
                 </div>
-              ))
+              )
             )}
           </div>
         </div>
