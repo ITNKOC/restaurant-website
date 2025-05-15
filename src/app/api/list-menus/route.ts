@@ -43,6 +43,7 @@ export async function GET(request: Request): Promise<NextResponse> {
         allMenusData
       );
       return NextResponse.json([]);
+      //done
     }
   } catch (error) {
     console.error(`Error fetching menus from KV key "${MENUS_KV_KEY}":`, error);
