@@ -1,223 +1,309 @@
+/* src/app/sections/recruitment.css */
+
 /*--------------------------------------------------------------
-# Recruitment Hero Section
+# General Page & Section Styling
 --------------------------------------------------------------*/
-#recruitment-hero {
-  width: 100%;
-  position: relative;
-  padding: 120px 0 60px 0;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+body {
+  /* Si vous voulez un fond sombre pour toute la page, sinon ajustez */
+  /* background-color: #0c0b09; */ /* Fond sombre principal comme le footer */
+  /* color: #bab3a6; */ /* Couleur de texte par défaut */
+}
+
+.recruitment-section {
+  padding: 60px 0;
   overflow: hidden;
 }
 
-#recruitment-hero h1 {
-  margin: 0 0 20px 0;
+.section-bg {
+  background-color: #1a1814; /* Fond légèrement plus clair pour variation, comme le footer/contact */
+}
+
+/* Utilisation de votre composant SectionTitle existant,
+   s'il n'est pas déjà stylé globalement pour les fonds sombres,
+   vous pourriez avoir besoin de surcharges spécifiques ici.
+   Exemple (si SectionTitle a un h2 et un p) :
+*/
+/*
+.recruitment-section .section-title h2,
+.recruitment-section .section-title p {
+  color: #fff; / Ou #cda45e pour le titre principal /
+}
+.recruitment-section .section-title h2::after {
+  background: #cda45e;
+}
+*/
+
+/*--------------------------------------------------------------
+# Recruitment Hero Section
+--------------------------------------------------------------*/
+.recruitment-hero {
+  /* Changement du nom de l'ID en classe pour plus de flexibilité */
+  width: 100%;
+  /* height: 60vh; */ /* Hauteur du viewport, ajustez si besoin */
+  min-height: 400px; /* Hauteur minimale */
+  background: linear-gradient(rgba(12, 11, 9, 0.8), rgba(12, 11, 9, 0.8)),
+    url("/assets/images/recruitment-hero-bg.jpg") center center; /* Mettez votre image de fond */
+  background-size: cover;
+  position: relative;
+  display: flex; /* Déjà dans le JSX */
+  align-items: center; /* Déjà dans le JSX */
+  padding: 100px 0; /* Padding vertical */
+  color: #fff;
+}
+
+.recruitment-hero h1 {
+  margin: 0 0 15px 0;
   font-size: 48px;
   font-weight: 700;
-  line-height: 56px;
-  color: #333;
-  text-align: center;
+  line-height: 1.2;
+  color: #fff; /* Titre principal en blanc */
+  font-family: "Playfair Display", serif; /* Police élégante */
 }
 
-#recruitment-hero h2 {
-  color: #6c757d;
-  margin-bottom: 30px;
+.recruitment-hero h2 {
+  color: #cda45e; /* Sous-titre en couleur d'accentuation */
+  margin-bottom: 0;
   font-size: 24px;
-  text-align: center;
-}
-
-@media (max-width: 768px) {
-  #recruitment-hero h1 {
-    font-size: 32px;
-    line-height: 1.2;
-  }
-
-  #recruitment-hero h2 {
-    font-size: 20px;
-    line-height: 1.5;
-  }
+  font-weight: 400;
+  font-family: "Lora", serif; /* Police élégante pour le sous-titre */
 }
 
 /*--------------------------------------------------------------
-  # Recruitment Content
+  # Content Box (pour encadrer le texte principal)
   --------------------------------------------------------------*/
-#recruitment-content {
-  padding: 60px 0;
+.content-box {
+  background: rgba(
+    26,
+    24,
+    20,
+    0.7
+  ); /* Fond semi-transparent comme les cartes de contact */
+  padding: 30px 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(205, 164, 94, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  margin-bottom: 40px; /* Espace en dessous */
+  color: #bab3a6; /* Couleur de texte par défaut pour le contenu de la boîte */
 }
 
-.recruitment-box {
-  background: #fff;
-  padding: 40px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  margin-bottom: 30px;
-}
-
-.recruitment-box h3 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.recruitment-box p {
-  font-size: 16px;
-  line-height: 1.8;
-  margin-bottom: 20px;
-  color: #555;
-}
-
-.join-button-container {
-  margin-top: 40px;
-}
-
-.btn-join-team {
-  font-family: "Raleway", sans-serif;
+.content-box h3 {
+  /* Si vous ajoutez des h3 à l'intérieur */
+  font-size: 26px;
   font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 12px 32px;
-  border-radius: 50px;
-  transition: 0.5s;
-  color: #fff;
-  background: #5cb874;
-  text-decoration: none;
-  box-shadow: 0 3px 10px rgba(92, 184, 116, 0.3);
+  margin-bottom: 20px;
+  color: #cda45e; /* Titres internes en couleur d'accentuation */
+  font-family: "Playfair Display", serif;
 }
 
-.btn-join-team:hover {
-  background: #4ca368;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(92, 184, 116, 0.4);
-  text-decoration: none;
-  color: #fff;
+.content-box p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 15px;
+  /* La couleur est héritée de .content-box ou peut être spécifiée ici */
 }
 
 /*--------------------------------------------------------------
   # Values Section
   --------------------------------------------------------------*/
-.values {
-  padding: 80px 0;
-  background: #f8f9fa;
-}
+/* La section .values utilise .section-bg, donc son fond est #1a1814 */
+/* Le composant SectionTitle s'occupe du titre principal de la section */
 
 .values .value-box {
   text-align: center;
-  padding: 30px 20px;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+  padding: 30px 25px;
+  border-radius: 8px;
+  background: rgba(
+    12,
+    11,
+    9,
+    0.7
+  ); /* Fond de la carte valeur, un peu plus sombre */
+  border: 1px solid rgba(205, 164, 94, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
-  height: 100%;
+  height: 100%; /* Pour que toutes les boîtes aient la même hauteur si dans un .row avec align-items-stretch */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Aligne le contenu en haut */
 }
 
 .values .value-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  border-color: rgba(205, 164, 94, 0.3);
 }
 
 .values .value-box .icon {
   margin-bottom: 20px;
+  /* Centrage de l'icône dans son conteneur */
+  display: inline-block; /* Pour que le margin auto fonctionne */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .values .value-box .icon i {
-  font-size: 40px;
-  color: #5cb874;
+  font-size: 36px; /* Taille de l'icône */
+  color: #0c0b09; /* Couleur de l'icône (sombre sur fond clair) */
+  width: 70px; /* Largeur du cercle */
+  height: 70px; /* Hauteur du cercle */
+  line-height: 70px; /* Centrage vertical de l'icône dans le cercle */
   border-radius: 50%;
-  padding: 20px;
-  background: rgba(92, 184, 116, 0.1);
+  background: #cda45e; /* Fond du cercle en couleur d'accentuation */
+  display: inline-block; /* Nécessaire pour width/height/line-height */
+  transition: all 0.3s ease;
+}
+
+.values .value-box:hover .icon i {
+  background: #fff; /* Changement au survol */
+  color: #cda45e;
 }
 
 .values .value-box h3 {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600; /* Un peu moins gras que Playfair pour équilibrer */
   margin-bottom: 15px;
-  color: #333;
+  color: #cda45e; /* Titre de la valeur en couleur d'accentuation */
+  font-family: "Lora", serif; /* Police pour les titres de valeur */
 }
 
 .values .value-box p {
   font-size: 15px;
   line-height: 1.6;
-  color: #6c757d;
+  color: #bab3a6; /* Texte des valeurs */
+  flex-grow: 1; /* Pour pousser le contenu vers le bas si les hauteurs sont inégales */
 }
 
 /*--------------------------------------------------------------
-  # Join CTA Section
+  # Boutons d'Appel à l'Action (CTA) & Liens Obfusqués
+  --------------------------------------------------------------*/
+.cta-button-container {
+  margin-top: 30px;
+  text-align: center; /* Centre le bouton dans son conteneur */
+}
+
+/* Style pour le lien rendu par ObfuscatedEmail pour qu'il ressemble à un bouton */
+.cta-button-container > a, /* Cible le lien direct de ObfuscatedEmail */
+.btn-recruit.app-style-btn {
+  /* Si vous gardez une classe bouton générique */
+  font-family: "Roboto", "Raleway", sans-serif; /* Police standard pour les boutons */
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 30px; /* Bordures arrondies */
+  transition: all 0.3s ease;
+  color: #0c0b09; /* Texte sombre sur fond clair */
+  background: #cda45e; /* Fond en couleur d'accentuation */
+  text-decoration: none;
+  border: 2px solid transparent; /* Pour un effet de bordure au survol si besoin */
+  box-shadow: 0 4px 10px rgba(205, 164, 94, 0.2);
+  text-transform: uppercase;
+}
+
+.cta-button-container > a:hover,
+.btn-recruit.app-style-btn:hover {
+  background: #b89451; /* Couleur d'accentuation plus foncée au survol */
+  color: #0c0b09;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(205, 164, 94, 0.3);
+  text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+  # Join CTA Section (section colorée en bas)
   --------------------------------------------------------------*/
 .join-cta {
-  background: linear-gradient(rgba(92, 184, 116, 0.9), rgba(92, 184, 116, 0.9)),
-    url("../assets/img/cta-bg.jpg") fixed center center;
+  /* background: #cda45e; */ /* Fond uni en couleur d'accentuation */
+  background: linear-gradient(rgba(12, 11, 9, 0.9), rgba(12, 11, 9, 0.9)),
+    url("/assets/images/join-cta-bg.jpg") center center; /* Image de fond plus sombre */
   background-size: cover;
-  padding: 80px 0;
-  color: #fff;
+  padding: 60px 0;
+  color: #fff; /* Texte en blanc sur fond coloré/image */
+  text-align: center;
 }
 
 .join-cta h3 {
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 20px;
+  font-family: "Playfair Display", serif;
 }
 
 .join-cta p {
   font-size: 18px;
   margin-bottom: 30px;
+  color: #f0f0f0; /* Texte légèrement moins blanc pour contraste */
+  font-family: "Lora", serif;
 }
 
-.join-cta .btn-join-team {
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 1px;
-  display: inline-block;
-  padding: 12px 32px;
-  border-radius: 50px;
-  transition: 0.3s;
-  background: #fff;
-  color: #5cb874;
-  text-decoration: none;
+/* Le bouton dans .join-cta utilisera les styles de .cta-button-container > a */
+/* Si vous voulez un style spécifique pour CE bouton, vous pouvez le surcharger : */
+.join-cta .cta-button-container > a {
+  background: #fff; /* Bouton blanc sur fond sombre */
+  color: #0c0b09; /* Texte sombre */
 }
-
-.join-cta .btn-join-team:hover {
+.join-cta .cta-button-container > a:hover {
   background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
+  color: #0c0b09;
 }
 
 /*--------------------------------------------------------------
-  # Section Title 
+  # Responsive Adjustments
   --------------------------------------------------------------*/
-.section-title {
-  text-align: center;
-  padding-bottom: 30px;
+@media (max-width: 992px) {
+  .recruitment-hero h1 {
+    font-size: 38px;
+  }
+  .recruitment-hero h2 {
+    font-size: 20px;
+  }
+  .content-box {
+    padding: 25px 30px;
+  }
+  .values .value-box {
+    margin-bottom: 30px; /* Espace entre les boîtes sur tablette */
+  }
 }
 
-.section-title h2 {
-  font-size: 32px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  position: relative;
-  color: #333;
-}
-
-.section-title h2::after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: #5cb874;
-  bottom: 0;
-  left: calc(50% - 25px);
-}
-
-/*--------------------------------------------------------------
-  # Sections General
-  --------------------------------------------------------------*/
-section {
-  padding: 60px 0;
-  overflow: hidden;
-}
-
-.section-bg {
-  background-color: #f8f9fa;
+@media (max-width: 768px) {
+  .recruitment-hero {
+    min-height: 300px;
+    padding: 80px 0;
+  }
+  .recruitment-hero h1 {
+    font-size: 32px;
+  }
+  .recruitment-hero h2 {
+    font-size: 18px;
+  }
+  .content-box {
+    padding: 20px;
+  }
+  .content-box h3 {
+    font-size: 22px;
+  }
+  .content-box p {
+    font-size: 15px;
+  }
+  .values .value-box {
+    padding: 25px 20px;
+  }
+  .values .value-box h3 {
+    font-size: 18px;
+  }
+  .join-cta {
+    padding: 50px 0;
+  }
+  .join-cta h3 {
+    font-size: 26px;
+  }
+  .join-cta p {
+    font-size: 16px;
+  }
+  .cta-button-container > a,
+  .btn-recruit.app-style-btn {
+    font-size: 14px;
+    padding: 10px 25px;
+  }
 }
