@@ -1,3 +1,5 @@
+/* src/app/sections/contact.css */
+
 /*--------------------------------------------------------------
 # Contact - Modern Design for Di Menna Restaurant
 --------------------------------------------------------------*/
@@ -109,11 +111,13 @@
 .info-card {
   background: rgba(26, 24, 20, 0.7);
   border-radius: 8px;
-  padding: 5px;
+  padding: 15px; /* Adjusted padding for the card itself */
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure card takes full width of its column */
+  box-sizing: border-box; /* Consistent box model */
 }
 
 .info-card:hover {
@@ -124,7 +128,9 @@
 
 .info-item {
   display: flex;
-  padding: 15px;
+  /* align-items: center; /* Default: vertically centers icon and text block */
+  /* On mobile, we might prefer aligning to top for consistency if card heights vary a lot */
+  /* Padding moved to .info-card to simplify */
 }
 
 .icon-container {
@@ -152,6 +158,10 @@
 
 .info-content {
   flex: 1;
+  min-width: 0; /* Prevents content from pushing out of flex container */
+  display: flex; /* Make info-content a flex container */
+  flex-direction: column; /* Stack its children (h4, p, etc.) vertically */
+  justify-content: center; /* Vertically center content if card has extra height (e.g. from min-height) */
 }
 
 .info-content h4 {
@@ -175,16 +185,15 @@
   font-style: italic;
 }
 
-@media (max-width: 576px) {
-  .mobile-hide {
-    display: none;
-  }
-}
-
+/* Style for the obfuscated email link and other links in .info-content */
 .info-content a {
   color: #cda45e;
   transition: all 0.3s ease;
   text-decoration: none;
+  display: inline-block;
+  word-break: break-word;
+  font-size: 14px; /* Match p font-size */
+  line-height: 1.5; /* Match p line-height */
 }
 
 .info-content a:hover {
@@ -197,6 +206,7 @@
   grid-template-columns: auto 1fr;
   gap: 8px 15px;
   font-size: 14px;
+  line-height: 1.6; /* Slightly more line height for readability */
 }
 
 .hours-grid .day {
@@ -363,18 +373,17 @@
 
 /* Responsive styles */
 @media (max-width: 992px) {
+  /* Styles for .footer here are likely a mistake and belong in footer.css */
+  /* ... */
   .contact {
     padding-bottom: 70px;
   }
-
   .map-container {
     height: 400px;
   }
-
   .contact-map {
     height: 400px;
   }
-
   .contact-form-container {
     padding: 30px;
     margin-top: 30px;
@@ -385,25 +394,20 @@
   .contact {
     padding-bottom: 50px;
   }
-
   .contact-intro {
     font-size: 15px;
     padding: 0 15px;
     margin-bottom: 30px;
   }
-
   .map-container {
     height: 280px;
     margin-bottom: 70px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   }
-
   .contact-map {
     height: 280px;
   }
-
   .map-overlay {
-    position: absolute;
     bottom: -50px;
     left: 50%;
     transform: translateX(-50%);
@@ -412,81 +416,80 @@
     width: 90%;
     margin: 0;
   }
-
   .map-card {
     text-align: center;
     padding: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
-
   .map-card h3 {
     font-size: 20px;
     margin-bottom: 5px;
   }
-
   .map-card p {
     margin-bottom: 15px;
     font-size: 13px;
   }
-
   .map-actions {
     justify-content: center;
   }
-
   .map-btn {
     padding: 8px 16px;
     font-size: 13px;
   }
-
   .contact-section {
     margin-top: 50px;
   }
-
   .contact-info {
     margin-bottom: 40px;
     gap: 20px;
   }
-
   .info-card {
-    max-width: 100%;
-    margin: 0 auto;
+    padding: 15px; /* Ensure consistent padding */
   }
-
+  .info-item {
+    align-items: flex-start; /* MODIFICATION: Align icon to the top of the text content block */
+  }
+  .icon-container {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+  }
+  .icon-container i {
+    font-size: 20px;
+  }
   .info-content h4 {
     font-size: 17px;
   }
-
-  .hours-grid {
-    font-size: 13px;
-    gap: 5px 10px;
+  .info-content p,
+  .info-content .hours-grid,
+  .info-content a {
+    font-size: 14px;
   }
-
+  .hours-grid {
+    gap: 5px 10px;
+    line-height: 1.6;
+  }
   .contact-form-container {
     max-width: 100%;
     margin: 0 auto;
     padding: 25px;
   }
-
   .contact-form-container h3 {
     font-size: 22px;
     text-align: center;
   }
-
   .contact-form-container p {
     text-align: center;
     font-size: 14px;
     margin-bottom: 20px;
   }
-
   .contact-form .form-control {
     padding: 12px;
     font-size: 14px;
   }
-
   .form-status {
     min-height: 40px;
   }
-
   .status-message {
     padding: 10px 15px;
     font-size: 13px;
@@ -497,142 +500,150 @@
   .contact {
     padding-bottom: 40px;
   }
-
-  .section-title h2 {
-    font-size: 13px;
-  }
-
-  .section-title p {
-    font-size: 26px;
-  }
-
+  /* .section-title styles here might be too broad if SectionTitle is used elsewhere */
   .map-container {
     height: 250px;
     margin-bottom: 60px;
   }
-
   .contact-map {
     height: 250px;
   }
-
   .map-card {
     padding: 15px;
   }
-
   .map-card h3 {
     font-size: 18px;
   }
-
   .map-card p {
     font-size: 12px;
     margin-bottom: 12px;
   }
 
+  .info-card {
+    padding: 12px; /* Card padding */
+  }
   .info-item {
     display: flex;
     flex-direction: row;
+    align-items: flex-start; /* MODIFICATION: Align icon to the top of the text content block */
     text-align: left;
-    align-items: center;
+    /* Padding removed from here, handled by .info-card */
   }
-
   .icon-container {
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
     margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .icon-container i {
+    font-size: 18px;
   }
 
-  .icon-container i {
-    font-size: 20px;
+  .info-content {
+    flex-grow: 1;
+    min-width: 0;
+    /* justify-content: flex-start; /* If align-items on info-item is flex-start, this might not be needed or could be center */
+  }
+  .info-content h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .info-content p,
+  .info-content .hours-grid,
+  .info-content a {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .info-content p.text-muted {
+    font-size: 12px;
+  }
+  .hours-grid {
+    /* font-size: 12px; /* Already covered */
+    gap: 3px 8px;
+    line-height: 1.6;
+  }
+  .info-content a {
+    display: block;
+    word-break: break-all;
   }
 
   .contact-form-container {
     padding: 20px 15px;
   }
-
+  .contact-form-container h3 {
+    font-size: 20px;
+  }
   .contact-form label {
     font-size: 13px;
   }
-
   .contact-form .form-control {
     padding: 10px;
     font-size: 13px;
   }
-
   .contact-form button {
     width: 100%;
     justify-content: center;
     padding: 10px 15px;
     font-size: 14px;
   }
-
   .contact-form .row {
     margin-left: -5px;
     margin-right: -5px;
   }
-
   .contact-form .col-md-6 {
     padding-left: 5px;
     padding-right: 5px;
   }
-
   .form-group {
     margin-bottom: 15px;
   }
 }
 
-/* iPhone SE and other small devices */
 @media (max-width: 375px) {
   .map-container {
     height: 220px;
   }
-
   .contact-map {
     height: 220px;
   }
-
   .map-overlay {
     width: 95%;
     max-width: 95%;
   }
-
   .map-card {
     padding: 12px;
   }
-
   .map-card h3 {
     font-size: 16px;
   }
-
   .contact-form-container h3 {
     font-size: 20px;
   }
-
   .info-item {
-    padding: 12px;
+    padding: 10px;
+    align-items: flex-start; /* Consistent alignment */
   }
-
   .icon-container {
-    width: 45px;
-    height: 45px;
-    margin-right: 12px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
   }
-
   .icon-container i {
-    font-size: 18px;
-  }
-
-  .info-content h4 {
     font-size: 16px;
-    margin-bottom: 5px;
   }
-
-  .info-content p {
-    font-size: 13px;
+  .info-content h4 {
+    font-size: 15px;
   }
-
-  .hours-grid {
+  .info-content p,
+  .info-content .hours-grid,
+  .info-content a {
     font-size: 12px;
+  }
+  .info-content p.text-muted {
+    font-size: 11px;
+  }
+  .hours-grid {
     gap: 3px 8px;
   }
 }

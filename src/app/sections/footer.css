@@ -458,3 +458,16 @@
     margin: 0 auto;
   }
 }
+.footer-contact .contact-info-item .details a {
+  color: #aaa; /* Correspond à la couleur de votre <p> original */
+  text-decoration: none; /* Enlève le soulignement par défaut des liens */
+  font-size: 14px; /* Correspond à la taille de police de votre <p> original */
+  line-height: 1.5; /* Correspond à la hauteur de ligne de votre <p> original */
+  display: inline-block; /* Ou block si vous voulez qu'il prenne toute la largeur disponible */
+  transition: color 0.3s ease; /* Transition douce pour le survol */
+}
+
+.footer-contact .contact-info-item .details a:hover {
+  color: #cda45e; /* Couleur au survol (votre couleur d'accentuation) */
+  text-decoration: none; /* Garde le soulignement enlevé, ou ajoutez-le si vous préférez */
+}

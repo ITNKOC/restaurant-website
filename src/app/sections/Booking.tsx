@@ -172,13 +172,21 @@ export default function Booking() {
                   <div className="detail-item">
                     <i className="bi bi-clock-fill"></i>
                     <div>
-                      <h4>Opening Hours</h4>
+                      <h4>Opening Hours</h4>{" "}
+                      {/* Ou "Dining Room Hours" si vous préférez être plus spécifique ici aussi */}
                       <p>
-                        Tuesday - Thursday: 11:00 AM - 10:00 PM
+                        Tuesday: 11:00 AM - 8:00 PM
                         <br />
-                        Friday - Saturday: 11:00 AM - 11:00 PM
+                        Wednesday: 11:00 AM - 2:00 PM & 4:00 PM - 8:00 PM
                         <br />
-                        Sunday: 11:00 AM - 9:00 PM
+                        Thursday: 11:00 AM - 2:00 PM & 4:00 PM - 9:00 PM
+                        <br />
+                        Friday: 11:00 AM - 2:00 PM & 4:00 PM - 9:30 PM
+                        <br />
+                        Saturday: 4:00 PM - 9:30 PM
+                        <br />
+                        Sunday: 11:00 AM - 8:00 PM{" "}
+                        {/* Assurez-vous que "11:00 - 8:00pm" dans le footer est bien AM */}
                         <br />
                         Monday: Closed
                       </p>

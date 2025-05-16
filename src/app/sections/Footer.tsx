@@ -1,6 +1,8 @@
+// src/app/sections/Footer.tsx (ou votre chemin)
 import React from "react";
-import "./footer.css";
+import "./footer.css"; // Assurez-vous que ce chemin est correct
 import Image from "next/image";
+import ObfuscatedEmail from "../components/ObfuscatedEmail"; // <--- IMPORTATION AJOUTÉE (Ajustez le chemin si nécessaire)
 
 export default function Footer() {
   return (
@@ -66,7 +68,7 @@ export default function Footer() {
                 <i className="bi bi-telephone"></i>
                 <div className="details">
                   <h5>Phone</h5>
-                  <p>(514) 325-9222</p>
+                  <p>(514) 326-4200</p>
                 </div>
               </div>
 
@@ -74,7 +76,12 @@ export default function Footer() {
                 <i className="bi bi-envelope"></i>
                 <div className="details">
                   <h5>Email</h5>
-                  <p>info@dimenna.ca</p>
+                  <ObfuscatedEmail
+                    user="info"
+                    domain="dimenna"
+                    tld="com"
+                  />{" "}
+                  {/* <--- NOUVELLE LIGNE */}
                 </div>
               </div>
             </div>
@@ -87,19 +94,27 @@ export default function Footer() {
               <table className="hours-table">
                 <tbody>
                   <tr>
-                    <td>Sunday - Monday</td>
+                    <td>Monday</td>
                     <td>Closed</td>
                   </tr>
                   <tr>
                     <td>Tuesday</td>
-                    <td>11:00am - 2:00pm</td>
+                    <td>11:00am - 8:00pm</td>
                   </tr>
                   <tr>
-                    <td>Wednesday - Thursday</td>
+                    <td>Wednesday</td>
                     <td>
                       11:00am - 2:00pm
                       <br />
-                      4:30pm - 8:00pm
+                      4:00pm - 8:00pm
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Thursday</td>
+                    <td>
+                      11:00am - 2:00pm
+                      <br />
+                      4:00pm - 9:00pm
                     </td>
                   </tr>
                   <tr>
@@ -107,12 +122,17 @@ export default function Footer() {
                     <td>
                       11:00am - 2:00pm
                       <br />
-                      4:30pm - 9:00pm
+                      4:00pm - 9:30pm
                     </td>
                   </tr>
                   <tr>
                     <td>Saturday</td>
-                    <td>4:30pm - 9:00pm</td>
+                    <td>4:00pm - 9:30pm</td>
+                  </tr>
+                  <tr>
+                    <td>Sunday</td>
+                    <td>11:00am - 8:00pm</td>{" "}
+                    {/* Corrigé ici (manquait am/pm mais le vôtre est ok) */}
                   </tr>
                 </tbody>
               </table>
@@ -171,7 +191,12 @@ export default function Footer() {
                   <i className="bi bi-facebook"></i>
                 </a>
                 <a href="#" aria-label="TripAdvisor">
-                  <i className="bi bi-star"></i>
+                  {/* Note: TripAdvisor icon n'est pas standard dans Bootstrap Icons,
+                      vous pourriez avoir besoin d'un SVG ou d'une autre bibliothèque
+                      ou utiliser une étoile plus générique si bi-star n'est pas ce que vous attendez.
+                      Si bi-star fonctionne pour vous, c'est parfait. */}
+                  <i className="bi bi-star-fill"></i>{" "}
+                  {/* J'ai mis bi-star-fill pour plus de visibilité */}
                 </a>
                 <a href="#" aria-label="Google">
                   <i className="bi bi-google"></i>
@@ -186,7 +211,7 @@ export default function Footer() {
           <div className="row">
             <div className="col-lg-6">
               <p className="copyright">
-                &copy; {new Date().getFullYear()}{" "}
+                © {new Date().getFullYear()}{" "}
                 <strong>Di Menna Restaurant</strong>. All Rights Reserved.
               </p>
             </div>
