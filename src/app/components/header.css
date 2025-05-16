@@ -9,10 +9,19 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 997;
-  padding: 10px 0; /* Réduit un peu le padding pour mieux centrer verticalement */
+  padding: 10px 0; /* Hauteur initiale */
   top: 40px;
   position: fixed;
   width: 100%;
+}
+
+/* Assurer que le conteneur principal est bien un flex container et centre ses enfants */
+#header .container-fluid.container-xl {
+  display: flex;
+  align-items: center; /* Centrage vertical des enfants directs */
+  justify-content: space-between; /* Espacement des enfants directs */
+  width: 100%; /* S'assurer qu'il prend toute la largeur disponible */
+  height: 100%; /* S'assurer qu'il prend toute la hauteur de #header */
 }
 
 #header.header-scrolled {
@@ -20,7 +29,7 @@
   background: rgba(10, 9, 7, 0.9);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 8px 0; /* Réduit aussi ici */
+  padding: 8px 0; /* Hauteur réduite quand scrollé */
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
 }
 
@@ -34,13 +43,16 @@
 }
 
 .logo-container {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
+  display: flex; /* Est déjà flex */
+  align-items: center; /* Est déjà là, parfait */
+  flex-shrink: 0; /* Bien */
+  /* Pour le débogage, on pourrait ajouter une bordure pour voir ses dimensions */
+  /* border: 1px solid red; */
 }
 
 #header .logo {
-  display: block;
+  display: flex; /* MODIFICATION: S'assurer que le lien lui-même est un conteneur flex */
+  align-items: center; /* MODIFICATION: Centrer l'image dans le lien */
   line-height: 1;
   transition: opacity 0.3s ease;
 }
@@ -49,8 +61,9 @@
 }
 
 #header .logo img {
-  max-height: 38px; /* Ajuster cette valeur pour l'alignement vertical */
+  max-height: 38px; /* Hauteur max de l'image */
   width: auto;
+  display: block; /* Empêche l'espace en dessous de l'image si elle est traitée comme inline */
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     filter 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -63,46 +76,62 @@
 .navigation-wrapper {
   display: flex;
   align-items: center; /* Essentiel pour centrer le hamburger verticalement */
-  margin-left: auto; /* Pousse le Nav (hamburger sur mobile, nav sur desktop) vers la droite */
+  margin-left: auto; /* Pousse le Nav vers la droite en mobile */
+  /* Pour le débogage, on pourrait ajouter une bordure pour voir ses dimensions */
+  /* border: 1px solid blue; */
+  height: 100%; /* MODIFICATION: S'assurer que le wrapper prend la hauteur du parent */
 }
+
+/* Le composant Nav lui-même (à l'intérieur de .navigation-wrapper)
+   doit aussi s'assurer que son contenu (le bouton hamburger) est centré.
+   Cela se fait généralement dans nav.css.
+   Ex: #navbar (dans nav.css) pourrait avoir display:flex; align-items:center;
+*/
 
 @media (min-width: 992px) {
   /* Desktop (lg breakpoint) */
   .navigation-wrapper {
-    margin-left: 0; /* Réinitialiser pour desktop car order-* et justify-content-between s'en occupent */
-    /* Si tu veux que la nav desktop soit collée à droite AVANT le CTA, tu peux ajouter : */
-    /* margin-left: auto; */
-    /* margin-right: 20px; /* Espace avant le CTA */
+    margin-left: 0;
+    /* Le height: 100% peut ne pas être nécessaire ici, mais ne devrait pas nuire */
   }
 }
 
 .header-cta {
   gap: 15px;
+  display: flex; /* Assurer que c'est un flex container */
+  align-items: center; /* Centrer le bouton CTA verticalement */
+  height: 100%; /* MODIFICATION: S'assurer que le wrapper prend la hauteur du parent */
 }
 
 @media (max-width: 991px) {
   #header {
-    padding: 8px 0; /* Ajuster padding pour la hauteur */
+    padding: 8px 0;
   }
   #header.header-scrolled {
-    padding: 6px 0; /* Ajuster padding */
+    padding: 6px 0;
   }
   #header .logo img {
-    max-height: 34px; /* Ajuster */
+    max-height: 34px;
+  }
+  /* Assurer que les wrappers prennent la hauteur même sur mobile */
+  .logo-container,
+  .navigation-wrapper,
+  .header-cta {
+    /* height: 100%; /* Commenté car peut-être trop restrictif, le padding de #header devrait suffire */
   }
 }
 
 @media (max-width: 768px) {
   #header {
-    padding: 8px 0; /* Ajuster padding */
+    padding: 8px 0;
     top: 32px;
   }
   #header.header-scrolled {
     top: 0;
-    padding: 6px 0; /* Ajuster padding */
+    padding: 6px 0;
   }
   #header .logo img {
-    max-height: 30px; /* Ajuster */
+    max-height: 30px;
   }
   #header .container-fluid.container-xl {
     padding-left: 15px;
