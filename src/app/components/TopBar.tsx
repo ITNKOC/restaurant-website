@@ -1,3 +1,4 @@
+// src/app/components/TopBar.tsx
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -13,20 +14,20 @@ interface SocialLink {
 interface Language {
   code: string;
   name: string;
-  flag: string; // Added for image path
+  flag: string;
 }
 
 export default function TopBar() {
-  const [scrolled, setScrolled] = useState(false); // Changed from 'scroll' to 'scrolled' boolean
-  const [currentTime, setCurrentTime] = useState("");
-  const [isMobile, setIsMobile] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // This state is key
+  // PAS besoin de 'scrolled' ici, on va se baser sur la visibilité du header principal
+  // const [scrolled, setScrolled] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Nouvel état
+  const [mainNavMenuOpen, setMainNavMenuOpen] = useState(false); // Pour le menu de Nav.tsx
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<Language>({
     code: "FR",
     name: "Français",
     flag: "fr",
-  }); // Store object
+  });
   const languageDropdownRef = useRef<HTMLDivElement>(null);
 
   const socialLinks: SocialLink[] = [
@@ -42,175 +43,144 @@ export default function TopBar() {
       url: "https://instagram.com/dimennarestaurant",
       label: "Instagram",
     },
-    {
-      id: 3,
-      icon: "twitter",
-      url: "https://twitter.com/dimennarestaurant",
-      label: "Twitter",
-    },
   ];
 
   const availableLanguages: Language[] = [
     { code: "FR", name: "Français", flag: "fr" },
     { code: "EN", name: "English", flag: "en" },
-    { code: "JP", name: "日本語", flag: "jp" },
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 100); // Set boolean based on scroll position
+    const mainHeaderElement = document.getElementById("header"); // Le header principal
+    const mainNavbarElement = document.getElementById("navbar"); // L'élément nav dans Header.tsx
+
+    const checkHeaderVisibility = () => {
+      if (mainHeaderElement) {
+        // Le header est visible s'il n'a PAS la classe 'header-hidden'
+        setIsHeaderVisible(
+          !mainHeaderElement.classList.contains("header-hidden")
+        );
+      }
     };
 
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    const checkMenuState = () => {
-      // Check if the body has the class 'mobile-nav-active' (set by Nav.tsx)
-      // Or check the navbar element directly
-      const navbarMobileActive =
-        document.body.classList.contains("mobile-nav-active") ||
-        document.querySelector(".navbar-mobile.active");
-      setMenuOpen(!!navbarMobileActive);
+    const checkMainNavMenuState = () => {
+      if (mainNavbarElement) {
+        setMainNavMenuOpen(
+          mainNavbarElement.classList.contains("mobile-menu-active")
+        );
+      }
     };
 
     const handleClickOutside = (event: MouseEvent) => {
       if (
         languageDropdownRef.current &&
-        !languageDropdownRef.current.contains(event.target as Node) &&
-        showLanguageDropdown
+        !languageDropdownRef.current.contains(event.target as Node)
       ) {
         setShowLanguageDropdown(false);
       }
     };
 
-    handleScroll();
-    handleResize();
-    updateTime();
-    checkMenuState(); // Initial check
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize, { passive: true });
+    // Initialisations
+    checkHeaderVisibility();
+    checkMainNavMenuState();
+    window.addEventListener("scroll", checkHeaderVisibility, { passive: true }); // Vérifier au scroll aussi
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Use MutationObserver for more reliable menu state checking if class is added/removed from body or navbar
-    const observer = new MutationObserver(checkMenuState);
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    const navbarElement = document.getElementById("navbar");
-    if (navbarElement) {
-      observer.observe(navbarElement, {
+    let headerObserver: MutationObserver | null = null;
+    if (mainHeaderElement) {
+      headerObserver = new MutationObserver(checkHeaderVisibility);
+      headerObserver.observe(mainHeaderElement, {
         attributes: true,
         attributeFilter: ["class"],
       });
     }
 
-    const timeInterval = setInterval(updateTime, 60000);
+    let navObserver: MutationObserver | null = null;
+    if (mainNavbarElement) {
+      navObserver = new MutationObserver(checkMainNavMenuState);
+      navObserver.observe(mainNavbarElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", checkHeaderVisibility);
       document.removeEventListener("mousedown", handleClickOutside);
-      observer.disconnect();
-      clearInterval(timeInterval);
+      if (headerObserver) headerObserver.disconnect();
+      if (navObserver) navObserver.disconnect();
     };
-  }, [showLanguageDropdown]);
-
-  const updateTime = () => {
-    const now = new Date();
-    // Consider locale for time formatting if you have multi-language
-    setCurrentTime(
-      now.toLocaleTimeString(
-        selectedLanguage.code === "FR" ? "fr-CA" : "en-US",
-        { hour: "2-digit", minute: "2-digit", hour12: false }
-      )
-    );
-  };
+  }, []);
 
   const handleLanguageChange = (language: Language) => {
     setSelectedLanguage(language);
     setShowLanguageDropdown(false);
-    // Here you would typically i18n.changeLanguage(language.code);
     console.log("Language changed to:", language.code);
-    updateTime(); // Update time format if necessary
+  };
+
+  const toggleLanguageDropdown = () => {
+    setShowLanguageDropdown(!showLanguageDropdown);
   };
 
   return (
-    <header // Changed div to header for semantics, ensure it's the actual top bar
+    <header
       id="topbar"
       className={`d-flex align-items-center fixed-top ${
-        scrolled ? "topbar-scrolled" : ""
-      } ${isMobile ? "mobile-topbar" : ""} ${menuOpen ? "menu-is-open" : ""}`}
+        !isHeaderVisible && !mainNavMenuOpen ? "topbar-hidden" : "" // Nouvelle classe pour cacher
+      } ${mainNavMenuOpen ? "topbar-menu-open" : ""}`}
     >
       <div className="container d-flex justify-content-between align-items-center">
-        <div className="contact-info d-flex align-items-center">
+        {/* Contact Info - Visible à partir de SM (small) */}
+        <div className="contact-info d-none d-sm-flex align-items-center">
           <div className="info-item">
             <i className="bi bi-phone-fill"></i>
-            <span>+1 (514) 325-9222</span>
-          </div>
-          <div className="info-item">
-            <i className="bi bi-clock-fill"></i>
-            <span>Mar-Sam: 11h - 21h</span>
-          </div>
-          <div className="info-item d-none d-md-flex">
-            <i className="bi bi-geo-alt-fill"></i>
-            <span>6313 rue Jarry Est, Montréal</span>
+            <a href="tel:+15143264200">+1 (514) 326-4200</a>
           </div>
         </div>
 
+        {/* Right side: Social links & Language selector */}
+        {/* Sur XS, ce conteneur sera poussé à droite car contact-info est caché */}
         <div className="topbar-right d-flex align-items-center">
-          {!isMobile && ( // Hide time and social on very small screens if needed, or use d-none d-sm-flex
-            <>
-              <div className="current-time d-none d-lg-flex me-3">
-                {" "}
-                {/* Changed to d-lg-flex */}
-                <i className="bi bi-clock"></i>
-                <span>{currentTime}</span>
-              </div>
-              <div className="social-links d-none d-lg-flex align-items-center me-3">
-                {" "}
-                {/* Changed to d-lg-flex */}
-                {socialLinks.map((link) => (
-                  <a
-                    href={link.url}
-                    key={link.id}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visitez notre page ${link.label}`}
-                    title={link.label} // Added title
-                  >
-                    <i className={`bi bi-${link.icon}`}></i>
-                  </a>
-                ))}
-              </div>
-            </>
-          )}
+          {/* Social Links - Visible à partir de SM */}
+          <div className="social-links d-none d-sm-flex align-items-center me-sm-2 me-md-3">
+            {socialLinks.map((link) => (
+              <a
+                href={link.url}
+                key={link.id}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+                title={link.label}
+              >
+                <i className={`bi bi-${link.icon}`}></i>
+              </a>
+            ))}
+          </div>
 
+          {/* Language Selector - Toujours visible */}
           <div
             className="languages"
             ref={languageDropdownRef}
-            onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+            onClick={toggleLanguageDropdown}
+            // ... (props onKeyDown, tabIndex, role, aria-* inchangées) ...
             onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ")
-                setShowLanguageDropdown(!showLanguageDropdown);
+              if (e.key === "Enter" || e.key === " ") toggleLanguageDropdown();
               if (e.key === "Escape" && showLanguageDropdown)
                 setShowLanguageDropdown(false);
             }}
             tabIndex={0}
             role="button"
-            aria-haspopup="listbox" // More appropriate for language selection
+            aria-haspopup="listbox"
             aria-expanded={showLanguageDropdown}
-            aria-label="Sélectionnez une langue"
+            aria-label="Select language"
           >
             <div className="selected-language">
               <span
-                className={`flag flag-${selectedLanguage.flag.toLowerCase()} me-2`}
+                className={`flag flag-${selectedLanguage.flag.toLowerCase()} me-1`}
               ></span>
               <span>{selectedLanguage.code}</span>
               <i
-                className={`bi bi-chevron-down ms-1 ${
+                className={`bi bi-chevron-down ms-1 icon-chevron ${
                   showLanguageDropdown ? "rotate-180" : ""
                 }`}
               ></i>
@@ -219,31 +189,29 @@ export default function TopBar() {
             {showLanguageDropdown && (
               <ul
                 className="language-dropdown"
-                role="listbox" // ARIA role
-                aria-activedescendant={selectedLanguage.code} // Points to current selection
+                role="listbox"
+                aria-label="Available languages"
               >
                 {availableLanguages.map((lang) => (
                   <li
                     key={lang.code}
                     role="option"
-                    id={lang.code} // For aria-activedescendant
                     aria-selected={selectedLanguage.code === lang.code}
+                    className={
+                      selectedLanguage.code === lang.code ? "active-lang" : ""
+                    }
                   >
-                    <a
-                      href="#"
+                    <button
                       onClick={(e) => {
-                        e.preventDefault();
+                        e.stopPropagation();
                         handleLanguageChange(lang);
                       }}
-                      className={
-                        selectedLanguage.code === lang.code ? "active" : ""
-                      }
                     >
                       <span
                         className={`flag flag-${lang.flag.toLowerCase()}`}
                       ></span>
                       {lang.name}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>

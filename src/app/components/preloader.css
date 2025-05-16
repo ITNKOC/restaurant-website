@@ -1,46 +1,90 @@
-/*--------------------------------------------------------------
-# Preloader
---------------------------------------------------------------*/
-#preloader {
+/* preloader.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700&display=swap");
+
+#preloader.preloader-reveal {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   z-index: 9999;
   overflow: hidden;
-  background: #1a1814;
+  /* Pas de fond ici, les panneaux s'en chargeront */
+  display: flex; /* Pour centrer preloader-center-content */
+  align-items: center;
+  justify-content: center;
 }
 
-#preloader:before {
-  content: '';
+.preloader-panel {
   position: fixed;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
-  border: 6px solid #1a1814;
-  border-top-color: #cda45e;
-  border-bottom-color: #cda45e;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  -webkit-animation: animate-preloader 1s linear infinite;
-  animation: animate-preloader 1s linear infinite;
+  top: 0;
+  width: 50.5%; /* Légèrement plus de 50% pour assurer un chevauchement sans espace */
+  height: 100%;
+  background: #0c0b09; /* Votre fond sombre principal */
+  z-index: 10000;
+  transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1); /* Transition douce */
 }
 
-@-webkit-keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.preloader-panel-left {
+  left: 0;
+  transform: translateX(0);
 }
 
-@keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
+.preloader-panel-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+#preloader.preloader-hidden .preloader-panel-left {
+  transform: translateX(-100%);
+}
+
+#preloader.preloader-hidden .preloader-panel-right {
+  transform: translateX(100%);
+}
+
+.preloader-center-content {
+  z-index: 10001; /* Au-dessus des panneaux pendant qu'ils sont visibles */
+  opacity: 1;
+  transition: opacity 0.4s ease-out;
+  /* Style pour le texte ou logo au centre */
+}
+
+.preloader-brand-name {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem; /* Ajustez */
+  font-weight: 700;
+  color: #cda45e;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeInBrandName 0.7s cubic-bezier(0.77, 0, 0.175, 1) 0.2s forwards,
+    fadeOutBrandName 0.4s cubic-bezier(0.77, 0, 0.175, 1) 1s forwards; /* Apparaît puis disparaît */
+  filter: drop-shadow(0 0 8px rgba(205, 164, 94, 0.4));
+}
+
+#preloader.preloader-hidden .preloader-center-content {
+  opacity: 0;
+  transition-delay: 0s; /* Disparaît rapidement quand le preloader est caché */
+}
+
+@keyframes fadeInBrandName {
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  100% {
-    transform: rotate(360deg);
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+@keyframes fadeOutBrandName {
+  to {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  from {
+    opacity: 1;
+    transform: scale(1);
   }
 }

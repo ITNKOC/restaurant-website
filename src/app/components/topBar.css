@@ -1,357 +1,296 @@
-/*--------------------------------------------------------------
-# Top Bar
---------------------------------------------------------------*/
+/* topBar.css */
+
+/* ... (styles pour les drapeaux en haut si nécessaire) ... */
+
 #topbar {
   height: 40px;
-  font-size: 14px;
-  transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
-  z-index: 996;
-  background: rgba(12, 12, 12, 0.75); /* Slightly darker */
+  font-size: 13px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease,
+    border-color 0.3s ease, backdrop-filter 0.3s ease; /* Transition pour le transform aussi */
+  z-index: 998;
+  background: rgba(12, 11, 9, 0.85);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Softer border */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   position: fixed;
   width: 100%;
   top: 0;
+  color: #e0e0e0;
 }
 
-#topbar.topbar-scrolled {
-  top: -45px; /* Ensure it hides completely */
-  /* Or if you want it to shrink or change background:
-  height: 35px;
-  background: rgba(0,0,0,0.85); 
-  */
+/* Nouvelle classe pour cacher la topbar en synchronisation avec le header principal */
+#topbar.topbar-hidden {
+  transform: translateY(-100%);
 }
 
-/* Contact Info Section */
+/* Quand le menu mobile principal (Nav.tsx) est ouvert */
+#topbar.topbar-menu-open {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  /* Le transform ne doit pas être affecté ici, car le header principal est toujours visible */
+}
+
+#topbar .container {
+  height: 100%;
+  /* justify-content-between est dans le JSX */
+}
+
+/* Contact Info */
 .contact-info {
-  display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping if space is tight, rely on media queries */
-  gap: 15px; /* Reduced gap */
+  /* d-none d-sm-flex dans JSX */
+  flex-shrink: 0; /* Pour s'assurer qu'il ne se compresse pas */
 }
 
 .info-item {
   display: flex;
   align-items: center;
-  transition: opacity 0.3s ease; /* Smooth transition if hidden */
 }
 
-#topbar .contact-info i {
+.info-item i {
   color: #cda45e;
-  font-size: 15px; /* Slightly smaller */
-  margin-right: 6px; /* Reduced margin */
-  transition: transform 0.3s ease;
+  font-size: 14px;
+  margin-right: 7px;
+  line-height: 1;
 }
 
-#topbar .info-item:hover i {
-  transform: scale(1.15); /* Slightly more pronounced hover */
+.info-item span,
+.info-item a {
+  color: #d4d4d4;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+.info-item a:hover {
+  color: #cda45e;
 }
 
-#topbar .contact-info span {
-  color: #e0e0e0; /* Lighter than pure white */
-  font-weight: 400; /* Normal weight */
-  font-size: 0.875rem; /* 14px */
+/* Topbar Right (Social + Language) */
+.topbar-right {
+  /* Sur XS, ce sera le seul enfant visible du container.
+     Pour le pousser à droite, on peut utiliser margin-left: auto
+     OU s'assurer que le container le fait.
+     Si .container a justify-content-between et qu'il n'y a qu'un enfant (topbar-right),
+     il ne sera pas forcément à droite.
+     Une solution est de s'assurer que sur XS, topbar-right est le seul enfant ET que le container est flex-end
+     OU que topbar-right a margin-left: auto;
+  */
 }
 
 /* Social Links */
 .social-links {
+  /* d-none d-sm-flex dans JSX */
   display: flex;
-  gap: 10px; /* Reduced gap */
-  /* margin-right: 15px; /* Reduced margin */
+  align-items: center;
+  gap: 10px; /* Gap entre les icônes sociales elles-mêmes */
+  /* me-sm-2 me-md-3 dans JSX gère la marge entre social et langue */
 }
 
 .social-links a {
-  color: #e0e0e0;
-  width: 30px; /* Slightly larger touch target */
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08); /* Softer background */
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.social-links a::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #cda45e;
-  transform: scale(0); /* Start scaled down */
-  transform-origin: center;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
-  z-index: 0;
-}
-
-.social-links a:hover::before {
-  transform: scale(1);
-}
-
-.social-links a i {
-  position: relative;
-  z-index: 1;
-  transition: color 0.3s ease; /* Transition icon color */
-  font-size: 0.9rem;
+  color: #b0b0b0;
+  font-size: 16px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  line-height: 1;
 }
 
 .social-links a:hover {
-  /* transform: translateY(-2px); /* Subtle lift */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-.social-links a:hover i {
-  color: #1a1814; /* Dark icon on gold background */
-}
-
-/* Current Time Display */
-.current-time {
-  display: flex;
-  align-items: center;
-  padding: 0 10px; /* Reduced padding */
-  /* border-right: 1px solid rgba(255, 255, 255, 0.1); */ /* Optional: remove border */
-}
-
-.current-time i {
   color: #cda45e;
-  font-size: 15px;
-  margin-right: 6px;
+  transform: scale(1.15);
 }
 
-.current-time span {
-  color: #e0e0e0;
-  font-weight: 400;
-  font-size: 0.875rem;
-}
-
-/* Language Selector */
+/* Language Selector (styles inchangés, devraient déjà être OK) */
+/* ... vos styles existants pour .languages, .selected-language, .language-dropdown ... */
 .languages {
   position: relative;
-  /* margin-left: 10px; */ /* Reduced margin */
   cursor: pointer;
+  user-select: none;
 }
 
 .selected-language {
   display: flex;
   align-items: center;
-  color: #e0e0e0;
-  padding: 6px 10px; /* Adjusted padding */
-  border-radius: 20px; /* Pill shape */
-  transition: background-color 0.3s ease;
-  border: 1px solid transparent; /* Placeholder for focus */
-}
-.selected-language:hover,
-.languages:focus-within .selected-language {
-  /* Style when focused */
-  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  border: 1px solid transparent;
 }
 
-.selected-language span {
-  margin-right: 5px;
-  font-weight: 500;
-  font-size: 0.875rem;
+.languages:hover .selected-language,
+.languages.focused .selected-language {
+  background-color: rgba(255, 255, 255, 0.08);
 }
+
 .selected-language .flag {
-  /* For flag in selected view */
-  display: inline-block;
   width: 18px;
   height: 13px;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 2px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
-.selected-language i {
-  /* Chevron */
-  font-size: 12px;
-  transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+.selected-language span {
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 1;
 }
 
-.languages .selected-language i.rotate-180 {
-  /* Class from JS for rotation */
+.selected-language .icon-chevron {
+  font-size: 11px;
+  transition: transform 0.25s ease-out;
+}
+
+.selected-language .icon-chevron.rotate-180 {
   transform: rotate(180deg);
 }
 
 .language-dropdown {
   position: absolute;
-  top: calc(100% + 5px); /* Position below with small gap */
+  top: calc(100% + 4px);
   right: 0;
-  background: rgba(20, 20, 20, 0.95); /* Darker dropdown */
-  backdrop-filter: blur(10px);
-  border-radius: 8px; /* Softer radius */
+  background: #181613;
+  border: 1px solid rgba(205, 164, 94, 0.2);
+  border-radius: 6px;
   list-style: none;
-  padding: 8px 0;
-  min-width: 150px; /* Ensure enough width */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  padding: 5px 0;
+  margin: 0;
+  min-width: 140px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px) scale(0.95);
-  transform-origin: top right;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
-  z-index: 10000; /* Ensure it's on top */
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease,
+    visibility 0s linear 0.25s;
+  z-index: 10;
 }
 
-.languages:hover .language-dropdown, /* For mouse hover */
-.languages:focus-within .language-dropdown {
-  /* For keyboard focus */
+.languages[aria-expanded="true"] .language-dropdown {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0s;
+  transform: translateY(0);
+  transition-delay: 0s, 0s, 0s;
 }
 
-.language-dropdown li {
-  padding: 0;
-  margin: 0;
-}
-
-.language-dropdown a {
-  display: flex; /* Align items like flag and text */
+.language-dropdown li button {
+  display: flex;
   align-items: center;
-  padding: 10px 15px; /* More padding */
-  color: #e0e0e0;
-  transition: all 0.2s ease; /* Faster transition */
-  font-size: 14px;
-  text-decoration: none;
+  width: 100%;
+  padding: 8px 15px;
+  background: none;
+  border: none;
+  color: #d4d4d4;
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
   white-space: nowrap;
 }
 
-.language-dropdown a:hover {
-  background: rgba(205, 164, 94, 0.15);
+.language-dropdown li button:hover,
+.language-dropdown li button:focus {
+  background-color: rgba(205, 164, 94, 0.15);
   color: #cda45e;
-  /* padding-left: 20px; /* Indent on hover (optional) */
+  outline: none;
 }
 
-.language-dropdown a.active {
-  background: rgba(205, 164, 94, 0.25); /* More distinct active state */
+.language-dropdown li.active-lang button {
+  background-color: rgba(205, 164, 94, 0.25);
   color: #cda45e;
-  font-weight: 600; /* Bolder active */
+  font-weight: 500;
 }
 
-/* Flags in dropdown */
-.language-dropdown a .flag {
-  display: inline-block;
-  width: 20px; /* Slightly larger flag */
-  height: 15px;
-  margin-right: 10px; /* More space next to flag */
-  background-size: contain;
+.language-dropdown .flag {
+  width: 18px;
+  height: 13px;
+  margin-right: 8px;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 2px; /* Subtle border radius */
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  border-radius: 2px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
 .flag.flag-en {
   background-image: url("/assets/images/flag-en.png");
-} /* Ensure path is correct */
+}
 .flag.flag-fr {
   background-image: url("/assets/images/flag-fr.png");
 }
-.flag.flag-jp {
-  background-image: url("/assets/images/flag-jp.png");
+
+/* Responsive Adjustments */
+@media (max-width: 575px) {
+  /* Breakpoint sm - Extra small mobile (XS) */
+  #topbar .container {
+    /* Sur XS, .contact-info et .social-links sont cachés par d-none d-sm-flex.
+       Seul .topbar-right avec .languages à l'intérieur est visible.
+       Pour le pousser à droite: */
+    justify-content: flex-end !important; /* Force l'alignement à droite */
+  }
 }
 
-/* Responsive styles */
-@media (max-width: 992px) {
+@media (min-width: 576px) {
+  /* Breakpoint sm - Small et plus grand */
+  #topbar .container {
+    /* justify-content-between est déjà la classe par défaut dans le JSX
+       et s'appliquera à partir de cette taille (ou md si vous l'aviez mis comme ça) */
+  }
+}
+
+@media (max-width: 767px) {
+  /* Styles généraux pour mobile (md et en dessous) */
   #topbar {
-    height: auto;
-    padding: 10px 0; /* Increased padding for auto height */
+    height: auto; /* Permet un retour à la ligne si nécessaire, bien que nous essayions de l'éviter */
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .info-item span,
+  .info-item a {
+    font-size: 11px;
+  }
+  .info-item i {
+    font-size: 13px;
+    margin-right: 5px;
   }
 
-  .contact-info {
-    justify-content: center;
-    gap: 10px 20px; /* row-gap column-gap for wrapping */
-    flex-wrap: wrap;
-  }
-
-  .topbar-right {
-    /* display: none !important; /* This hides language too, reconsider */
-  }
-  .current-time,
   .social-links {
-    display: none !important; /* Hide these specifically */
+    gap: 8px;
+  }
+  .social-links a {
+    font-size: 15px;
   }
 
-  #topbar.topbar-scrolled {
-    transform: translateY(-100%); /* Ensure it hides fully */
+  .selected-language .flag {
+    width: 16px;
+    height: 12px;
   }
-}
-
-@media (max-width: 768px) {
-  #topbar {
-    height: auto; /* Allow content to define height */
-    padding: 8px 0;
+  .selected-language span {
+    font-size: 0.75rem;
+  }
+  .language-dropdown {
+    min-width: 120px;
+  }
+  .language-dropdown li button {
+    padding: 7px 12px;
     font-size: 12px;
   }
-
-  #topbar.mobile-topbar {
-    background: rgba(0, 0, 0, 0.9); /* Darker on mobile */
-  }
-
-  .contact-info {
-    width: 100%;
-    justify-content: center; /* Center items when they wrap */
-    padding: 0 10px;
-    gap: 8px 15px; /* Smaller gaps on mobile */
-  }
-
-  /* Show only first two contact items on small mobile, or let them wrap */
-  .contact-info .info-item:nth-child(n + 3) {
-    /* display: none; */ /* Reconsider, wrapping might be better */
-  }
-
-  #topbar .contact-info span {
-    font-size: 11px;
-    /* white-space: nowrap; */ /* Allow wrapping */
-  }
-
-  .container {
-    /* Ensure container padding is consistent */
-    padding-left: 15px;
-    padding-right: 15px;
+  .language-dropdown .flag {
+    width: 16px;
+    height: 12px;
+    margin-right: 6px;
   }
 }
 
-/* Animation for topbar content (subtle) */
-#topbar .container > * {
-  /* Animate direct children of container */
-  animation: fadeIn Subtle 0.6s ease-out forwards;
-  opacity: 0;
-}
-@keyframes fadeInSubtle {
-  to {
-    opacity: 1;
-  }
-}
-
-/* Accessibility focus styles */
+/* Styles pour l'accessibilité au focus (inchangés) */
 #topbar a:focus-visible,
-.languages:focus-visible .selected-language {
-  /* target .selected-language for focus on parent */
+.languages:focus-visible .selected-language,
+.language-dropdown li button:focus-visible {
   outline: 2px solid #cda45e;
-  outline-offset: 2px;
-  /* border-radius applied to elements already */
+  outline-offset: 1px;
+  border-radius: 3px;
 }
-.language-dropdown a:focus-visible {
+.language-dropdown li button:focus-visible {
   background-color: rgba(205, 164, 94, 0.2);
   color: #cda45e;
-}
-
-/* Menu open state */
-#topbar.menu-is-open {
-  background: transparent !important; /* Important to override other backgrounds */
-  border-bottom-color: transparent !important;
-  backdrop-filter: none !important;
-  /* This makes topbar invisible, letting mobile nav background show */
-  /* Alternatively, make it semi-transparent:
-  background: rgba(12, 12, 12, 0.3) !important;
-  backdrop-filter: blur(4px) !important;
-  */
-  transition: background 0.3s ease, border-color 0.3s ease,
-    backdrop-filter 0.3s ease; /* Smooth transition */
 }

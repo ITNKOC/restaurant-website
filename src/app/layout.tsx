@@ -83,7 +83,7 @@ export default function RootLayout({
           <LoadingScreen />
         ) : (
           <>
-            {/* <TopBar /> */}
+            <TopBar />
             <Header />
             <main id="main">{children}</main>
             <Footer />
