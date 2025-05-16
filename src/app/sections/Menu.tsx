@@ -3,13 +3,25 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import styles from "./menu.module.css";
-import { useMenus, MenuFile } from "../hooks/useMenus";
+import { useMenus, MenuFile } from "../hooks/useMenus"; // Assurez-vous que ce chemin est correct
 
+// MENU_TYPES mis à jour comme ci-dessus
 const MENU_TYPES = {
   RESTAURANT: "restaurant",
   DELIVERY: "delivery",
+  GROUP: "group",
+  SPECIAL: "special",
   ALCOHOL: "alcohol",
 };
+
+// Configuration des onglets pour faciliter le mappage
+const tabConfigurations = [
+  { key: MENU_TYPES.RESTAURANT, label: "Restaurant Menu" },
+  { key: MENU_TYPES.DELIVERY, label: "Delivery Menu" },
+  { key: MENU_TYPES.GROUP, label: "Group Menus" },
+  { key: MENU_TYPES.SPECIAL, label: "Special Offers" }, // ou "Seasonal Menus"
+  { key: MENU_TYPES.ALCOHOL, label: "Wine & Spirits" },
+];
 
 export default function MenuPage() {
   const [activeTab, setActiveTab] = useState(MENU_TYPES.RESTAURANT);
@@ -17,18 +29,9 @@ export default function MenuPage() {
 
   const filteredFiles = menuFiles.filter((file) => file.type === activeTab);
 
-  const getTabDisplayName = (tabKey: string) => {
-    switch (tabKey) {
-      case MENU_TYPES.RESTAURANT:
-        return "Restaurant Menu";
-      case MENU_TYPES.DELIVERY:
-        return "Delivery Menu";
-      case MENU_TYPES.ALCOHOL:
-        return "Wine & Spirits";
-      default:
-        return "Menu";
-    }
-  };
+  // La fonction getTabDisplayName n'est plus nécessaire si on utilise tabConfigurations.find
+  const currentTabLabel =
+    tabConfigurations.find((tab) => tab.key === activeTab)?.label || "Menu";
 
   return (
     <>
@@ -36,8 +39,9 @@ export default function MenuPage() {
         <title>Our Menus | DiMenna Restaurant</title>
         <meta
           name="description"
-          content="Explore our restaurant, delivery, and beverage menus at DiMenna Restaurant."
+          content="Explore our restaurant, delivery, group, special, and beverage menus at DiMenna Restaurant."
         />
+        {/* Vos liens de polices... */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -50,17 +54,7 @@ export default function MenuPage() {
         />
       </Head>
 
-      {/*
-        Vous pouvez ajouter l'ID "menu" ici, au conteneur principal.
-        OU vous pouvez décider que la section "menu-content" EST la section "menu".
-        Pour la simplicité et pour correspondre à ce que le bouton Hero recherche,
-        je vais l'ajouter au conteneur global de cette "page" de menu.
-        Si ce composant est lui-même une section, ce serait sur son élément racine.
-        Étant donné que vous avez un className={styles.menuPageContainer}, je vais l'ajouter là.
-      */}
       <div id="menu" className={styles.menuPageContainer}>
-        {" "}
-        {/* <--- MODIFICATION ICI */}
         <section id="menu-header" className={styles.menuHeader}>
           <div className="container">
             <div className="row justify-content-center text-center">
@@ -68,50 +62,62 @@ export default function MenuPage() {
                 <h1>Our Culinary Selections</h1>
                 <p>
                   Discover our carefully crafted menus, offering a taste of
-                  authentic Italian tradition.
+                  authentic Italian tradition for every occasion.
                 </p>
               </div>
             </div>
           </div>
         </section>
+
         <section id="menu-content-inner" className={styles.menuContent}>
-          {" "}
-          {/* J'ai renommé cet ID pour éviter confusion, si besoin */}
           <div className="container">
             <div className={styles.tabs}>
-              <button
-                className={`${styles.tab} ${
-                  activeTab === MENU_TYPES.RESTAURANT ? styles.activeTab : ""
-                }`}
-                onClick={() => setActiveTab(MENU_TYPES.RESTAURANT)}
-                disabled={loading}
-              >
-                {getTabDisplayName(MENU_TYPES.RESTAURANT)}
-              </button>
-              <button
-                className={`${styles.tab} ${
-                  activeTab === MENU_TYPES.DELIVERY ? styles.activeTab : ""
-                }`}
-                onClick={() => setActiveTab(MENU_TYPES.DELIVERY)}
-                disabled={loading}
-              >
-                {getTabDisplayName(MENU_TYPES.DELIVERY)}
-              </button>
-              <button
-                className={`${styles.tab} ${
-                  activeTab === MENU_TYPES.ALCOHOL ? styles.activeTab : ""
-                }`}
-                onClick={() => setActiveTab(MENU_TYPES.ALCOHOL)}
-                disabled={loading}
-              >
-                {getTabDisplayName(MENU_TYPES.ALCOHOL)}
-              </button>
+              {tabConfigurations.map((tab) => (
+                <button
+                  key={tab.key}
+                  className={`${styles.tab} ${
+                    activeTab === tab.key ? styles.activeTab : ""
+                  }`}
+                  onClick={() => setActiveTab(tab.key)}
+                  disabled={loading}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
 
+            {/* Section d'introduction pour les menus de groupe */}
+            {activeTab === MENU_TYPES.GROUP && !loading && (
+              <div className={styles.groupMenuIntro}>
+                <h2>Planning an Event?</h2>
+                <p>
+                  Our group menus are perfectly designed for your special
+                  occasions, corporate events, or family gatherings. Explore our
+                  curated selections to make your event memorable. For
+                  personalized arrangements or larger parties, please{" "}
+                  <a href="#contact">contact us</a>.{" "}
+                  {/* Assurez-vous d'avoir une section contact avec id="contact" */}
+                </p>
+              </div>
+            )}
+
+            {/* Section d'introduction pour les menus spéciaux */}
+            {activeTab === MENU_TYPES.SPECIAL && !loading && (
+              <div className={styles.specialMenuIntro}>
+                {" "}
+                {/* Style similaire à groupMenuIntro ou unique */}
+                <h2>Seasonal Delights & Special Offers</h2>
+                <p>
+                  Experience the best of the season with our limited-time
+                  special menus. Currently featuring our acclaimed Lobster
+                  Festival!
+                  {/* Vous pourriez rendre cela dynamique si les noms de fichiers des menus spéciaux le permettent */}
+                </p>
+              </div>
+            )}
+
             <div className={styles.menuDisplay}>
-              <h2 className={styles.menuTypeTitle}>
-                {getTabDisplayName(activeTab)}
-              </h2>
+              <h2 className={styles.menuTypeTitle}>{currentTabLabel}</h2>
               {loading && (
                 <div className={styles.messageContainer}>
                   <p>Loading menus...</p>
@@ -145,7 +151,7 @@ export default function MenuPage() {
                           <p>
                             Last Updated:{" "}
                             {new Date(file.uploadDate).toLocaleDateString(
-                              "en-US",
+                              "en-US", // ou fr-CA selon la langue du site/utilisateur
                               {
                                 year: "numeric",
                                 month: "long",

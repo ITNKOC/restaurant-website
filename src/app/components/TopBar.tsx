@@ -34,13 +34,13 @@ export default function TopBar() {
     {
       id: 1,
       icon: "facebook",
-      url: "https://facebook.com/dimennarestaurant",
+      url: "https://www.facebook.com/restaurantdimenna",
       label: "Facebook",
     },
     {
       id: 2,
       icon: "instagram",
-      url: "https://instagram.com/dimennarestaurant",
+      url: "https://www.instagram.com/dimennaresto/",
       label: "Instagram",
     },
   ];

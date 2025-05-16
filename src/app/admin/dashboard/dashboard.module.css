@@ -1,14 +1,14 @@
-/* dashboard.module.css */
+/* src/app/admin/dashboard/dashboard.module.css */
 
 /* General Styles */
 .dashboard {
   max-width: 1200px;
-  margin: 40px auto; /* Added more top/bottom margin */
+  margin: 40px auto;
   padding: 25px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
-  background-color: #f4f7f9; /* Lighter background for the page */
-  border-radius: 10px; /* Optional: rounded corners for the whole dashboard area */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .header {
@@ -17,30 +17,30 @@
   align-items: center;
   margin-bottom: 35px;
   padding-bottom: 25px;
-  border-bottom: 1px solid #dde3e8; /* Lighter border */
+  border-bottom: 1px solid #dde3e8;
 }
 
 .header h1 {
-  font-size: 26px; /* Slightly smaller, more refined */
-  color: #2c3e50; /* Darker, more professional blue/grey */
+  font-size: 26px;
+  color: #2c3e50;
   margin: 0;
   font-weight: 600;
 }
 
 .logoutButton {
-  background-color: #e74c3c; /* Softer red */
+  background-color: #e74c3c;
   color: white;
   border: none;
-  border-radius: 6px; /* Slightly more rounded */
+  border-radius: 6px;
   padding: 10px 22px;
-  font-weight: 500; /* Less bold */
+  font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, transform 0.1s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logoutButton:hover {
-  background-color: #c0392b; /* Darker on hover */
+  background-color: #c0392b;
   transform: translateY(-1px);
 }
 .logoutButton:active {
@@ -51,40 +51,62 @@
 .tabs {
   display: flex;
   margin-bottom: 30px;
-  border-bottom: 2px solid #dde3e8; /* Slightly thicker border for tab container */
-  background-color: #fff; /* Give tabs a background if dashboard bg is colored */
-  border-radius: 6px 6px 0 0; /* Rounded top corners for tab bar */
-  padding: 5px 5px 0 5px; /* Padding around tabs */
+  border-bottom: 2px solid #dde3e8;
+  background-color: #fff;
+  border-radius: 6px 6px 0 0;
+  padding: 5px 5px 0 5px;
+  flex-wrap: wrap; /* Permet aux onglets de passer à la ligne */
+  gap: 5px; /* Espace si les onglets passent à la ligne */
 }
 
 .tab {
-  padding: 14px 24px;
-  margin-right: 0; /* Remove margin, let padding and potential borders define space */
+  padding: 12px 20px; /* Ajusté pour plus d'onglets */
+  margin-right: 0;
   border: none;
   background: none;
-  color: #566573; /* Subdued tab color */
+  color: #566573;
   font-weight: 500;
+  font-size: 14px; /* Peut être réduit si les noms sont longs */
   cursor: pointer;
-  border-bottom: 3px solid transparent; /* Underline for active state */
-  transition: color 0.2s ease, border-color 0.2s ease;
-  border-radius: 4px 4px 0 0; /* Rounded top corners for individual tabs */
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease,
+    background-color 0.2s ease;
+  border-radius: 4px 4px 0 0;
+  white-space: nowrap; /* Empêche le texte de l'onglet de passer à la ligne */
+  text-align: center;
+  flex-shrink: 0; /* Empêche les onglets de trop rétrécir */
+}
+.tab:disabled {
+  color: #aabbc4;
+  cursor: not-allowed;
+  background-color: #f0f2f5;
+}
+.tab:disabled:hover {
+  color: #aabbc4;
+  border-bottom-color: transparent;
 }
 
-.tab:hover {
-  color: #3498db; /* Accent color on hover - choose your brand color */
-  background-color: #ecf0f1; /* Slight background on hover */
+.tab:hover:not(:disabled) {
+  color: #3498db;
+  background-color: #ecf0f1;
 }
 
 .activeTab {
-  color: #3498db; /* Accent color for active tab */
+  color: #3498db;
   border-bottom: 3px solid #3498db;
   font-weight: 600;
-  background-color: #fff; /* Ensure active tab bg matches content area if distinct */
+  background-color: #fff;
+}
+.activeTab:disabled {
+  /* Style pour un onglet actif mais désactivé (ex: pendant chargement) */
+  color: #7fadda; /* Couleur active plus claire */
+  border-bottom-color: #7fadda; /* Bordure active plus claire */
+  background-color: #f0f2f5;
 }
 
 /* Content Area */
 .content {
-  background-color: #ffffff; /* Clear white for content */
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
   padding: 30px;
@@ -96,7 +118,7 @@
   color: #2c3e50;
   font-size: 22px;
   font-weight: 600;
-  border-bottom: 1px solid #eaecee; /* Separator for section title */
+  border-bottom: 1px solid #eaecee;
   padding-bottom: 15px;
 }
 
@@ -105,97 +127,138 @@
   margin-bottom: 35px;
   display: flex;
   align-items: center;
+  gap: 15px; /* Espace entre le bouton et le spinner/message */
   padding: 20px;
-  background-color: #fdfdfe; /* Slightly off-white for contrast */
+  background-color: #fdfdfe;
   border-radius: 6px;
-  border: 1px dashed #bdc3c7; /* Dashed border for dropzone feel */
+  border: 1px dashed #bdc3c7;
 }
 
 .uploadButton {
-  background-color: #3498db; /* Primary action color */
+  background-color: #3498db;
   color: white;
   padding: 12px 28px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
-  display: inline-flex; /* To align icon and text if you add one */
+  display: inline-flex;
   align-items: center;
   transition: background-color 0.2s ease-in-out;
+  border: none; /* Assurer qu'il n'y a pas de bordure par défaut */
+  white-space: nowrap;
 }
-/* Example: Add an icon to upload button if you use an icon font/SVG
-.uploadButton svg {
-  margin-right: 8px;
+.uploadButton:hover:not(.uploadButtonDisabled) {
+  background-color: #2980b9;
 }
-*/
-.uploadButton:hover {
-  background-color: #2980b9; /* Darker shade on hover */
+.uploadButtonDisabled {
+  background-color: #a3cce9;
+  cursor: not-allowed;
+}
+.uploadButtonDisabled:hover {
+  background-color: #a3cce9; /* Pas de changement au survol si désactivé */
 }
 
-.uploadSection p {
-  /* For "Uploading..." text */
-  margin-left: 20px;
-  color: #3498db;
-  font-weight: 500;
+.simpleSpinner {
+  /* Style pour le spinner simple */
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  /* Assurez-vous que cette animation est définie */
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Messages d'erreur et de chargement */
+.errorMessage,
+.loadingMessage {
+  padding: 12px 15px; /* Un peu plus de padding */
+  margin-top: 15px;
+  border-radius: 5px; /* Coins plus arrondis */
+  font-size: 14px;
+  border-left-width: 4px; /* Bordure gauche pour accentuer */
+  border-left-style: solid;
+}
+.errorMessage {
+  background-color: #fceded; /* Fond plus doux */
+  color: #c0392b; /* Texte rouge foncé */
+  border-left-color: #e74c3c; /* Bordure rouge */
+  border: 1px solid #f7dddd;
+}
+.loadingMessage {
+  background-color: #eaf2f8;
+  color: #2980b9;
+  border-left-color: #3498db;
+  border: 1px solid #d4e6f1;
 }
 
 /* Files List */
 .filesList {
   margin-top: 25px;
-  display: grid; /* Using grid for more complex layouts if needed */
+  display: grid;
   grid-template-columns: repeat(
     auto-fill,
-    minmax(300px, 1fr)
-  ); /* Responsive grid */
-  gap: 20px;
+    minmax(320px, 1fr)
+  ); /* Base un peu plus large */
+  gap: 25px; /* Plus d'espace */
 }
 
 .fileItem {
   display: flex;
-  flex-direction: column; /* Stack info and actions vertically */
+  flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
   padding: 20px;
-  border: 1px solid #e8eaed; /* Lighter border for items */
+  border: 1px solid #e8eaed;
   border-radius: 8px;
-  margin-bottom: 0; /* Gap is handled by grid */
+  margin-bottom: 0;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .fileItem:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); /* Ombre plus prononcée */
+  transform: translateY(-4px); /* Effet de soulèvement plus marqué */
 }
 
 .fileInfo {
   flex: 1;
-  margin-bottom: 15px; /* Space between info and actions */
+  margin-bottom: 15px;
 }
 
 .fileName {
   margin: 0 0 8px 0;
   font-weight: 600;
-  color: #34495e; /* Darker text color */
-  font-size: 16px; /* Larger file name */
+  color: #34495e;
+  font-size: 17px; /* Nom de fichier plus grand */
+  word-break: break-all; /* Pour les noms de fichiers très longs */
 }
 
 .fileDate {
   margin: 0;
-  font-size: 13px; /* Smaller date */
-  color: #7f8c8d; /* Softer color for date */
+  font-size: 13px;
+  color: #7f8c8d;
 }
 
 .fileActions {
   display: flex;
-  gap: 10px; /* Spacing between buttons */
+  gap: 12px; /* Espace entre les boutons */
   align-items: center;
   padding-top: 15px;
-  border-top: 1px solid #f0f0f0; /* Separator line */
+  border-top: 1px solid #f0f0f0;
 }
 
-/* Generalizing button styles for actions */
 .fileActions > a,
 .fileActions > button {
-  padding: 8px 16px;
+  padding: 9px 18px; /* Padding un peu plus grand */
   border-radius: 5px;
   font-weight: 500;
   font-size: 13px;
@@ -208,34 +271,42 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
 }
 .fileActions > a:hover,
-.fileActions > button:hover {
+.fileActions > button:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+.fileActions > button:disabled {
+  background-color: #bdc3c7; /* Gris pour désactivé */
+  color: #7f8c8d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 
 .downloadButton {
-  background-color: #2980b9; /* Blue for download */
+  background-color: #2980b9;
   color: white;
 }
-.downloadButton:hover {
+.downloadButton:hover:not(:disabled) {
   background-color: #1f618d;
 }
 
 .viewButton {
-  background-color: #27ae60; /* Green for view */
+  background-color: #27ae60;
   color: white;
 }
-.viewButton:hover {
+.viewButton:hover:not(:disabled) {
   background-color: #1e8449;
 }
 
 .deleteButton {
-  background-color: #c0392b; /* Red for delete */
+  background-color: #c0392b;
   color: white;
 }
-.deleteButton:hover {
+.deleteButton:hover:not(:disabled) {
   background-color: #a93226;
 }
 
@@ -243,53 +314,79 @@
 @media (max-width: 768px) {
   .dashboard {
     margin: 20px auto;
-    padding: 15px;
-  }
-
+    padding: 20px;
+  } /* Plus de padding */
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
   }
-
   .tabs {
     flex-direction: column;
     border-bottom: none;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    gap: 8px; /* Espace entre les onglets empilés */
   }
-
   .tab {
     width: 100%;
-    margin-bottom: 8px;
+    /* margin-bottom: 8px; /* Géré par le gap */
     border-radius: 5px;
     border: 1px solid #dde3e8;
     text-align: center;
+    border-bottom-color: #dde3e8; /* Pour que la bordure soit uniforme */
+    padding: 12px 15px; /* Padding uniforme */
   }
-
   .activeTab {
-    border-bottom: 1px solid #dde3e8; /* Remove thick underline on mobile */
-    background-color: #eaf2f8; /* Slight highlight for active tab */
+    border: 1px solid #3498db;
+    border-bottom-color: #3498db;
+    background-color: #eaf2f8;
   }
-
   .filesList {
-    grid-template-columns: 1fr; /* Single column on smaller screens */
+    grid-template-columns: 1fr;
   }
-
   .fileItem {
     flex-direction: column;
-    align-items: stretch; /* Stretch items full width */
+    align-items: stretch;
   }
-
   .fileActions {
     margin-top: 15px;
     width: 100%;
     display: flex;
-    flex-direction: column; /* Stack buttons vertically on mobile */
-    gap: 10px; /* Ensure gap between stacked buttons */
+    flex-direction: column; /* Boutons empilés */
+    gap: 10px;
   }
-
   .fileActions > button,
   .fileActions > a {
-    margin-left: 0; /* Reset margin for stacked buttons */
-    width: 100%; /* Full width buttons on mobile */
+    margin-left: 0;
+    width: 100%;
+  }
+  .uploadSection {
+    flex-direction: column; /* Empiler sur mobile */
+    align-items: stretch; /* Étirer le bouton */
+    gap: 10px;
+  }
+  .uploadButton {
+    width: 100%; /* Bouton pleine largeur */
+    justify-content: center; /* Centrer le texte du bouton */
+  }
+}
+
+@media (max-width: 480px) {
+  .tab {
+    font-size: 13px; /* Texte d'onglet encore plus petit */
+    padding: 10px 12px;
+  }
+  .content h2 {
+    font-size: 20px; /* Titre de section plus petit */
+  }
+  .fileName {
+    font-size: 15px; /* Nom de fichier plus petit */
+  }
+  .fileActions > a,
+  .fileActions > button {
+    font-size: 12px; /* Texte de bouton d'action plus petit */
+    padding: 8px 14px;
   }
 }

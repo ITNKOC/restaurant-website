@@ -1,4 +1,4 @@
-/* menu.module.css */
+/* src/app/sections/menu.module.css */
 
 /* --- Fonts (Ensure these are imported in Menu.tsx via <Head> or globally) ---
 font-family: 'Playfair Display', serif; // For titles
@@ -16,9 +16,8 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
 
 /* --- Menu Header Section (Similar to Booking Section Title) --- */
 .menuHeader {
-  /* Using a gradient similar to booking form background, less reliant on image */
   background: linear-gradient(rgba(12, 11, 9, 0.85), rgba(12, 11, 9, 0.95)),
-    url("../../../public/assets/images/steak.jpg") center center no-repeat; /* Replace with a high-quality, dark, food/ambiance image */
+    url("/assets/images/menu-header-bg.jpg") center center no-repeat; /* REMPLACEZ par votre image */
   background-size: cover;
   background-attachment: fixed; /* Parallax effect */
   padding: 120px 0 100px 0; /* More padding for a grander feel */
@@ -28,7 +27,6 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
 }
 
 .menuHeader::before {
-  /* Subtle overlay to ensure text readability */
   content: "";
   position: absolute;
   top: 0;
@@ -40,13 +38,12 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
 }
 
 .menuHeader .container {
-  /* Ensure container content is above the overlay */
   position: relative;
   z-index: 1;
 }
 
 .menuHeader h1 {
-  font-size: clamp(36px, 6vw, 56px); /* Responsive title size */
+  font-size: clamp(36px, 6vw, 56px);
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 20px;
@@ -59,55 +56,114 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
   font-size: clamp(16px, 2.5vw, 20px);
   color: #f0f0f0;
   font-family: "Roboto", sans-serif;
-  font-weight: 300; /* Lighter weight for subtitle */
+  font-weight: 300;
   max-width: 700px;
-  margin: 0 auto 20px auto; /* Added bottom margin */
+  margin: 0 auto 20px auto;
   line-height: 1.6;
 }
 
 /* --- Menu Content Section (Tabs & Menu Display) --- */
 .menuContent {
-  padding: 80px 20px; /* Generous padding */
+  padding: 70px 20px; /* Ajusté le padding vertical */
 }
 
 /* Tabs - Styling them to look like sophisticated filters */
 .tabs {
   display: flex;
   justify-content: center;
-  margin-bottom: 60px;
+  margin-bottom: 50px; /* Réduit un peu */
   flex-wrap: wrap;
-  gap: 15px; /* Gap between tab buttons */
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(205, 164, 94, 0.2); /* Subtle gold underline for the tabs area */
+  gap: 10px 15px; /* row-gap column-gap */
+  padding-bottom: 25px; /* Augmenté pour plus d'espace sous les onglets */
+  border-bottom: 1px solid rgba(205, 164, 94, 0.25); /* Un peu plus visible */
 }
 
 .tab {
-  padding: 12px 28px;
+  padding: 10px 22px;
   background: transparent;
-  border: 2px solid rgba(205, 164, 94, 0.4); /* Gold-ish border, less prominent when inactive */
-  color: #b0a68f; /* Muted gold/beige for inactive tabs */
+  border: 2px solid rgba(205, 164, 94, 0.5); /* Bordure plus visible quand inactif */
+  color: #bcaea0; /* Couleur texte inactif, plus lisible */
   font-weight: 500;
-  font-size: clamp(14px, 2vw, 16px);
+  font-size: clamp(13px, 1.8vw, 15px);
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.25s ease-in-out;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 50px; /* Pill-shaped tabs, similar to AppBtn */
+  letter-spacing: 0.8px;
+  border-radius: 30px; /* Forme pilule */
   font-family: "Roboto", sans-serif;
+  min-width: 130px; /* Largeur minimale pour uniformité */
+  text-align: center;
+  line-height: 1.5; /* Pour le texte sur plusieurs lignes dans le bouton si nécessaire */
 }
 
-.tab:hover {
+.tab:hover:not(.activeTab) {
+  /* Ne pas appliquer survol si déjà actif */
   color: #ffffff;
   border-color: #cda45e;
-  background-color: rgba(205, 164, 94, 0.1);
+  background-color: rgba(205, 164, 94, 0.15);
   transform: translateY(-2px);
+}
+.tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  background-color: transparent;
 }
 
 .activeTab {
-  color: #0c0b09; /* Dark text on active */
+  color: #0c0b09;
   border-color: #cda45e;
-  background-color: #cda45e; /* Solid gold background for active */
-  box-shadow: 0 4px 15px rgba(205, 164, 94, 0.25);
+  background-color: #cda45e;
+  box-shadow: 0 4px 15px rgba(205, 164, 94, 0.3);
+}
+
+/* Styles pour les sections d'introduction des menus spéciaux/groupe */
+.groupMenuIntro,
+.specialMenuIntro {
+  background-color: rgba(26, 24, 20, 0.6); /* Fond subtil, assorti */
+  border: 1px solid rgba(205, 164, 94, 0.2);
+  border-radius: 8px;
+  padding: 35px 40px; /* Plus de padding */
+  margin: 0 auto 50px auto; /* Centré et espacé avant la liste des menus */
+  max-width: 750px; /* Limiter la largeur pour la lisibilité */
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.groupMenuIntro h2,
+.specialMenuIntro h2 {
+  color: #cda45e;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(26px, 4.2vw, 34px);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.groupMenuIntro p,
+.specialMenuIntro p {
+  color: #d0d0d0;
+  font-family: "Lora", serif;
+  font-size: clamp(16px, 2.3vw, 18px);
+  line-height: 1.75;
+  margin-bottom: 15px;
+}
+.groupMenuIntro p:last-child,
+.specialMenuIntro p:last-child {
+  margin-bottom: 0;
+}
+
+.groupMenuIntro a,
+.specialMenuIntro a {
+  color: #cda45e;
+  text-decoration: none; /* Enlever le soulignement par défaut */
+  border-bottom: 1px dotted #cda45e; /* Soulignement pointillé personnalisé */
+  font-weight: 500;
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+.groupMenuIntro a:hover,
+.specialMenuIntro a:hover {
+  color: #fff;
+  border-bottom-color: #fff;
 }
 
 /* Title for the currently selected menu type (e.g., "Restaurant Menu") */
@@ -125,7 +181,7 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
 .messageContainer {
   text-align: center;
   padding: 50px 20px;
-  background-color: rgba(255, 255, 255, 0.03); /* Very subtle */
+  background-color: rgba(255, 255, 255, 0.03);
   border-radius: 8px;
   border: 1px dashed rgba(205, 164, 94, 0.2);
   color: #a0a0a0;
@@ -135,36 +191,35 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
   margin: 40px auto;
 }
 .errorMessage p {
-  color: #ff6b6b; /* A soft red for errors */
+  color: #ff6b6b;
   font-weight: 500;
 }
 
 /* Menu List and Items */
 .menuList {
   display: grid;
-  grid-template-columns: 1fr; /* Default to single column */
-  gap: 30px;
-  max-width: 800px; /* Constrain width of menu list for readability */
+  grid-template-columns: 1fr;
+  gap: 35px; /* Augmenté le gap */
+  max-width: 850px; /* Légèrement plus large */
   margin: 0 auto;
 }
 
 .menuItem {
-  background-color: rgba(18, 17, 15, 0.7); /* Match booking form item bg */
-  border-radius: 10px; /* Match booking form item radius */
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background-color: rgba(18, 17, 15, 0.75); /* Un peu plus opaque */
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure plus visible */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35); /* Ombre plus prononcée */
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  overflow: hidden; /* If using image thumbnails later */
-  position: relative; /* For pseudo-elements like flag */
+  overflow: hidden;
+  position: relative;
 }
 
-/* Optional: Italian flag accent for menu items, similar to booking form */
 .menuItem::before {
   content: "";
   position: absolute;
   left: 0;
   top: 0;
-  width: 5px;
+  width: 6px; /* Accent plus épais */
   height: 100%;
   background: linear-gradient(
     to bottom,
@@ -172,57 +227,57 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
     #f4f5f0 33.33%,
     #f4f5f0 66.66%,
     #cd212a 66.66%
-  ); /* Italian flag colors */
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
+  );
+  opacity: 0.8; /* Un peu plus visible */
+  transition: opacity 0.3s ease, width 0.3s ease;
 }
 
 .menuItem:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(205, 164, 94, 0.15);
+  transform: translateY(-6px); /* Effet de soulèvement plus marqué */
+  box-shadow: 0 14px 35px rgba(205, 164, 94, 0.2); /* Ombre dorée au survol */
   border-color: #cda45e;
 }
 .menuItem:hover::before {
   opacity: 1;
+  width: 8px; /* Accent s'épaissit au survol */
 }
 
 .menuItemContent {
-  padding: 25px 30px 25px 45px; /* More padding on left due to accent */
+  padding: 25px 30px 25px 50px; /* Plus de padding à gauche à cause de l'accent */
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  flex-wrap: wrap;
   align-items: center;
-  gap: 20px;
+  gap: 20px 25px; /* row-gap column-gap */
 }
 
 .menuIcon {
-  font-size: clamp(30px, 5vw, 40px);
+  font-size: clamp(32px, 5.5vw, 42px);
   color: #cda45e;
-  margin-right: 15px; /* Space between icon and info */
+  margin-right: 20px;
   flex-shrink: 0;
 }
 .menuIcon i {
-  display: block; /* Ensures icon is block for better alignment control */
+  display: block;
 }
 
 .menuInfo {
-  flex: 1 1 300px; /* Allow flex grow and shrink, with a base width */
-  min-width: 200px; /* Prevent info from becoming too narrow */
+  flex: 1 1 300px;
+  min-width: 200px;
 }
 
 .menuInfo h3 {
-  margin: 0 0 8px 0;
-  font-size: clamp(18px, 3vw, 22px);
+  margin: 0 0 10px 0; /* Plus d'espace en bas */
+  font-size: clamp(19px, 3.2vw, 24px);
   font-weight: 600;
-  color: #f0f0f0;
+  color: #f5f5f5; /* Texte plus blanc */
   font-family: "Playfair Display", serif;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .menuInfo p {
-  /* Upload date */
   margin: 0;
-  font-size: clamp(12px, 1.8vw, 14px);
-  color: #a0a0a0;
+  font-size: clamp(13px, 1.9vw, 15px); /* Date un peu plus grande */
+  color: #b0b0b0; /* Date plus claire */
   font-family: "Roboto", sans-serif;
   font-weight: 300;
 }
@@ -230,45 +285,46 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
 .menuActions {
   display: flex;
   gap: 15px;
-  flex-wrap: nowrap; /* Keep buttons side-by-side if space allows */
-  margin-left: auto; /* Push actions to the right on wider screens */
+  flex-wrap: nowrap;
+  margin-left: auto;
   flex-shrink: 0;
+  align-items: center; /* Centrer les boutons verticalement */
 }
 
 .menuButton {
-  /* Common styling for view and download buttons */
-  padding: 10px 22px;
-  border-radius: 50px; /* Pill shape to match tabs and AppBtn */
+  padding: 10px 24px; /* Un peu plus de padding */
+  border-radius: 30px; /* Forme pilule cohérente */
   text-align: center;
   font-weight: 500;
-  font-size: clamp(13px, 2vw, 15px);
+  font-size: clamp(14px, 2.1vw, 16px);
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   border: 2px solid transparent;
   font-family: "Roboto", sans-serif;
-  display: inline-flex; /* For icon alignment */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* Space between icon and text */
-  min-width: 160px; /* Consistent button width */
+  gap: 8px;
+  min-width: 170px; /* Largeur minimale un peu plus grande */
   cursor: pointer;
+  line-height: 1.4; /* Pour les textes de bouton sur plusieurs lignes */
 }
 .menuButton i {
-  font-size: 1.1em; /* Relative to button font size */
-  line-height: 0; /* Align icon better */
+  font-size: 1.15em; /* Icônes un peu plus grandes */
+  line-height: 0;
 }
 
 .viewButton {
   background-color: #cda45e;
-  color: #0c0b09; /* Dark text for contrast */
+  color: #0c0b09;
   border-color: #cda45e;
 }
 .viewButton:hover {
-  background-color: #b89151; /* Darker gold */
+  background-color: #b89151;
   border-color: #b89151;
   color: #0c0b09;
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 10px rgba(205, 164, 94, 0.2);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 5px 12px rgba(205, 164, 94, 0.25);
 }
 
 .downloadButton {
@@ -277,10 +333,10 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
   border-color: #cda45e;
 }
 .downloadButton:hover {
-  background-color: rgba(205, 164, 94, 0.15);
-  color: #f0f0f0; /* Lighter text on hover */
+  background-color: rgba(205, 164, 94, 0.2);
+  color: #f5f5f5;
   border-color: #cda45e;
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px) scale(1.03);
 }
 
 /* --- Responsive Adjustments --- */
@@ -288,78 +344,101 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
   /* Tablet */
   .menuHeader {
     padding: 100px 0 80px 0;
-    background-attachment: scroll; /* Disable parallax for performance */
+    background-attachment: scroll;
   }
   .menuItemContent {
-    padding-left: 30px; /* Adjust padding when accent is less prominent or removed */
+    padding-left: 40px; /* Ajuster si l'accent est moins large */
   }
   .menuItem::before {
-    width: 4px; /* Thinner accent */
+    width: 5px;
+  }
+  .tabs {
+    gap: 8px 12px;
+  }
+  .tab {
+    padding: 10px 20px;
+    min-width: 110px;
   }
 }
 
 @media (max-width: 768px) {
   /* Mobile */
   .menuHeader h1 {
-    font-size: 32px; /* Further reduce title size */
+    font-size: 30px;
   }
   .menuHeader p {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .tabs {
-    gap: 10px;
-    justify-content: stretch; /* Make tabs stretch to fill width */
+    gap: 8px;
+    justify-content: center; /* Centre les onglets sur mobile s'ils ne remplissent pas la largeur */
   }
   .tab {
-    padding: 10px 15px;
-    font-size: 13px;
-    flex-grow: 1; /* Allow tabs to grow and take equal width */
-    min-width: calc(33.333% - 10px); /* Aim for 3 tabs, adjust if more */
-    text-align: center;
+    padding: 9px 16px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    flex-grow: 0; /* Ne pas laisser grandir excessivement */
+    flex-basis: auto; /* Laisser le contenu déterminer la largeur initiale */
+    min-width: auto;
+  }
+
+  .groupMenuIntro,
+  .specialMenuIntro {
+    padding: 25px 20px; /* Moins de padding sur mobile */
+  }
+  .groupMenuIntro h2,
+  .specialMenuIntro h2 {
+    font-size: 24px;
+  }
+  .groupMenuIntro p,
+  .specialMenuIntro p {
+    font-size: 15px;
   }
 
   .menuTypeTitle {
-    font-size: 28px;
-    margin-bottom: 40px;
+    font-size: 26px; /* Titre de catégorie plus petit */
+    margin-bottom: 35px;
   }
 
   .menuItemContent {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center align stacked items */
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    gap: 15px;
-    padding: 20px 25px; /* Adjust padding for stacked layout */
+    gap: 18px; /* Espacement entre les éléments empilés */
+    padding: 25px; /* Padding uniforme quand l'accent est caché */
   }
   .menuItem::before {
-    /* Optionally hide accent on mobile */
     display: none;
   }
 
   .menuIcon {
     margin-right: 0;
-    margin-bottom: 5px;
-    font-size: 32px;
+    margin-bottom: 8px;
+    font-size: 34px;
   }
-
   .menuInfo {
-    margin-bottom: 15px;
-    flex-basis: auto; /* Reset flex-basis */
+    margin-bottom: 18px;
+    flex-basis: auto;
+    width: 100%;
   }
   .menuInfo h3 {
     font-size: 20px;
   }
+  .menuInfo p {
+    font-size: 13px;
+  }
 
   .menuActions {
-    flex-direction: column; /* Stack buttons */
+    flex-direction: column;
     width: 100%;
-    align-items: center; /* Center buttons */
-    margin-left: 0; /* Reset margin */
+    align-items: center;
+    margin-left: 0;
     gap: 12px;
   }
   .menuButton {
-    width: 90%; /* Make buttons wider */
-    max-width: 280px;
+    width: 100%; /* Boutons pleine largeur sur mobile */
+    max-width: 300px; /* Mais pas trop larges */
     font-size: 14px;
     padding: 12px 20px;
   }
@@ -367,20 +446,48 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
 
 @media (max-width: 480px) {
   /* Smaller mobile */
-  .tab {
-    min-width: calc(50% - 5px); /* Two tabs per row */
-  }
   .menuHeader h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
   .menuHeader p {
     font-size: 14px;
   }
+
+  .tabs {
+    /* Pourrait nécessiter un affichage en colonne si trop d'onglets */
+    /* flex-direction: column; align-items: stretch; */
+  }
+  .tab {
+    font-size: 11px;
+    padding: 8px 12px;
+    letter-spacing: 0.4px;
+    flex-basis: calc(33.333% - 6px); /* Viser 3 par ligne, ajuster si besoin */
+    flex-grow: 1; /* Permettre de remplir l'espace */
+  }
+  .groupMenuIntro h2,
+  .specialMenuIntro h2 {
+    font-size: 22px;
+  }
+  .groupMenuIntro p,
+  .specialMenuIntro p {
+    font-size: 14px;
+  }
+
   .menuTypeTitle {
-    font-size: 24px;
+    font-size: 22px;
   }
   .menuButton {
     font-size: 13px;
     padding: 10px 15px;
+    min-width: 150px;
+  }
+  .menuItemContent {
+    padding: 20px;
+  }
+  .menuIcon {
+    font-size: 30px;
+  }
+  .menuInfo h3 {
+    font-size: 18px;
   }
 }
