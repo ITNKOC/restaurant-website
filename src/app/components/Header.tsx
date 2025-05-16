@@ -1,10 +1,9 @@
-// src/app/components/Header.tsx (ou ton chemin)
 "use client";
 
 import React, { useState, useEffect } from "react";
-import "./header.css"; // Assure-toi que ce chemin est correct
-import AppBtn from "./AppBtn"; // Assure-toi que ce chemin est correct
-import Nav from "./Nav"; // Assure-toi que ce chemin est correct
+import "./header.css";
+import AppBtn from "./AppBtn";
+import Nav from "./Nav";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -1,25 +1,23 @@
 // src/app/sections/Menu.tsx
 "use client";
-import React, { useState } from "react"; // useEffect et useCallback sont maintenant dans useMenus
+import React, { useState } from "react";
 import Head from "next/head";
 import styles from "./menu.module.css";
-import { useMenus, MenuFile } from "../hooks/useMenus"; // Importer le hook et l'interface
+import { useMenus, MenuFile } from "../hooks/useMenus";
 
 const MENU_TYPES = {
-  /* ... comme avant ... */ RESTAURANT: "restaurant",
+  RESTAURANT: "restaurant",
   DELIVERY: "delivery",
   ALCOHOL: "alcohol",
 };
 
 export default function MenuPage() {
   const [activeTab, setActiveTab] = useState(MENU_TYPES.RESTAURANT);
-  // Utiliser notre hook personnalisé !
   const { menuFiles, loading, error } = useMenus();
 
   const filteredFiles = menuFiles.filter((file) => file.type === activeTab);
 
   const getTabDisplayName = (tabKey: string) => {
-    /* ... comme avant ... */
     switch (tabKey) {
       case MENU_TYPES.RESTAURANT:
         return "Restaurant Menu";
@@ -35,7 +33,6 @@ export default function MenuPage() {
   return (
     <>
       <Head>
-        {/* ... Head content ... */}
         <title>Our Menus | DiMenna Restaurant</title>
         <meta
           name="description"
@@ -53,9 +50,18 @@ export default function MenuPage() {
         />
       </Head>
 
-      <div className={styles.menuPageContainer}>
+      {/*
+        Vous pouvez ajouter l'ID "menu" ici, au conteneur principal.
+        OU vous pouvez décider que la section "menu-content" EST la section "menu".
+        Pour la simplicité et pour correspondre à ce que le bouton Hero recherche,
+        je vais l'ajouter au conteneur global de cette "page" de menu.
+        Si ce composant est lui-même une section, ce serait sur son élément racine.
+        Étant donné que vous avez un className={styles.menuPageContainer}, je vais l'ajouter là.
+      */}
+      <div id="menu" className={styles.menuPageContainer}>
+        {" "}
+        {/* <--- MODIFICATION ICI */}
         <section id="menu-header" className={styles.menuHeader}>
-          {/* ... Header ... */}
           <div className="container">
             <div className="row justify-content-center text-center">
               <div className="col-lg-9">
@@ -68,11 +74,11 @@ export default function MenuPage() {
             </div>
           </div>
         </section>
-
-        <section id="menu-content" className={styles.menuContent}>
+        <section id="menu-content-inner" className={styles.menuContent}>
+          {" "}
+          {/* J'ai renommé cet ID pour éviter confusion, si besoin */}
           <div className="container">
             <div className={styles.tabs}>
-              {/* ... Tab buttons, `disabled={loading}` ... */}
               <button
                 className={`${styles.tab} ${
                   activeTab === MENU_TYPES.RESTAURANT ? styles.activeTab : ""
@@ -106,7 +112,6 @@ export default function MenuPage() {
               <h2 className={styles.menuTypeTitle}>
                 {getTabDisplayName(activeTab)}
               </h2>
-              {/* ... Affichage des messages de chargement/erreur et de la liste, comme avant ... */}
               {loading && (
                 <div className={styles.messageContainer}>
                   <p>Loading menus...</p>
@@ -129,52 +134,48 @@ export default function MenuPage() {
               )}
               {!loading && !error && filteredFiles.length > 0 && (
                 <div className={styles.menuList}>
-                  {filteredFiles.map(
-                    (
-                      file: MenuFile // Spécifier le type ici
-                    ) => (
-                      <div key={file.id} className={styles.menuItem}>
-                        <div className={styles.menuItemContent}>
-                          <div className={styles.menuIcon}>
-                            <i className="bi bi-file-earmark-text-fill"></i>
-                          </div>
-                          <div className={styles.menuInfo}>
-                            <h3>{file.name.replace(/\.[^/.]+$/, "")}</h3>
-                            <p>
-                              Last Updated:{" "}
-                              {new Date(file.uploadDate).toLocaleDateString(
-                                "en-US",
-                                {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                }
-                              )}
-                            </p>
-                          </div>
-                          <div className={styles.menuActions}>
-                            <a
-                              href={file.blobUrl}
-                              className={`${styles.menuButton} ${styles.viewButton}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`View ${file.name}`}
-                            >
-                              <i className="bi bi-eye-fill"></i> View Menu
-                            </a>
-                            <a
-                              href={file.blobUrl}
-                              className={`${styles.menuButton} ${styles.downloadButton}`}
-                              download={file.name}
-                              aria-label={`Download ${file.name}`}
-                            >
-                              <i className="bi bi-download"></i> Download
-                            </a>
-                          </div>
+                  {filteredFiles.map((file: MenuFile) => (
+                    <div key={file.id} className={styles.menuItem}>
+                      <div className={styles.menuItemContent}>
+                        <div className={styles.menuIcon}>
+                          <i className="bi bi-file-earmark-text-fill"></i>
+                        </div>
+                        <div className={styles.menuInfo}>
+                          <h3>{file.name.replace(/\.[^/.]+$/, "")}</h3>
+                          <p>
+                            Last Updated:{" "}
+                            {new Date(file.uploadDate).toLocaleDateString(
+                              "en-US",
+                              {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
+                          </p>
+                        </div>
+                        <div className={styles.menuActions}>
+                          <a
+                            href={file.blobUrl}
+                            className={`${styles.menuButton} ${styles.viewButton}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`View ${file.name}`}
+                          >
+                            <i className="bi bi-eye-fill"></i> View Menu
+                          </a>
+                          <a
+                            href={file.blobUrl}
+                            className={`${styles.menuButton} ${styles.downloadButton}`}
+                            download={file.name}
+                            aria-label={`Download ${file.name}`}
+                          >
+                            <i className="bi bi-download"></i> Download
+                          </a>
                         </div>
                       </div>
-                    )
-                  )}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
