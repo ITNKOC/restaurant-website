@@ -10,10 +10,12 @@ import Gallery from "./sections/Gallery";
 import Chefs from "./sections/Chefs";
 import Contact from "./sections/Contact";
 import Recruitment from "./sections/recruitment";
+import LobsterFestHero from "./sections/LobsterFestHero";
 
 export default function Home() {
   return (
     <>
+      {/* <LobsterFestHero /> */}
       <Hero />
       <main id="main">
         <About />

@@ -43,12 +43,12 @@ export default function About() {
             <p>
               Located at 6313 rue Jarry Est in Saint-Léonard, Di Menna has
               become a cornerstone of the community. Our menu features
-              traditional antipasti, homemade pasta, wood-fired pizzas, and
-              classic Italian desserts. In 2016, we renovated our dining room
-              and added a bar serving specialty cocktails and Italian beers,
-              enhancing the dining experience while maintaining the warm, family
-              atmosphere that has made us a neighborhood favorite for over five
-              decades.
+              traditional antipasti, homemade pasta, best pizzas in Montreal,
+              and classic Italian desserts. In 2016, we renovated our dining
+              room and added a bar serving specialty cocktails and Italian
+              beers, enhancing the dining experience while maintaining the warm,
+              family atmosphere that has made us a neighborhood favorite for
+              over five decades.
             </p>
           </div>
         </div>

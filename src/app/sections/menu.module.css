@@ -17,7 +17,7 @@ font-family: 'Roboto', sans-serif; // For subtitles, buttons, and smaller text
 /* --- Menu Header Section (Similar to Booking Section Title) --- */
 .menuHeader {
   background: linear-gradient(rgba(12, 11, 9, 0.85), rgba(12, 11, 9, 0.95)),
-    url("/assets/images/menu-header-bg.jpg") center center no-repeat; /* REMPLACEZ par votre image */
+    url("../../../public/assets/images/steak.jpg") center center no-repeat; /* REMPLACEZ par votre image */
   background-size: cover;
   background-attachment: fixed; /* Parallax effect */
   padding: 120px 0 100px 0; /* More padding for a grander feel */

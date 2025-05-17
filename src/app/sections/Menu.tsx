@@ -11,7 +11,7 @@ const MENU_TYPES = {
   DELIVERY: "delivery",
   GROUP: "group",
   SPECIAL: "special",
-  ALCOHOL: "alcohol",
+  // ALCOHOL: "alcohol",
 };
 
 // Configuration des onglets pour faciliter le mappage
@@ -20,7 +20,7 @@ const tabConfigurations = [
   { key: MENU_TYPES.DELIVERY, label: "Delivery Menu" },
   { key: MENU_TYPES.GROUP, label: "Group Menus" },
   { key: MENU_TYPES.SPECIAL, label: "Special Offers" }, // ou "Seasonal Menus"
-  { key: MENU_TYPES.ALCOHOL, label: "Wine & Spirits" },
+  // { key: MENU_TYPES.ALCOHOL, label: "Wine & Spirits" },
 ];
 
 export default function MenuPage() {

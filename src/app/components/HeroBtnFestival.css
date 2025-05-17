@@ -1,0 +1,119 @@
+/* src/components/heroBtnFestival.module.css */
+
+.btnFestival {
+  /* Variables locales pour les boutons du festival, définies sur la classe de base */
+  --btn-fest-color-primary: #ff4500; /* Orange-Rouge Homard */
+  --btn-fest-color-primary-dark: #e03d00;
+  /* Assurez-vous que Poppins est chargé globalement ou utilisez une fallback de globals.css */
+  --btn-fest-font-accent: "Poppins", var(--font-primary, sans-serif);
+  --btn-fest-transition-smooth: 0.3s ease-in-out;
+  --btn-fest-transition-fast: 0.2s ease-in-out;
+  --btn-fest-shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --btn-fest-shadow-strong-primary: 0 6px 20px rgba(255, 69, 0, 0.35);
+
+  /* Styles réels de .btnFestival */
+  font-family: var(--btn-fest-font-accent);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8em 2em;
+  border-radius: 50px;
+  transition: all var(--btn-fest-transition-smooth);
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  will-change: transform, box-shadow;
+}
+
+.btnFestival .bi {
+  font-size: 1.2em;
+  transition: transform var(--btn-fest-transition-fast);
+}
+
+/* Style pour le bouton primaire du festival */
+.btnFestivalPrimary {
+  composes: btnFestival;
+  color: #fff;
+  background-color: var(--btn-fest-color-primary);
+  border: 2px solid var(--btn-fest-color-primary);
+  box-shadow: var(--btn-fest-shadow-subtle);
+}
+
+.btnFestivalPrimary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--btn-fest-color-primary-dark);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--btn-fest-transition-smooth);
+  z-index: -1;
+}
+
+.btnFestivalPrimary:hover {
+  color: #fff;
+  border-color: var(--btn-fest-color-primary-dark);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--btn-fest-shadow-strong-primary);
+}
+.btnFestivalPrimary:hover::before {
+  transform: scaleX(1);
+}
+.btnFestivalPrimary:hover .bi {
+  transform: translateX(3px) scale(1.1);
+}
+
+.btnFestivalPrimary:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: var(--btn-fest-shadow-subtle);
+}
+
+/* Style pour le bouton secondaire du festival */
+.btnFestivalSecondary {
+  composes: btnFestival;
+  color: var(--btn-fest-color-primary);
+  background-color: transparent;
+  border: 2px solid var(--btn-fest-color-primary);
+}
+
+.btnFestivalSecondary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--btn-fest-color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--btn-fest-transition-smooth);
+  z-index: -1;
+}
+
+.btnFestivalSecondary:hover {
+  color: #fff;
+  border-color: var(--btn-fest-color-primary);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--btn-fest-shadow-strong-primary);
+}
+.btnFestivalSecondary:hover::before {
+  transform: scaleX(1);
+}
+.btnFestivalSecondary:hover .bi {
+  transform: translateX(3px) scale(1.1);
+}
+
+.btnFestivalSecondary:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: var(--btn-fest-shadow-subtle);
+}

@@ -42,7 +42,7 @@ body {
   /* height: 60vh; */ /* Hauteur du viewport, ajustez si besoin */
   min-height: 400px; /* Hauteur minimale */
   background: linear-gradient(rgba(12, 11, 9, 0.8), rgba(12, 11, 9, 0.8)),
-    url("/assets/images/recruitment-hero-bg.jpg") center center; /* Mettez votre image de fond */
+    url("../../../public/assets/images/Employee.jpg") center center; /* Mettez votre image de fond */
   background-size: cover;
   position: relative;
   display: flex; /* Déjà dans le JSX */

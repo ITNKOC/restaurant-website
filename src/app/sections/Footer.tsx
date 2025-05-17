@@ -99,7 +99,7 @@ export default function Footer() {
                   </tr>
                   <tr>
                     <td>Tuesday</td>
-                    <td>11:00am - 8:00pm</td>
+                    <td>11:00am - 2:00pm</td>
                   </tr>
                   <tr>
                     <td>Wednesday</td>
@@ -114,7 +114,7 @@ export default function Footer() {
                     <td>
                       11:00am - 2:00pm
                       <br />
-                      4:00pm - 9:00pm
+                      4:00pm - 8:30pm
                     </td>
                   </tr>
                   <tr>
@@ -131,7 +131,7 @@ export default function Footer() {
                   </tr>
                   <tr>
                     <td>Sunday</td>
-                    <td>11:00am - 8:00pm</td>{" "}
+                    <td>4:00pm - 8:00pm</td>{" "}
                     {/* Corrigé ici (manquait am/pm mais le vôtre est ok) */}
                   </tr>
                 </tbody>
@@ -147,16 +147,16 @@ export default function Footer() {
                     <td>Closed</td>
                   </tr>
                   <tr>
-                    <td>Tuesday - Thursday</td>
+                    <td>Sunday - Tuesday - Wednesday</td>
                     <td>11:00am - 8:00pm</td>
                   </tr>
                   <tr>
-                    <td>Friday - Saturday</td>
+                    <td>Thursday</td>
                     <td>11:00am - 9:00pm</td>
                   </tr>
                   <tr>
-                    <td>Sunday</td>
-                    <td>11:00am - 8:00pm</td>
+                    <td>Friday - Saturday</td>
+                    <td>11:00am - 10:00pm</td>
                   </tr>
                 </tbody>
               </table>
@@ -184,22 +184,17 @@ export default function Footer() {
             <div className="footer-social mt-4">
               <h4>Follow Us</h4>
               <div className="social-links">
-                <a href="#" aria-label="Instagram">
+                <a
+                  href="https://www.instagram.com/dimennaresto/"
+                  aria-label="Instagram"
+                >
                   <i className="bi bi-instagram"></i>
                 </a>
-                <a href="#" aria-label="Facebook">
+                <a
+                  href="https://www.facebook.com/restaurantdimenna"
+                  aria-label="Facebook"
+                >
                   <i className="bi bi-facebook"></i>
-                </a>
-                <a href="#" aria-label="TripAdvisor">
-                  {/* Note: TripAdvisor icon n'est pas standard dans Bootstrap Icons,
-                      vous pourriez avoir besoin d'un SVG ou d'une autre bibliothèque
-                      ou utiliser une étoile plus générique si bi-star n'est pas ce que vous attendez.
-                      Si bi-star fonctionne pour vous, c'est parfait. */}
-                  <i className="bi bi-star-fill"></i>{" "}
-                  {/* J'ai mis bi-star-fill pour plus de visibilité */}
-                </a>
-                <a href="#" aria-label="Google">
-                  <i className="bi bi-google"></i>
                 </a>
               </div>
             </div>

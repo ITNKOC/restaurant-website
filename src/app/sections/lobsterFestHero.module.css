@@ -1,0 +1,135 @@
+/* src/app/sections/lobsterFestHero.module.css */
+
+.heroLobsterFest {
+  /* Variables CSS locales spécifiques à ce composant Hero */
+  --fest-color-primary: #ff4500; /* Orange-Rouge Homard */
+  --fest-color-secondary-accent: #ffd700; /* Or pour les dates */
+  --fest-text-light: #f0f0f0;
+  --fest-text-medium: #e0e0e0;
+  /* Poppins, fallback sur la police primaire de globals.css (Open Sans) */
+  --fest-font-slogan: "Poppins", var(--font-primary, sans-serif);
+  --fest-overlay-gradient-start: rgba(0, 0, 0, 0.2);
+  --fest-overlay-gradient-mid: rgba(0, 0, 0, 0.7);
+  --fest-overlay-gradient-end: rgba(0, 0, 0, 0.85);
+
+  /* Styles réels de .heroLobsterFest */
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  background: url("/assets/images/Lobster fest 2.jpg") center center; /* Chemin depuis le dossier public */
+  background-size: cover;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.heroLobsterFest::before {
+  content: "";
+  background: linear-gradient(
+    to bottom,
+    var(--fest-overlay-gradient-start) 0%,
+    var(--fest-overlay-gradient-mid) 60%,
+    var(--fest-overlay-gradient-end) 100%
+  );
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+/* Cible la classe globale .container LORSQU'ELLE EST À L'INTÉRIEUR de .heroLobsterFest */
+.heroLobsterFest :global(.container) {
+  padding-top: clamp(80px, 15vh, 120px);
+  padding-bottom: clamp(60px, 10vh, 100px);
+  position: relative;
+  z-index: 2;
+}
+
+.h1 {
+  margin: 0 0 0.3em 0;
+  font-family: var(--font-heading); /* Hérité de globals.css */
+  font-size: clamp(2.8rem, 6vw + 1rem, 5.5rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #fff;
+  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.h1 .span {
+  color: var(--fest-color-primary);
+  display: block;
+  font-size: clamp(3.5rem, 8vw + 1rem, 7rem);
+  margin-top: 0.1em;
+  font-weight: 900;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 5px var(--fest-color-primary),
+    0 0 10px var(--fest-color-primary), 0 0 15px rgba(0, 0, 0, 0.5),
+    3px 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.h2 {
+  font-family: var(--fest-font-slogan);
+  color: var(--fest-text-light);
+  margin: 0.5em 0 1.5em 0;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  max-width: 700px;
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.heroSubtitle {
+  font-family: var(--font-primary); /* Hérité de globals.css */
+  color: var(--fest-text-medium);
+  margin: 0 0 2em 0;
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  font-style: italic;
+  font-weight: 300;
+  max-width: 650px;
+  line-height: 1.7;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.heroSubtitle strong {
+  color: var(--fest-color-secondary-accent);
+  font-weight: 600;
+}
+
+.btns {
+  /* Classe locale pour le conteneur des boutons DANS CE MODULE */
+  margin-top: 2em;
+  display: flex;
+  gap: 1.5em;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 992px) {
+  /* Ajustements si clamp() ne suffit pas */
+}
+
+@media (max-width: 768px) {
+  .heroLobsterFest {
+    /* Affecte .heroLobsterFest uniquement */
+    text-align: center;
+  }
+  /* Cible la classe .btns définie dans ce module */
+  .btns {
+    justify-content: center;
+    gap: 1em;
+  }
+  /*
+      Correction pour :global(.text-lg-start)
+      Applique le style à :global(.text-lg-start) UNIQUEMENT lorsqu'il est
+      un enfant (direct ou indirect) de .heroLobsterFest
+    */
+  .heroLobsterFest :global(.text-lg-start) {
+    text-align: center !important;
+  }
+}

@@ -66,7 +66,7 @@ export default function Hero() {
               />
             </div>
           </div>
-          <div
+          {/* <div
             className={`col-lg-4 d-flex align-items-center justify-content-${
               isMobile ? "center" : "center"
             } position-relative`}
@@ -78,7 +78,7 @@ export default function Hero() {
               className="glightbox play-btn"
               aria-label="Watch our story"
             ></a>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
