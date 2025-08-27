@@ -165,7 +165,7 @@ const Recruitment = () => {
                   {" "}
                   {/* Conteneur pour le bouton */}
                   <a
-                    href={`mailto:${"info"}@${"dimenna"}.${"ca"}`} // Placeholder
+                    href={`mailto:${"info"}@${"dimenna"}.${"com"}`} // Placeholder
                     className="btn-recruit app-style-btn"
                     style={{ display: "none" }} // Caché
                   >
