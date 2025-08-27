@@ -81,7 +81,7 @@ const Recruitment = () => {
                     >
                       placeholder
                     </a>
-                    <ObfuscatedEmail user="info" domain="dimenna" tld="ca" />
+                    <ObfuscatedEmail user="info" domain="dimenna" tld="com" />
                     {/* Le composant ObfuscatedEmail va rendre le lien cliquable */}
                     {/* Vous devrez styliser le <a> rendu par ObfuscatedEmail pour qu'il ressemble à un bouton */}
                   </div>
