@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import "./topBar.css";
+import { useTranslation } from "../contexts/TranslationContext";
 
 interface SocialLink {
   id: number;
@@ -18,15 +19,14 @@ interface Language {
 }
 
 export default function TopBar() {
-  // PAS besoin de 'scrolled' ici, on va se baser sur la visibilité du header principal
-  // const [scrolled, setScrolled] = useState(false);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Nouvel état
-  const [mainNavMenuOpen, setMainNavMenuOpen] = useState(false); // Pour le menu de Nav.tsx
+  const { language, setLanguage } = useTranslation();
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [mainNavMenuOpen, setMainNavMenuOpen] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<Language>({
-    code: "FR",
-    name: "Français",
-    flag: "fr",
+    code: language === "fr" ? "FR" : "EN",
+    name: language === "fr" ? "Français" : "English",
+    flag: language,
   });
   const languageDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -112,11 +112,22 @@ export default function TopBar() {
     };
   }, []);
 
-  const handleLanguageChange = (language: Language) => {
-    setSelectedLanguage(language);
+  const handleLanguageChange = (lang: Language) => {
+    setSelectedLanguage(lang);
     setShowLanguageDropdown(false);
-    console.log("Language changed to:", language.code);
+    const newLang = lang.code === "FR" ? "fr" : "en";
+    setLanguage(newLang as "fr" | "en");
+    console.log("Language changed to:", lang.code);
   };
+
+  // Update selected language when context language changes
+  useEffect(() => {
+    setSelectedLanguage({
+      code: language === "fr" ? "FR" : "EN",
+      name: language === "fr" ? "Français" : "English",
+      flag: language,
+    });
+  }, [language]);
 
   const toggleLanguageDropdown = () => {
     setShowLanguageDropdown(!showLanguageDropdown);
