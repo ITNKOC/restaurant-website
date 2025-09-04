@@ -1,9 +1,14 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import aboutImage from "../../../public/assets/images/Frank 2.jpg";
 import "./about.css";
+import { useTranslation } from "../contexts/TranslationContext";
 
 export default function About() {
+  const { t } = useTranslation();
+  
   return (
     <section id="about" className="about">
       <div className="container" data-aos="fade-up">
@@ -18,37 +23,23 @@ export default function About() {
             </div>
           </div>
           <div className="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-            <h3>A Family Tradition of Italian Excellence Since 1971</h3>
+            <h3>{t('about.title')}</h3>
             <p className="fst-italic">
-              Founded by Franco Di Menna, our restaurant has evolved from a
-              simple pizzeria to one of Montréal's most beloved Italian dining
-              destinations.
+              {t('about.subtitle')}
             </p>
             <ul>
               <li>
-                <i className="bi bi-check-circle"></i> Authentic Italian recipes
-                passed down through generations
+                <i className="bi bi-check-circle"></i> {t('about.features.0')}
               </li>
               <li>
-                <i className="bi bi-check-circle"></i> Fresh, locally-sourced
-                ingredients combined with imported Italian specialties
+                <i className="bi bi-check-circle"></i> {t('about.features.1')}
               </li>
               <li>
-                <i className="bi bi-check-circle"></i> From our humble
-                beginnings as a simple pizzeria to our current status as a
-                full-service restaurant, we've maintained our commitment to
-                quality and tradition while embracing innovation.
+                <i className="bi bi-check-circle"></i> {t('about.features.2')}
               </li>
             </ul>
             <p>
-              Located at 6313 rue Jarry Est in Saint-Léonard, Di Menna has
-              become a cornerstone of the community. Our menu features
-              traditional antipasti, homemade pasta, best pizzas in Montreal,
-              and classic Italian desserts. In 2016, we renovated our dining
-              room and added a bar serving specialty cocktails and Italian
-              beers, enhancing the dining experience while maintaining the warm,
-              family atmosphere that has made us a neighborhood favorite for
-              over five decades.
+              {t('about.description')}
             </p>
           </div>
         </div>

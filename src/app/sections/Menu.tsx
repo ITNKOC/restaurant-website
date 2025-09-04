@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import styles from "./menu.module.css";
-import { useMenus, MenuFile } from "../hooks/useMenus"; // Assurez-vous que ce chemin est correct
+import { useMenus, MenuFile } from "../hooks/useMenus";
+import { useTranslation } from "../contexts/TranslationContext";
 
 // MENU_TYPES mis à jour comme ci-dessus
 const MENU_TYPES = {
@@ -14,18 +15,18 @@ const MENU_TYPES = {
   // ALCOHOL: "alcohol",
 };
 
-// Configuration des onglets pour faciliter le mappage
-const tabConfigurations = [
-  { key: MENU_TYPES.RESTAURANT, label: "Restaurant Menu" },
-  { key: MENU_TYPES.DELIVERY, label: "Delivery Menu" },
-  { key: MENU_TYPES.GROUP, label: "Group Menus" },
-  { key: MENU_TYPES.SPECIAL, label: "Special Offers" }, // ou "Seasonal Menus"
-  // { key: MENU_TYPES.ALCOHOL, label: "Wine & Spirits" },
-];
-
 export default function MenuPage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState(MENU_TYPES.RESTAURANT);
   const { menuFiles, loading, error } = useMenus();
+
+  // Configuration des onglets avec traductions
+  const tabConfigurations = [
+    { key: MENU_TYPES.RESTAURANT, label: t('menu.types.restaurant') },
+    { key: MENU_TYPES.DELIVERY, label: t('menu.types.delivery') },
+    { key: MENU_TYPES.GROUP, label: t('menu.types.group') },
+    { key: MENU_TYPES.SPECIAL, label: t('menu.types.special') },
+  ];
 
   const filteredFiles = menuFiles.filter((file) => file.type === activeTab);
 
@@ -59,10 +60,9 @@ export default function MenuPage() {
           <div className="container">
             <div className="row justify-content-center text-center">
               <div className="col-lg-9">
-                <h1>Our Culinary Selections</h1>
+                <h1>{t('menu.title')}</h1>
                 <p>
-                  Discover our carefully crafted menus, offering a taste of
-                  authentic Italian tradition for every occasion.
+                  {t('menu.subtitle')}
                 </p>
               </div>
             </div>
@@ -89,14 +89,10 @@ export default function MenuPage() {
             {/* Section d'introduction pour les menus de groupe */}
             {activeTab === MENU_TYPES.GROUP && !loading && (
               <div className={styles.groupMenuIntro}>
-                <h2>Planning an Event?</h2>
+                <h2>{t('menu.groupIntro.title')}</h2>
                 <p>
-                  Our group menus are perfectly designed for your special
-                  occasions, corporate events, or family gatherings. Explore our
-                  curated selections to make your event memorable. For
-                  personalized arrangements or larger parties, please{" "}
-                  <a href="#contact">contact us</a>.{" "}
-                  {/* Assurez-vous d'avoir une section contact avec id="contact" */}
+                  {t('menu.groupIntro.description')}{" "}
+                  <a href="#contact">{t('menu.groupIntro.contactLink')}</a>.
                 </p>
               </div>
             )}
@@ -106,12 +102,9 @@ export default function MenuPage() {
               <div className={styles.specialMenuIntro}>
                 {" "}
                 {/* Style similaire à groupMenuIntro ou unique */}
-                <h2>Seasonal Delights & Special Offers</h2>
+                <h2>{t('menu.specialIntro.title')}</h2>
                 <p>
-                  Experience the best of the season with our limited-time
-                  special menus. Currently featuring our acclaimed Lobster
-                  Festival!
-                  {/* Vous pourriez rendre cela dynamique si les noms de fichiers des menus spéciaux le permettent */}
+                  {t('menu.specialIntro.description')}
                 </p>
               </div>
             )}
@@ -120,7 +113,7 @@ export default function MenuPage() {
               <h2 className={styles.menuTypeTitle}>{currentTabLabel}</h2>
               {loading && (
                 <div className={styles.messageContainer}>
-                  <p>Loading menus...</p>
+                  <p>{t('menu.loading')}</p>
                 </div>
               )}
               {error && (
@@ -133,8 +126,7 @@ export default function MenuPage() {
               {!loading && !error && filteredFiles.length === 0 && (
                 <div className={styles.messageContainer}>
                   <p>
-                    No menus are currently available for this category. Please
-                    check back later.
+                    {t('menu.noMenus')}
                   </p>
                 </div>
               )}

@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import SectionTitle from "../components/SectionTitle"; // Assurez-vous que ce chemin est correct
 import ObfuscatedEmail from "../components/ObfuscatedEmail"; // <--- IMPORTATION AJOUTÉE (Ajustez le chemin)
+import { useTranslation } from "../contexts/TranslationContext";
 import "./contact.css"; // Assurez-vous que ce chemin est correct
 
 export default function Contact() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,12 +47,10 @@ export default function Contact() {
   return (
     <section id="contact" className="contact">
       <div className="container" data-aos="fade-up">
-        <SectionTitle title="Contact" subtitle="Get in Touch" />
+        <SectionTitle title={t('contact.title')} subtitle={t('contact.subtitle')} />
         <div className="contact-intro">
           <p>
-            We'd love to hear from you! Whether you have a question about our
-            menu, want to make a reservation, or need information about our
-            private events, our team is here to help.
+            {t('contact.intro')}
           </p>
         </div>
       </div>
@@ -66,8 +66,8 @@ export default function Contact() {
         ></iframe>
         <div className="map-overlay">
           <div className="map-card">
-            <h3>Di Menna Restaurant</h3>
-            <p>Authentic Italian cuisine in the heart of Saint-Léonard</p>
+            <h3>{t('contact.restaurantName')}</h3>
+            <p>{t('contact.restaurantTagline')}</p>
             <div className="map-actions">
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=6313+Jarry+Street+East+Saint-Léonard+QC+H1P+1W1"
@@ -75,7 +75,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="map-btn"
               >
-                <i className="bi bi-pin-map-fill"></i> Get Directions
+                <i className="bi bi-pin-map-fill"></i> {t('contact.getDirections')}
               </a>
             </div>
           </div>
@@ -93,13 +93,13 @@ export default function Contact() {
                     <i className="bi bi-geo-alt"></i>
                   </div>
                   <div className="info-content">
-                    <h4>Location</h4>
+                    <h4>{t('contact.location')}</h4>
                     <p>
                       6313 Jarry Street East
                       <br />
                       Saint-Léonard, QC H1P 1W1
                     </p>
-                    <p className="text-muted">Ample parking available</p>
+                    <p className="text-muted">{t('contact.locationDetails')}</p>
                   </div>
                 </div>
               </div>
@@ -111,40 +111,34 @@ export default function Contact() {
                     <i className="bi bi-clock"></i>
                   </div>
                   <div className="info-content">
-                    <h4>Dining Hours</h4>
+                    <h4>{t('contact.diningHours')}</h4>
                     <div className="hours-grid">
-                      <div className="day">Monday:</div>
-                      <div className="time">Closed</div>
+                      <div className="day">{t('footer.hours.days.monday')}:</div>
+                      <div className="time">{t('footer.hours.days.closed')}</div>
 
-                      <div className="day">Tuesday:</div>
-                      <div className="time">11:00am - 8:00pm</div>
+                      <div className="day">{t('footer.hours.days.tuesday')}:</div>
+                      <div className="time">{t('contact.hours.tuesday').replace('Mardi: ', '').replace('Tuesday: ', '')}</div>
 
-                      <div className="day">Wednesday:</div>
+                      <div className="day">{t('footer.hours.days.wednesday')}:</div>
                       <div className="time">
-                        11:00am - 2:00pm
-                        <br />
-                        4:00pm - 8:00pm
+                        {t('contact.hours.wednesday').replace('Mercredi: ', '').replace('Wednesday: ', '')}
                       </div>
 
-                      <div className="day">Thursday:</div>
+                      <div className="day">{t('footer.hours.days.thursday')}:</div>
                       <div className="time">
-                        11:00am - 2:00pm
-                        <br />
-                        4:00pm - 9:00pm
+                        {t('contact.hours.thursday').replace('Jeudi: ', '').replace('Thursday: ', '')}
                       </div>
 
-                      <div className="day">Friday:</div>
+                      <div className="day">{t('footer.hours.days.friday')}:</div>
                       <div className="time">
-                        11:00am - 2:00pm
-                        <br />
-                        4:00pm - 9:30pm
+                        {t('contact.hours.friday').replace('Vendredi: ', '').replace('Friday: ', '')}
                       </div>
 
-                      <div className="day">Saturday:</div>
-                      <div className="time">4:00pm - 9:30pm</div>
+                      <div className="day">{t('footer.hours.days.saturday')}:</div>
+                      <div className="time">{t('contact.hours.saturday').replace('Samedi: ', '').replace('Saturday: ', '')}</div>
 
-                      <div className="day">Sunday:</div>
-                      <div className="time">11:00am - 8:00pm</div>
+                      <div className="day">{t('footer.hours.days.sunday')}:</div>
+                      <div className="time">{t('contact.hours.sunday').replace('Dimanche: ', '').replace('Sunday: ', '')}</div>
                     </div>
                   </div>
                 </div>
@@ -157,11 +151,11 @@ export default function Contact() {
                     <i className="bi bi-telephone"></i>
                   </div>
                   <div className="info-content">
-                    <h4>Call Us</h4>
+                    <h4>{t('contact.callUs')}</h4>
                     <p>
                       <a href="tel:+15143264200">(514) 326-4200</a>
                     </p>
-                    <p className="text-muted">Call for reservations</p>
+                    <p className="text-muted">{t('contact.callForReservations')}</p>
                   </div>
                 </div>
               </div>
@@ -173,11 +167,11 @@ export default function Contact() {
                     <i className="bi bi-envelope"></i>
                   </div>
                   <div className="info-content">
-                    <h4>Email</h4>
+                    <h4>{t('contact.email')}</h4>
                     {/* Remplacer le lien mailto direct par le composant ObfuscatedEmail */}
-                    <ObfuscatedEmail user="info" domain="dimenna" tld="ca" />
+                    <ObfuscatedEmail user="info" domain="dimenna" tld="com" />
                     <p className="text-muted" style={{ marginTop: "5px" }}>
-                      We'll respond within 24 hours
+                      {t('contact.emailResponse')}
                     </p>
                   </div>
                 </div>
@@ -187,10 +181,9 @@ export default function Contact() {
 
           <div className="col-lg-8">
             <div className="contact-form-container">
-              <h3>Send Us a Message</h3>
+              <h3>{t('contact.sendMessage')}</h3>
               <p>
-                We'd be delighted to hear from you. Please fill out the form
-                below, and we'll get back to you as soon as possible.
+                {t('contact.sendMessageIntro')}
               </p>
               <form
                 onSubmit={handleSubmit}
@@ -198,7 +191,7 @@ export default function Contact() {
               >
                 <div className="row">
                   <div className="col-md-6 form-group">
-                    <label htmlFor="name">Your Name</label>
+                    <label htmlFor="name">{t('contact.form.name')}</label>
                     <input
                       type="text"
                       name="name"
@@ -210,7 +203,7 @@ export default function Contact() {
                     />
                   </div>
                   <div className="col-md-6 form-group">
-                    <label htmlFor="email">Your Email</label>
+                    <label htmlFor="email">{t('contact.form.email')}</label>
                     <input
                       type="email"
                       className="form-control"
@@ -223,7 +216,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="subject">Subject</label>
+                  <label htmlFor="subject">{t('contact.form.subject')}</label>
                   <input
                     type="text"
                     className="form-control"
@@ -235,7 +228,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="message">Message</label>
+                  <label htmlFor="message">{t('contact.form.message')}</label>
                   <textarea
                     className="form-control"
                     name="message"
@@ -249,26 +242,23 @@ export default function Contact() {
                 <div className="form-status my-3">
                   {formStatus.loading && (
                     <div className="status-message loading-message">
-                      <i className="bi bi-arrow-repeat spinning"></i> Sending
-                      message...
+                      <i className="bi bi-arrow-repeat spinning"></i> {t('contact.form.sending')}
                     </div>
                   )}
                   {formStatus.sent && (
                     <div className="status-message success-message">
-                      <i className="bi bi-check-circle"></i> Your message has
-                      been sent. Thank you!
+                      <i className="bi bi-check-circle"></i> {t('contact.form.sent')}
                     </div>
                   )}
                   {formStatus.error && (
                     <div className="status-message error-message">
-                      <i className="bi bi-exclamation-triangle"></i> There was
-                      an error sending your message. Please try again.
+                      <i className="bi bi-exclamation-triangle"></i> {t('contact.form.error')}
                     </div>
                   )}
                 </div>
                 <div className="text-end">
                   <button type="submit" disabled={formStatus.loading}>
-                    {formStatus.loading ? "Sending..." : "Send Message"}{" "}
+                    {formStatus.loading ? t('contact.form.sendingButton') : t('contact.form.sendButton')}{" "}
                     <i className="bi bi-send"></i>
                   </button>
                 </div>

@@ -4,8 +4,11 @@ import React from "react";
 import Head from "next/head";
 import ObfuscatedEmail from "../components/ObfuscatedEmail";
 import SectionTitle from "../components/SectionTitle";
+import { useTranslation } from "../contexts/TranslationContext";
 import "./recruitment.css";
 const Recruitment = () => {
+  const { t } = useTranslation();
+  
   return (
     <>
       <Head>
@@ -25,9 +28,9 @@ const Recruitment = () => {
         <div className="container text-center">
           {" "}
           {/* Ajout de text-center ici */}
-          <h1 data-aos="fade-up">Join Our Culinary Family</h1>
+          <h1 data-aos="fade-up">{t('recruitment.hero.title')}</h1>
           <h2 data-aos="fade-up" data-aos-delay="200">
-            Embark on a rewarding journey with Di Menna.
+            {t('recruitment.hero.subtitle')}
           </h2>
         </div>
       </section>
@@ -37,8 +40,8 @@ const Recruitment = () => {
         <section id="recruitment-introduction" className="recruitment-section">
           <div className="container">
             <SectionTitle
-              title="Careers at Di Menna"
-              subtitle="We're Hiring Passionate Individuals"
+              title={t('recruitment.main.title')}
+              subtitle={t('recruitment.main.subtitle')}
               data-aos="fade-up"
             />
             <div className="row justify-content-center">
@@ -53,21 +56,13 @@ const Recruitment = () => {
                   {/* Titre interne, déjà stylisé par SectionTitle ou pourrait être un h3 */}
                   {/* <h3>Shape the Future of Dining With Us</h3> */}
                   <p>
-                    At Di Menna, we believe our strength lies in the dedication
-                    and passion of our team. We are constantly seeking
-                    enthusiastic individuals who share our commitment to
-                    culinary excellence and exceptional hospitality.
+                    {t('recruitment.main.description1')}
                   </p>
                   <p>
-                    Whether you are a seasoned professional or eager to begin
-                    your career in the vibrant restaurant industry, we offer a
-                    dynamic and supportive environment where your talents can
-                    flourish.
+                    {t('recruitment.main.description2')}
                   </p>
                   <p>
-                    Join us and benefit from competitive remuneration,
-                    opportunities for professional growth, and a positive work
-                    culture that celebrates innovation and teamwork.
+                    {t('recruitment.main.description3')}
                   </p>
                   <div className="cta-button-container mt-4">
                     {" "}
@@ -95,37 +90,31 @@ const Recruitment = () => {
         <section id="values" className="values recruitment-section section-bg">
           <div className="container">
             <SectionTitle
-              title="Our Core Values"
-              subtitle="The Principles That Guide Us"
+              title={t('recruitment.values.title')}
+              subtitle={t('recruitment.values.subtitle')}
               data-aos="fade-up"
             />
 
             <div className="row">
-              {" "}
-              {/* Pas de justify-content-center ici pour permettre un espacement naturel */}
               {[
                 {
-                  icon: "bi-star-fill", // Icône plus remplie
-                  title: "Excellence",
-                  text: "We strive for unparalleled excellence in every dish we serve and every interaction we have.",
+                  icon: "bi-star-fill",
+                  titleKey: "excellence",
                   delay: "100",
                 },
                 {
-                  icon: "bi-people-fill", // Icône plus remplie
-                  title: "Teamwork",
-                  text: "Collaboration and mutual support are the cornerstones of our success and a thriving work environment.",
+                  icon: "bi-people-fill",
+                  titleKey: "teamwork",
                   delay: "200",
                 },
                 {
-                  icon: "bi-lightbulb-fill", // Icône plus remplie
-                  title: "Innovation",
-                  text: "We embrace creativity and continuously seek innovative ways to enhance our guests' experiences.",
+                  icon: "bi-lightbulb-fill",
+                  titleKey: "innovation",
                   delay: "300",
                 },
                 {
-                  icon: "bi-heart-fill", // Icône plus remplie
-                  title: "Passion",
-                  text: "Our deep passion for Italian cuisine and hospitality drives us to exceed expectations daily.",
+                  icon: "bi-heart-fill",
+                  titleKey: "passion",
                   delay: "400",
                 },
               ].map((value, index) => (
@@ -139,8 +128,8 @@ const Recruitment = () => {
                     <div className="icon">
                       <i className={`bi ${value.icon}`}></i>
                     </div>
-                    <h3>{value.title}</h3>
-                    <p>{value.text}</p>
+                    <h3>{t(`recruitment.values.${value.titleKey}.title`)}</h3>
+                    <p>{t(`recruitment.values.${value.titleKey}.description`)}</p>
                   </div>
                 </div>
               ))}
@@ -155,11 +144,9 @@ const Recruitment = () => {
             {/* data-aos sur le container */}
             <div className="row justify-content-center">
               <div className="col-lg-9 text-center">
-                <h3>Ready to Take the Next Step?</h3>
+                <h3>{t('recruitment.cta.title')}</h3>
                 <p>
-                  If you're excited by the prospect of contributing to a leading
-                  Italian restaurant, we invite you to send us your application.
-                  Let's explore your future at Di Menna.
+                  {t('recruitment.cta.description')}
                 </p>
                 <div className="cta-button-container">
                   {" "}

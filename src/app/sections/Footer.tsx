@@ -1,10 +1,15 @@
 // src/app/sections/Footer.tsx (ou votre chemin)
+"use client";
+
 import React from "react";
 import "./footer.css"; // Assurez-vous que ce chemin est correct
 import Image from "next/image";
 import ObfuscatedEmail from "../components/ObfuscatedEmail"; // <--- IMPORTATION AJOUTÉE (Ajustez le chemin si nécessaire)
+import { useTranslation } from "../contexts/TranslationContext";
 
 export default function Footer() {
+  const { t } = useTranslation();
+  
   return (
     <footer id="footer">
       {/* Decorative wave element */}
@@ -39,10 +44,9 @@ export default function Footer() {
                   />
                 </a>
               </div>
-              <p className="tagline">Fine Italian Cuisine</p>
+              <p className="tagline">{t('footer.tagline')}</p>
               <p>
-                Discover authentic Italian cuisine in an elegant setting. An
-                unforgettable culinary experience in the heart of Montreal.
+                {t('footer.description')}
               </p>
             </div>
           </div>
@@ -50,12 +54,12 @@ export default function Footer() {
           {/* Contact Information */}
           <div className="col-md-6 col-lg-3">
             <div className="footer-contact">
-              <h4>Contact Us</h4>
+              <h4>{t('footer.contact.title')}</h4>
 
               <div className="contact-info-item">
                 <i className="bi bi-geo-alt"></i>
                 <div className="details">
-                  <h5>Address</h5>
+                  <h5>{t('footer.contact.address')}</h5>
                   <p>
                     6313 Jarry Street East
                     <br />
@@ -67,7 +71,7 @@ export default function Footer() {
               <div className="contact-info-item">
                 <i className="bi bi-telephone"></i>
                 <div className="details">
-                  <h5>Phone</h5>
+                  <h5>{t('footer.contact.phone')}</h5>
                   <p>(514) 326-4200</p>
                 </div>
               </div>
@@ -75,7 +79,7 @@ export default function Footer() {
               <div className="contact-info-item">
                 <i className="bi bi-envelope"></i>
                 <div className="details">
-                  <h5>Email</h5>
+                  <h5>{t('footer.contact.email')}</h5>
                   <ObfuscatedEmail
                     user="info"
                     domain="dimenna"
@@ -90,19 +94,19 @@ export default function Footer() {
           {/* Opening Hours */}
           <div className="col-md-6 col-lg-3">
             <div className="footer-hours">
-              <h4>Dining Room Hours</h4>
+              <h4>{t('footer.hours.diningRoom')}</h4>
               <table className="hours-table">
                 <tbody>
                   <tr>
-                    <td>Monday</td>
-                    <td>Closed</td>
+                    <td>{t('footer.hours.days.monday')}</td>
+                    <td>{t('footer.hours.days.closed')}</td>
                   </tr>
                   <tr>
-                    <td>Tuesday</td>
+                    <td>{t('footer.hours.days.tuesday')}</td>
                     <td>11:00am - 2:00pm</td>
                   </tr>
                   <tr>
-                    <td>Wednesday</td>
+                    <td>{t('footer.hours.days.wednesday')}</td>
                     <td>
                       11:00am - 2:00pm
                       <br />
@@ -110,7 +114,7 @@ export default function Footer() {
                     </td>
                   </tr>
                   <tr>
-                    <td>Thursday</td>
+                    <td>{t('footer.hours.days.thursday')}</td>
                     <td>
                       11:00am - 2:00pm
                       <br />
@@ -118,7 +122,7 @@ export default function Footer() {
                     </td>
                   </tr>
                   <tr>
-                    <td>Friday</td>
+                    <td>{t('footer.hours.days.friday')}</td>
                     <td>
                       11:00am - 2:00pm
                       <br />
@@ -126,11 +130,11 @@ export default function Footer() {
                     </td>
                   </tr>
                   <tr>
-                    <td>Saturday</td>
+                    <td>{t('footer.hours.days.saturday')}</td>
                     <td>4:00pm - 9:30pm</td>
                   </tr>
                   <tr>
-                    <td>Sunday</td>
+                    <td>{t('footer.hours.days.sunday')}</td>
                     <td>4:00pm - 8:00pm</td>{" "}
                     {/* Corrigé ici (manquait am/pm mais le vôtre est ok) */}
                   </tr>
@@ -139,19 +143,19 @@ export default function Footer() {
             </div>
 
             <div className="footer-hours mt-4">
-              <h4>Takeout/Delivery Hours</h4>
+              <h4>{t('footer.hours.takeout')}</h4>
               <table className="hours-table">
                 <tbody>
                   <tr>
-                    <td>Monday</td>
-                    <td>Closed</td>
+                    <td>{t('footer.hours.days.monday')}</td>
+                    <td>{t('footer.hours.days.closed')}</td>
                   </tr>
                   <tr>
                     <td>Sunday - Tuesday - Wednesday</td>
                     <td>11:00am - 8:00pm</td>
                   </tr>
                   <tr>
-                    <td>Thursday</td>
+                    <td>{t('footer.hours.days.thursday')}</td>
                     <td>11:00am - 9:00pm</td>
                   </tr>
                   <tr>
@@ -166,14 +170,13 @@ export default function Footer() {
           {/* Newsletter and Social Media */}
           <div className="col-md-6 col-lg-3">
             <div className="footer-subscribe">
-              <h4>Stay Informed</h4>
+              <h4>{t('footer.newsletter.title')}</h4>
               <p>
-                Subscribe to our newsletter to receive our latest offers,
-                special events, and exclusive promotions.
+                {t('footer.newsletter.description')}
               </p>
 
               <form className="subscribe-form">
-                <input type="email" placeholder="Your email" required />
+                <input type="email" placeholder={t('footer.newsletter.placeholder')} required />
                 <button type="submit">
                   <i className="bi bi-send"></i>
                 </button>
@@ -182,7 +185,7 @@ export default function Footer() {
 
             {/* Social Media Links */}
             <div className="footer-social mt-4">
-              <h4>Follow Us</h4>
+              <h4>{t('footer.social.title')}</h4>
               <div className="social-links">
                 <a
                   href="https://www.instagram.com/dimennaresto/"
@@ -207,16 +210,17 @@ export default function Footer() {
             <div className="col-lg-6">
               <p className="copyright">
                 © {new Date().getFullYear()}{" "}
-                <strong>Di Menna Restaurant</strong>. All Rights Reserved.
+                <strong>Di Menna Restaurant</strong>. {t('footer.copyright')}
               </p>
             </div>
             <div className="col-lg-6">
               <div className="footer-nav">
-                <a href="#menu">Menu</a>
-                <a href="#about">About</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#events">Events</a>
-                <a href="#contact">Contact</a>
+                <a href="#menu">{t('footer.nav.menu')}</a>
+                <a href="#about">{t('footer.nav.about')}</a>
+                <a href="#book-a-table">{t('footer.nav.reservations')}</a>
+                <a href="#chefs">{t('footer.nav.chefs')}</a>
+                <a href="#recruitment-hero">{t('footer.nav.careers')}</a>
+                <a href="#contact">{t('footer.nav.contact')}</a>
               </div>
             </div>
           </div>

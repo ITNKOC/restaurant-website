@@ -2,14 +2,20 @@
 # General
 --------------------------------------------------------------*/
 :root {
-  --font-primary: "Open Sans", sans-serif;
-  --font-heading: "Playfair Display", serif;
-  --color-primary: #cda45e;
-  --color-primary-light: #d9ba85;
+  /* Nouvelles polices italiennes élégantes */
+  --font-primary: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-cormorant), "Times New Roman", serif;
+  
+  /* Couleurs optimisées pour restaurant italien */
+  --color-primary: #c49b61; /* Or italien plus chaud */
+  --color-primary-light: #d4b373;
+  --color-primary-dark: #b8935a;
   --color-dark: #0c0b09;
   --color-secondary-dark: #1a1814;
   --color-white: #ffffff;
   --color-light-gray: #aaaaaa;
+  --color-cream: #f8f6f0; /* Crème italien */
+  
   --header-height: 70px;
   --transition-smooth: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
@@ -22,6 +28,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* Compensation pour header fixe */
 }
 
 body {
@@ -31,6 +38,8 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.01em; /* Espacement léger pour lisibilité */
 }
 
 a {
@@ -52,6 +61,66 @@ h5,
 h6 {
   font-family: var(--font-heading);
   margin-bottom: 0.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em; /* Espacement légèrement serré pour élégance */
+  line-height: 1.2;
+}
+
+/* Styles spécifiques pour chaque niveau de titre */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* Style italien pour les titres principaux */
+.section-title h2,
+.hero h1 {
+  font-style: italic;
+  color: var(--color-primary);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Classe utilitaire pour text italien élégant */
+.text-italian {
+  font-family: var(--font-heading);
+  font-style: italic;
+  color: var(--color-primary);
+  letter-spacing: 0.02em;
+}
+
+/* Améliorations générales pour boutons */
+.btn-primary,
+.app-btn,
+button[type="submit"] {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(196, 155, 97, 0.2);
+}
+
+.btn-primary:hover,
+.app-btn:hover,
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196, 155, 97, 0.3);
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
 }
 
 p {
@@ -61,6 +130,32 @@ p {
 img {
   max-width: 100%;
   height: auto;
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.02);
+}
+
+/* Animations subtiles pour cards et conteneurs */
+.card, .info-card, .booking-info, .why-box {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover, .info-card:hover, .booking-info:hover, .why-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Animation pour les liens et éléments interactifs */
+a, button, .clickable {
+  transition: var(--transition-smooth);
+}
+
+/* Focus états améliorés pour accessibilité */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(196, 155, 97, 0.2);
 }
 
 button,

@@ -1,54 +1,35 @@
+"use client";
+
 import React from "react";
 import "./whyUs.css";
 import SectionTitle from "../components/SectionTitle";
+import { useTranslation } from "../contexts/TranslationContext";
 
 export default function WhyUs() {
-  const whyUsItems = [
-    {
-      id: 1,
-      icon: "tradition",
-      title: "Family Tradition",
-      content:
-        "Founded in 1971 by Franco Di Menna, our restaurant preserves authentic Italian recipes passed down through generations, bringing the true taste of Italy to Montréal for over 50 years.",
-    },
-    {
-      id: 2,
-      icon: "quality",
-      title: "Premium Ingredients",
-      content:
-        "We import the finest ingredients directly from Italy and source fresh local produce daily, ensuring each dish delivers exceptional flavor and authenticity that celebrates true Italian culinary excellence.",
-    },
-    {
-      id: 3,
-      icon: "experience",
-      title: "Unique Experience",
-      content:
-        "From our wood-fired pizzas to our homemade pasta and delectable desserts, every visit to Di Menna offers a journey through Italy's diverse regional cuisines in a warm, welcoming atmosphere.",
-    },
-  ];
+  const { t } = useTranslation();
 
   return (
     <section id="why-us" className="why-us">
       <div className="container" data-aos="fade-up">
         <SectionTitle
-          title="Why Choose Us"
-          subtitle="The Di Menna Difference"
+          title={t('whyUs.title')}
+          subtitle={t('whyUs.subtitle')}
         />
 
         <div className="row">
-          {whyUsItems.map((item) => (
+          {[0, 1, 2].map((index) => (
             <div
               className="col-lg-4"
-              key={item.id}
+              key={index}
               data-aos="fade-up"
-              data-aos-delay={item.id * 100}
+              data-aos-delay={(index + 1) * 100}
             >
               <div className="why-box">
                 <div className="icon-wrapper">
-                  <div className={`icon-${item.icon}`}></div>
+                  <div className={`icon-${index === 0 ? 'tradition' : index === 1 ? 'quality' : 'experience'}`}></div>
                 </div>
-                <h4>{item.title}</h4>
-                <p>{item.content}</p>
+                <h4>{t(`whyUs.reasons.${index}.title`)}</h4>
+                <p>{t(`whyUs.reasons.${index}.content`)}</p>
                 <div className="decorative-line"></div>
               </div>
             </div>
@@ -61,26 +42,24 @@ export default function WhyUs() {
               <div className="stats-container">
                 <div className="stat-item">
                   <span className="stat-number">50+</span>
-                  <span className="stat-label">Years of Excellence</span>
+                  <span className="stat-label">{t('whyUs.stats.years')}</span>
                 </div>
                 <div className="stat-item">
                   <span className="stat-number">1000+</span>
-                  <span className="stat-label">Happy Customers Weekly</span>
+                  <span className="stat-label">{t('whyUs.stats.customers')}</span>
                 </div>
                 <div className="stat-item">
                   <span className="stat-number">30+</span>
-                  <span className="stat-label">Signature Dishes</span>
+                  <span className="stat-label">{t('whyUs.stats.dishes')}</span>
                 </div>
               </div>
             </div>
             <div className="col-lg-6">
               <div className="quote-container">
                 <blockquote>
-                  "At Di Menna, we don't just serve food; we share our heritage,
-                  passion, and the joy of Italian cuisine with every dish we
-                  prepare."
+                  "{t('whyUs.quote')}"
                 </blockquote>
-                <cite>— The Di Menna Family</cite>
+                <cite>{t('whyUs.quoteAuthor')}</cite>
               </div>
             </div>
           </div>

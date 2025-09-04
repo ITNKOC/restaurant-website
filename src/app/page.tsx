@@ -21,11 +21,7 @@ export default function Home() {
         <About />
         <WhyUs />
         <Menu />
-        {/* <Specials /> */}
-        {/* <Events /> */}
         <Booking />
-        {/* <Testimonials /> */}
-        {/* <Gallery /> */}
         <Chefs />
         <Recruitment />
         <Contact />

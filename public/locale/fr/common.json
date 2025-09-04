@@ -3,5 +3,263 @@
   "bookTable": "Réserver une Table",
   "ourMenu": "Notre Menu",
   "siteTitle": "Di Menna - Cuisine Italienne Raffinée",
-  "footerAllRightsReserved": "Tous droits réservés."
+  "footerAllRightsReserved": "Tous droits réservés.",
+  
+  "hero": {
+    "title": "Bienvenue chez",
+    "restaurantName": "Di Menna",
+    "subtitle": "Cuisine Italienne Authentique Depuis 1971",
+    "description": "Une tradition familiale d'excellence depuis plus de 50 ans à Montréal",
+    "menuButton": "Découvrir Notre Menu",
+    "bookButton": "Réserver Maintenant"
+  },
+  
+  "about": {
+    "title": "Une Tradition Familiale d'Excellence Italienne Depuis 1971",
+    "subtitle": "Fondé par Franco Di Menna, notre restaurant a évolué d'une humble pizzeria vers l'une des destinations italiennes les plus prisées de Montréal.",
+    "features": [
+      "Recettes italiennes authentiques transmises de génération en génération",
+      "Ingrédients frais locaux mariés aux spécialités italiennes les plus raffinées",
+      "De nos débuts modestes comme simple pizzeria à notre statut actuel de restaurant gastronomique, nous avons préservé notre engagement envers la qualité et la tradition tout en embrassant l'innovation culinaire."
+    ],
+    "description": "Établi au 6313 rue Jarry Est à Saint-Léonard, Di Menna est devenu une institution culinaire de la communauté. Notre menu propose des antipasti traditionnels, des pâtes artisanales, les meilleures pizzas de Montréal et des desserts italiens authentiques. En 2016, nous avons rénové notre salle à manger et ajouté un bar sophistiqué servant des cocktails signature et une sélection de bières italiennes premium, rehaussant l'expérience gastronomique tout en préservant l'atmosphère chaleureuse et familiale qui fait notre réputation depuis plus de cinq décennies."
+  },
+  
+  "whyUs": {
+    "title": "Pourquoi Nous Choisir",
+    "subtitle": "La Différence Di Menna",
+    "reasons": [
+      {
+        "title": "Tradition Familiale",
+        "content": "Fondé en 1971 par Franco Di Menna, notre restaurant préserve jalousement les recettes italiennes authentiques transmises de génération en génération, apportant la véritable essence de l'Italie à Montréal depuis plus de 50 ans."
+      },
+      {
+        "title": "Ingrédients Premium",
+        "content": "Nous importons scrupuleusement les ingrédients les plus nobles directement d'Italie et nous approvisionnons quotidiennement en produits locaux d'une fraîcheur irréprochable, garantissant que chaque plat délivre une saveur exceptionnelle et une authenticité qui sublimme la véritable excellence culinaire italienne."
+      },
+      {
+        "title": "Expérience Unique",
+        "content": "De nos pizzas au feu de bois à nos pâtes artisanales et nos desserts délicieux, chaque visite chez Di Menna offre une véritable évasion à travers les diverses traditions culinaires régionales d'Italie dans une atmosphère chaleureuse et authentiquement familiale."
+      }
+    ],
+    "stats": {
+      "years": "50+ Années d'Excellence",
+      "customers": "1000+ Clients Satisfaits par Semaine",
+      "dishes": "30+ Plats Signature"
+    },
+    "quote": "Chez Di Menna, nous ne servons pas simplement de la nourriture ; nous transmettons notre héritage, notre passion et l'art de vivre italien à travers chaque plat que nous concevons avec amour.",
+    "quoteAuthor": "— La Famille Di Menna"
+  },
+  
+  "menu": {
+    "title": "Nos Créations Gastronomiques",
+    "subtitle": "Découvrez nos menus raffinés, minutieusement élaborés pour vous offrir l'essence de la tradition italienne authentique à chaque occasion.",
+    "types": {
+      "restaurant": "Menu Restaurant",
+      "delivery": "Menu Livraison",
+      "group": "Menus Groupes",
+      "special": "Offres Spéciales"
+    },
+    "groupIntro": {
+      "title": "Planifiez un Événement ?",
+      "description": "Nos menus de groupe sont soigneusement orchestrés pour sublimer vos occasions spéciales, événements corporatifs ou rassemblements familiaux. Découvrez nos sélections raffinées pour faire de votre événement un moment inoubliable. Pour des arrangements sur mesure ou des groupes plus importants, veuillez",
+      "contactLink": "nous contacter"
+    },
+    "specialIntro": {
+      "title": "Délices Saisonniers et Créations Éphémères",
+      "description": "Savourez l'excellence saisonnière avec nos menus exclusifs à durée limitée. Découvrez actuellement notre célèbre Festival du Homard, une expérience culinaire d'exception !"
+    },
+    "loading": "Chargement des menus...",
+    "noMenus": "Aucun menu n'est actuellement disponible pour cette catégorie. Veuillez revenir plus tard.",
+    "filters": {
+      "all": "Tout",
+      "starters": "Entrées",
+      "salads": "Salades",
+      "specialty": "Spécialités"
+    }
+  },
+  
+  "booking": {
+    "title": "Réservations",
+    "subtitle": "Réservez Votre Table d'Exception",
+    "dineWithUs": "Savourez l'Excellence Italienne chez Di Menna",
+    "dineWithUsDescription": "Découvrez la cuisine italienne authentique dans une atmosphère élégante. Réservez facilement votre table en utilisant notre formulaire ou directement via OpenTable.",
+    "makeReservation": "Réserver Votre Expérience",
+    "poweredBy": "Propulsé par",
+    "checkAvailability": "Vérifier la Disponibilité",
+    "bookDirectly": "Ou Réservez Directement Ici :",
+    "hoursDetailed": {
+      "tuesday": "Mardi: 11h00 - 14h00",
+      "wednesday": "Mercredi: 11h00 - 14h00 et 16h00 - 20h00",
+      "thursday": "Jeudi: 11h00 - 14h00 et 16h00 - 20h30",
+      "friday": "Vendredi: 11h00 - 14h00 et 16h00 - 21h30",
+      "saturday": "Samedi: 16h00 - 21h30",
+      "sunday": "Dimanche: 16h00 - 20h00",
+      "monday": "Lundi: Fermé"
+    },
+    "form": {
+      "guests": "Convives",
+      "guest": "Convive",
+      "guests_plural": "Convives",
+      "date": "Date",
+      "time": "Heure",
+      "popularTimes": "Créneaux Privilégiés :",
+      "submit": "Confirmer la Réservation"
+    },
+    "popularTimeLabels": {
+      "lunch": "Déjeuner Raffiné (12h00)",
+      "earlyEve": "Apéritif Douceur (17h30)",
+      "dinner": "Dîner Gastronomique (19h00)",
+      "lateEve": "Soirée Romantique (21h00)"
+    },
+    "info": {
+      "hours": "Heures d'Ouverture",
+      "location": "Localisation",
+      "contact": "Contact",
+      "address": "6313 Rue Jarry Est, Saint-Léonard, Montréal, QC H1P 1W1",
+      "phone": "(514) 326-4200"
+    }
+  },
+  
+  "chefs": {
+    "title": "Notre Maître Cuisinier",
+    "subtitle": "L'Âme de Notre Art Culinaire",
+    "name": "Concezio Di Menna",
+    "position": "Chef Exécutif",
+    "bio": "Concezio Di Menna perpétue avec passion l'héritage familial en tant que chef exécutif du Restaurant Di Menna, majestueusement établi au 6313 Jarry Est à Montréal. Fondé en 1971 par Franco Di Menna, le restaurant rayonne par sa cuisine italienne d'exception et son atmosphère authentiquement chaleureuse et raffinement accueillante.",
+    "experience": "15",
+    "quote": "La cuisine, c'est l'art de marier le cœur à la tradition, un héritage précieusement transmis de génération en génération.",
+    "specialties": [
+      "Maîtrise de la Cuisine Italienne Traditionnelle",
+      "Pizzas Artisanales au Feu de Bois",
+      "Pâtes Fraîches Façonnées à la Main"
+    ],
+    "achievements": [
+      "Chef Exécutif et Gardien des Traditions au Restaurant Di Menna",
+      "Perpétuation d'un art culinaire familial d'exception depuis 1971",
+      "Référence incontournable de l'excellence gastronomique italienne à Montréal"
+    ]
+  },
+  
+  "recruitment": {
+    "hero": {
+      "title": "Rejoignez Notre Famille Gastronomique",
+      "subtitle": "Embarquez dans une aventure culinaire d'exception avec Di Menna."
+    },
+    "main": {
+      "title": "Opportunités de Carrière chez Di Menna",
+      "subtitle": "Nous Recherchons des Talents Passionnés",
+      "description1": "Chez Di Menna, nous sommes convaincus que notre excellence réside dans le dévouement et la passion de notre équipe d'exception. Nous recherchons continuellement des personnes inspirées qui partagent notre quête d'excellence culinaire et notre art de l'hospitalité raffinée.",
+      "description2": "Que vous soyez un professionnel chevronné ou désireux d'entamer votre parcours dans l'univers exaltant de la gastronomie, nous offrons un environnement stimulant et bienveillant où vos talents peuvent pleinement s'épanouir.",
+      "description3": "Rejoignez notre équipe et bénéficiez d'une rémunération attractive, d'opportunités d'évolution exceptionnelles et d'une culture d'entreprise inspirante qui valorise l'innovation culinaire et l'esprit d'équipe."
+    },
+    "values": {
+      "title": "Nos Valeurs Fondamentales",
+      "subtitle": "Les Principes Qui Nous Guident",
+      "excellence": {
+        "title": "Excellence",
+        "description": "Nous aspirons à l'excellence absolue dans chaque création culinaire que nous présentons et chaque moment partagé avec nos invités."
+      },
+      "teamwork": {
+        "title": "Travail d'Équipe",
+        "description": "L'harmonie collaborative et l'entraide mutuelle constituent les fondements de notre succès et d'un environnement de travail épanouissant."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Nous cultivons la créativité culinaire et recherchons inlassablement des approches innovantes pour sublimer l'expérience de nos convives."
+      },
+      "passion": {
+        "title": "Passion",
+        "description": "Notre passion ardente pour l'art culinaire italien et l'hospitalité authentique nous inspire à transcender les attentes chaque jour."
+      }
+    },
+    "cta": {
+      "title": "Prêt à Écrire Votre Histoire Culinaire ?",
+      "description": "Si l'idée de contribuer à l'excellence d'un restaurant italien de renom vous inspire, nous vous invitons chaleureusement à nous faire parvenir votre candidature. Construisons ensemble votre avenir gastronomique chez Di Menna."
+    }
+  },
+  
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Nous sommes à votre disposition pour toute demande ou réservation",
+    "intro": "Nous serions ravis d'avoir de vos nouvelles ! Que vous ayez des questions sur notre menu, souhaitiez faire une réservation ou obtenir des informations sur nos événements privés, notre équipe est là pour vous aider.",
+    "restaurantName": "Restaurant Di Menna",
+    "restaurantTagline": "Cuisine italienne authentique au cœur de Saint-Léonard",
+    "getDirections": "Itinéraire",
+    "location": "Emplacement",
+    "locationDetails": "Stationnement abondant disponible",
+    "diningHours": "Heures de Salle à Manger",
+    "callUs": "Appelez-Nous",
+    "callForReservations": "Appelez pour les réservations",
+    "email": "Courriel",
+    "emailResponse": "Nous répondrons dans les 24 heures",
+    "sendMessage": "Envoyez-Nous un Message",
+    "sendMessageIntro": "Nous serions ravis d'avoir de vos nouvelles. Veuillez remplir le formulaire ci-dessous et nous vous répondrons dès que possible.",
+    "form": {
+      "name": "Votre Nom",
+      "email": "Votre Courriel",
+      "subject": "Sujet",
+      "message": "Message",
+      "sending": "Envoi du message...",
+      "sent": "Votre message a été envoyé. Merci !",
+      "error": "Il y a eu une erreur lors de l'envoi de votre message. Veuillez réessayer.",
+      "sendButton": "Envoyer le Message",
+      "sendingButton": "Envoi..."
+    },
+    "address": "6313 Rue Jarry Est, Saint-Léonard, QC H1P 1W1",
+    "phone": "+1 (514) 326-4200",
+    "emailAddress": "info@dimenna.com",
+    "hours": {
+      "title": "Heures d'Ouverture",
+      "monday": "Lundi: Fermé",
+      "tuesday": "Mardi: 11h00 - 20h00",
+      "wednesday": "Mercredi: 11h00 - 14h00 et 16h00 - 20h00",
+      "thursday": "Jeudi: 11h00 - 14h00 et 16h00 - 21h00",
+      "friday": "Vendredi: 11h00 - 14h00 et 16h00 - 21h30",
+      "saturday": "Samedi: 16h00 - 21h30",
+      "sunday": "Dimanche: 11h00 - 20h00"
+    }
+  },
+  
+  "footer": {
+    "tagline": "L'Art de la Gastronomie Italienne",
+    "description": "Découvrez l'authentique excellence culinaire italienne dans un écrin raffiné. Une expérience gastronomique mémorable au cœur de Montréal.",
+    "contact": {
+      "title": "À Votre Service",
+      "address": "Adresse",
+      "phone": "Téléphone",
+      "email": "Email"
+    },
+    "hours": {
+      "diningRoom": "Heures de la Salle à Manger",
+      "takeout": "Heures de Commande pour Emporter/Livraison",
+      "days": {
+        "monday": "Lundi",
+        "tuesday": "Mardi",
+        "wednesday": "Mercredi",
+        "thursday": "Jeudi",
+        "friday": "Vendredi",
+        "saturday": "Samedi",
+        "sunday": "Dimanche",
+        "closed": "Fermé"
+      }
+    },
+    "newsletter": {
+      "title": "Restez Connecté à l'Excellence",
+      "description": "Inscrivez-vous à notre newsletter privilégiée pour découvrir en avant-première nos créations saisonnières, événements exclusifs et expériences gastronomiques uniques.",
+      "placeholder": "Votre adresse e-mail"
+    },
+    "social": {
+      "title": "Suivez-nous"
+    },
+    "copyright": "Tous droits réservés. Une tradition d'excellence depuis 1971.",
+    "nav": {
+      "menu": "Menu",
+      "about": "À Propos",
+      "reservations": "Réservations",
+      "chefs": "Nos Chefs",
+      "careers": "Carrières",
+      "contact": "Contact"
+    }
+  }
 }

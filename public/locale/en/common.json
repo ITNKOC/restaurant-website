@@ -3,5 +3,263 @@
   "bookTable": "Book a Table",
   "ourMenu": "Our Menu",
   "siteTitle": "Di Menna - Fine Italian Cuisine",
-  "footerAllRightsReserved": "All Rights Reserved."
+  "footerAllRightsReserved": "All Rights Reserved.",
+  
+  "hero": {
+    "title": "Welcome to",
+    "restaurantName": "Di Menna",
+    "subtitle": "Authentic Italian Cuisine Since 1971",
+    "description": "A family tradition of excellence for over 50 years in Montréal",
+    "menuButton": "Explore Our Menu",
+    "bookButton": "Reserve Now"
+  },
+  
+  "about": {
+    "title": "A Legacy of Italian Culinary Excellence Since 1971",
+    "subtitle": "Founded by Franco Di Menna, our restaurant has transformed from a humble pizzeria into one of Montréal's most cherished Italian dining destinations.",
+    "features": [
+      "Authentic Italian recipes passed down through generations",
+      "Premium local ingredients harmoniously paired with Italy's finest imported specialties",
+      "From our modest beginnings as a neighborhood pizzeria to our current standing as a distinguished restaurant, we've preserved our dedication to quality and tradition while embracing culinary innovation."
+    ],
+    "description": "Nestled at 6313 Jarry Street East in Saint-Léonard, Di Menna has evolved into a beloved culinary institution within our community. Our menu showcases traditional antipasti, artisanal pasta, Montreal's finest pizzas, and authentic Italian desserts. In 2016, we transformed our dining room and introduced an elegant bar featuring signature cocktails and premium Italian beers, elevating the gastronomic experience while preserving the warm, family atmosphere that has made us a cherished neighborhood destination for over five decades."
+  },
+  
+  "whyUs": {
+    "title": "Why Choose Us",
+    "subtitle": "The Di Menna Difference",
+    "reasons": [
+      {
+        "title": "Family Tradition",
+        "content": "Established in 1971 by Franco Di Menna, our restaurant carefully preserves authentic Italian recipes passed down through generations, bringing the genuine essence of Italy to Montréal for over 50 years."
+      },
+      {
+        "title": "Premium Ingredients",
+        "content": "We meticulously import the finest ingredients directly from Italy and source the freshest local produce daily, ensuring each dish delivers extraordinary flavor and authenticity that exemplifies true Italian culinary mastery."
+      },
+      {
+        "title": "Unique Experience",
+        "content": "From our wood-fired pizzas to our handcrafted pasta and exquisite desserts, every visit to Di Menna offers an authentic culinary journey through Italy's diverse regional traditions in a warm, inviting atmosphere."
+      }
+    ],
+    "stats": {
+      "years": "50+ Years of Excellence",
+      "customers": "1000+ Happy Customers Weekly",
+      "dishes": "30+ Signature Dishes"
+    },
+    "quote": "At Di Menna, we don't simply serve food; we share our heritage, passion, and the authentic joy of Italian cuisine with every dish we lovingly prepare.",
+    "quoteAuthor": "— The Di Menna Family"
+  },
+  
+  "menu": {
+    "title": "Our Gastronomic Creations",
+    "subtitle": "Discover our meticulously crafted menus, offering an authentic taste of Italian culinary heritage for every special occasion.",
+    "types": {
+      "restaurant": "Restaurant Menu",
+      "delivery": "Delivery Menu",
+      "group": "Group Menus",
+      "special": "Special Offers"
+    },
+    "groupIntro": {
+      "title": "Planning an Event?",
+      "description": "Our group menus are thoughtfully orchestrated for your special occasions, corporate events, or family celebrations. Explore our refined selections to create an unforgettable event experience. For bespoke arrangements or larger gatherings, please",
+      "contactLink": "contact us"
+    },
+    "specialIntro": {
+      "title": "Seasonal Treasures & Exclusive Offerings",
+      "description": "Experience seasonal excellence with our exclusive limited-time menus. Currently showcasing our celebrated Lobster Festival, a culinary experience of distinction!"
+    },
+    "loading": "Loading menus...",
+    "noMenus": "No menus are currently available for this category. Please check back later.",
+    "filters": {
+      "all": "All",
+      "starters": "Starters",
+      "salads": "Salads",
+      "specialty": "Specialty"
+    }
+  },
+  
+  "booking": {
+    "title": "Reservations",
+    "subtitle": "Reserve Your Exceptional Table",
+    "dineWithUs": "Experience Italian Excellence at Di Menna",
+    "dineWithUsDescription": "Experience authentic Italian cuisine in an elegant atmosphere. Easily book your table using our form or directly via OpenTable.",
+    "makeReservation": "Reserve Your Experience",
+    "poweredBy": "Powered by",
+    "checkAvailability": "Check Availability",
+    "bookDirectly": "Or Book Directly Here:",
+    "hoursDetailed": {
+      "tuesday": "Tuesday: 11:00 AM - 2:00 PM",
+      "wednesday": "Wednesday: 11:00 AM - 2:00 PM & 4:00 PM - 8:00 PM",
+      "thursday": "Thursday: 11:00 AM - 2:00 PM & 4:00 PM - 8:30 PM",
+      "friday": "Friday: 11:00 AM - 2:00 PM & 4:00 PM - 9:30 PM",
+      "saturday": "Saturday: 4:00 PM - 9:30 PM",
+      "sunday": "Sunday: 4:00 PM - 8:00 PM",
+      "monday": "Monday: Closed"
+    },
+    "form": {
+      "guests": "Guests",
+      "guest": "Guest",
+      "guests_plural": "Guests",
+      "date": "Date",
+      "time": "Time",
+      "popularTimes": "Prime Dining Times:",
+      "submit": "Confirm Reservation"
+    },
+    "popularTimeLabels": {
+      "lunch": "Refined Lunch (12:00 PM)",
+      "earlyEve": "Aperitivo Hour (5:30 PM)",
+      "dinner": "Gourmet Dinner (7:00 PM)",
+      "lateEve": "Evening Romance (9:00 PM)"
+    },
+    "info": {
+      "hours": "Opening Hours",
+      "location": "Location",
+      "contact": "Contact",
+      "address": "6313 Jarry Street East, Saint-Léonard, Montréal, QC H1P 1W1",
+      "phone": "(514) 326-4200"
+    }
+  },
+  
+  "chefs": {
+    "title": "Our Master Chef",
+    "subtitle": "The Soul of Our Culinary Artistry",
+    "name": "Concezio Di Menna",
+    "position": "Executive Chef",
+    "bio": "Concezio Di Menna passionately continues the family legacy as executive chef of Restaurant Di Menna, gracefully positioned at 6313 Jarry East in Montreal. Founded in 1971 by Franco Di Menna, the restaurant has earned recognition for its exceptional Italian cuisine and authentically warm, welcoming atmosphere.",
+    "experience": "15",
+    "quote": "Cooking is the art of blending heart with tradition, a precious heritage passed down from generation to generation.",
+    "specialties": [
+      "Mastery of Traditional Italian Cuisine",
+      "Wood-Fired Artisanal Pizzas",
+      "Hand-Crafted Fresh Pasta"
+    ],
+    "achievements": [
+      "Executive Chef and Guardian of Traditions at Restaurant Di Menna",
+      "Perpetuating an exceptional family culinary heritage since 1971",
+      "Montreal's benchmark for Italian gastronomic excellence"
+    ]
+  },
+  
+  "recruitment": {
+    "hero": {
+      "title": "Join Our Gastronomic Family",
+      "subtitle": "Embark on an exceptional culinary journey with Di Menna."
+    },
+    "main": {
+      "title": "Career Opportunities at Di Menna",
+      "subtitle": "We're Seeking Passionate Culinary Talents",
+      "description1": "At Di Menna, we recognize that our excellence stems from the dedication and passion of our exceptional team. We continuously seek inspired individuals who share our pursuit of culinary mastery and refined hospitality.",
+      "description2": "Whether you are an accomplished professional or eager to embark on your journey in the exciting world of gastronomy, we offer a stimulating and nurturing environment where your talents can truly flourish.",
+      "description3": "Join our team and enjoy attractive compensation, exceptional growth opportunities, and an inspiring work culture that values culinary innovation and collaborative spirit."
+    },
+    "values": {
+      "title": "Our Core Values",
+      "subtitle": "The Principles That Guide Us",
+      "excellence": {
+        "title": "Excellence",
+        "description": "We aspire to absolute excellence in every culinary creation we present and every moment shared with our guests."
+      },
+      "teamwork": {
+        "title": "Teamwork",
+        "description": "Collaborative harmony and mutual support form the foundation of our success and a flourishing work environment."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "We cultivate culinary creativity and continuously pursue innovative approaches to elevate our guests' dining experiences."
+      },
+      "passion": {
+        "title": "Passion",
+        "description": "Our profound passion for Italian culinary artistry and authentic hospitality inspires us to transcend expectations every day."
+      }
+    },
+    "cta": {
+      "title": "Ready to Write Your Culinary Story?",
+      "description": "If the opportunity to contribute to a distinguished Italian restaurant excites you, we warmly invite you to submit your application. Let's craft your gastronomic future together at Di Menna."
+    }
+  },
+  
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We are at your service for any inquiries or reservations",
+    "intro": "We'd love to hear from you! Whether you have a question about our menu, want to make a reservation, or need information about our private events, our team is here to help.",
+    "restaurantName": "Di Menna Restaurant",
+    "restaurantTagline": "Authentic Italian cuisine in the heart of Saint-Léonard",
+    "getDirections": "Get Directions",
+    "location": "Location",
+    "locationDetails": "Ample parking available",
+    "diningHours": "Dining Hours",
+    "callUs": "Call Us",
+    "callForReservations": "Call for reservations",
+    "email": "Email",
+    "emailResponse": "We'll respond within 24 hours",
+    "sendMessage": "Send Us a Message",
+    "sendMessageIntro": "We'd be delighted to hear from you. Please fill out the form below, and we'll get back to you as soon as possible.",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "subject": "Subject",
+      "message": "Message",
+      "sending": "Sending message...",
+      "sent": "Your message has been sent. Thank you!",
+      "error": "There was an error sending your message. Please try again.",
+      "sendButton": "Send Message",
+      "sendingButton": "Sending..."
+    },
+    "address": "6313 Rue Jarry Est, Saint-Leonard, QC H1P 1W1",
+    "phone": "+1 (514) 326-4200",
+    "emailAddress": "info@dimenna.com",
+    "hours": {
+      "title": "Opening Hours",
+      "monday": "Monday: Closed",
+      "tuesday": "Tuesday: 11:00 AM - 8:00 PM",
+      "wednesday": "Wednesday: 11:00 AM - 2:00 PM & 4:00 PM - 8:00 PM",
+      "thursday": "Thursday: 11:00 AM - 2:00 PM & 4:00 PM - 9:00 PM",
+      "friday": "Friday: 11:00 AM - 2:00 PM & 4:00 PM - 9:30 PM",
+      "saturday": "Saturday: 4:00 PM - 9:30 PM",
+      "sunday": "Sunday: 11:00 AM - 8:00 PM"
+    }
+  },
+  
+  "footer": {
+    "tagline": "The Art of Italian Gastronomy",
+    "description": "Discover authentic Italian culinary excellence in an elegant setting. A memorable gastronomic experience in the heart of Montreal.",
+    "contact": {
+      "title": "At Your Service",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "hours": {
+      "diningRoom": "Dining Room Hours",
+      "takeout": "Takeout/Delivery Hours",
+      "days": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "closed": "Closed"
+      }
+    },
+    "newsletter": {
+      "title": "Stay Connected to Excellence",
+      "description": "Subscribe to our exclusive newsletter to discover our seasonal creations, special events, and unique gastronomic experiences in advance.",
+      "placeholder": "Your email address"
+    },
+    "social": {
+      "title": "Follow Us"
+    },
+    "copyright": "All Rights Reserved. A tradition of excellence since 1971.",
+    "nav": {
+      "menu": "Menu",
+      "about": "About",
+      "reservations": "Reservations",
+      "chefs": "Our Chefs",
+      "careers": "Careers",
+      "contact": "Contact"
+    }
+  }
 }

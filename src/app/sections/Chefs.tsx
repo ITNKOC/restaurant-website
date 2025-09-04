@@ -3,30 +3,31 @@
 import React, { useEffect } from "react";
 import SectionTitle from "../components/SectionTitle";
 import ChefsItem from "../components/ChefsItem";
-
-// Sample data for featured chef
-const featuredChef = {
-  id: 1,
-  name: "Concezio Di Menna",
-  position: "Executive Chef",
-  photo: "/assets/images/chefs/chef_1.png", // Replace with actual image path
-  bio: "Concezio Di Menna carries on the family legacy as the executive chef of Restaurant Di Menna, located at 6313 Jarry East in Montreal. Founded in 1971 by Franco Di Menna, the restaurant is known for its authentic Italian cuisine and warm, inviting atmosphere.",
-  experience: "15",
-  quote:
-    "Cooking is about heart and tradition, passed down from generation to generation.",
-  specialties: [
-    "Traditional Italian Cuisine",
-    "Artisanal Pizzas",
-    "Homemade Fresh Pasta",
-  ],
-  achievements: [
-    "Executive Chef at Restaurant Di Menna",
-    "Continuing a family culinary tradition since 1971",
-    "Renowned for excellence in Italian dining in Montreal",
-  ],
-};
+import { useTranslation } from "../contexts/TranslationContext";
 
 export default function Chefs() {
+  const { t } = useTranslation();
+
+  // Dynamic data for featured chef using translations
+  const featuredChef = {
+    id: 1,
+    name: t('chefs.name'),
+    position: t('chefs.position'),
+    photo: "/assets/images/chefs/chef_1.png",
+    bio: t('chefs.bio'),
+    experience: t('chefs.experience'),
+    quote: t('chefs.quote'),
+    specialties: [
+      t('chefs.specialties.0'),
+      t('chefs.specialties.1'),
+      t('chefs.specialties.2'),
+    ],
+    achievements: [
+      t('chefs.achievements.0'),
+      t('chefs.achievements.1'),
+      t('chefs.achievements.2'),
+    ],
+  };
   useEffect(() => {
     // Initialize AOS animation library
     if (typeof window !== "undefined") {
@@ -45,8 +46,8 @@ export default function Chefs() {
     <section id="chefs" className="chef-feature">
       <div className="container">
         <SectionTitle
-          title="Featured Chef"
-          subtitle="The Heart of Our Kitchen"
+          title={t('chefs.title')}
+          subtitle={t('chefs.subtitle')}
           center={true}
         />
 

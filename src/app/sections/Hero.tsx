@@ -5,8 +5,10 @@ import AOS from "aos";
 import Glightbox from "glightbox";
 import "./hero.css";
 import HeroBtn from "../components/HeroBtn";
+import { useTranslation } from "../contexts/TranslationContext";
 
 export default function Hero() {
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -50,17 +52,17 @@ export default function Hero() {
         <div className="row">
           <div className="col-lg-8">
             <h1>
-              Welcome to <span>Di Menna</span>
+              {t('hero.title')} <span>{t('hero.restaurantName')}</span>
             </h1>
-            <h2>Authentic Italian Cuisine Since 1971</h2>
+            <h2>{t('hero.subtitle')}</h2>
             <p className="hero-subtitle">
-              A family tradition of excellence for over 50 years in Montréal
+              {t('hero.description')}
             </p>
 
             <div className="btns">
-              <HeroBtn name="Our Menu" target="menu" icon="book" />
+              <HeroBtn name={t('hero.menuButton')} target="menu" icon="book" />
               <HeroBtn
-                name="Book a Table"
+                name={t('hero.bookButton')}
                 target="book-a-table"
                 icon="calendar-check"
               />

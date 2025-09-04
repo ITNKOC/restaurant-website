@@ -5,11 +5,13 @@ import React, { useState, useEffect, useRef } from "react";
 import SectionTitle from "../components/SectionTitle"; // Adjust path if necessary
 import "./booking.css"; // Your styles for this section
 import Image from "next/image";
+import { useTranslation } from "../contexts/TranslationContext";
 
 // Define a unique ID for the OpenTable container (used by embedded widget if you enable it)
 const OPENTABLE_WIDGET_CONTAINER_ID = "ot-widget-container-dimenna-booking";
 
 export default function Booking() {
+  const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("19:00"); // Default to 7:00 PM
   const [partySize, setPartySize] = useState("2");
@@ -38,10 +40,10 @@ export default function Booking() {
   ];
 
   const popularTimes = [
-    { label: "Lunch (12:00 PM)", time: "12:00" },
-    { label: "Early Eve (5:30 PM)", time: "17:30" },
-    { label: "Dinner (7:00 PM)", time: "19:00" },
-    { label: "Late Eve (9:00 PM)", time: "21:00" },
+    { label: t("booking.popularTimeLabels.lunch"), time: "12:00" },
+    { label: t("booking.popularTimeLabels.earlyEve"), time: "17:30" },
+    { label: t("booking.popularTimeLabels.dinner"), time: "19:00" },
+    { label: t("booking.popularTimeLabels.lateEve"), time: "21:00" },
   ];
 
   // useEffect to load the SCRIPT for the EMBEDDED WIDGET (OPTION 2)
@@ -153,7 +155,10 @@ export default function Booking() {
   return (
     <section id="book-a-table" className="book-a-table">
       <div className="container" data-aos="fade-up">
-        <SectionTitle title="Reservations" subtitle="Book Your Table" />
+        <SectionTitle
+          title={t("booking.title")}
+          subtitle={t("booking.subtitle")}
+        />
         <div className="booking-wrapper">
           <div className="row gy-4">
             <div
@@ -162,52 +167,43 @@ export default function Booking() {
               data-aos-delay="100"
             >
               <div className="booking-info">
-                <h3>Dine With Us at Di Menna</h3>
-                <p>
-                  Experience authentic Italian cuisine in an elegant atmosphere.
-                  Easily book your table using our form or directly via
-                  OpenTable.
-                </p>
+                <h3>{t("booking.dineWithUs")}</h3>
+                <p>{t("booking.dineWithUsDescription")}</p>
                 <div className="booking-details">
                   <div className="detail-item">
                     <i className="bi bi-clock-fill"></i>
                     <div>
-                      <h4>Opening Hours</h4>{" "}
+                      <h4>{t("booking.info.hours")}</h4>{" "}
                       {/* Ou "Dining Room Hours" si vous préférez être plus spécifique ici aussi */}
                       <p>
-                        Tuesday: 11:00 AM - 2:00 PM
+                        {t("booking.hoursDetailed.tuesday")}
                         <br />
-                        Wednesday: 11:00 AM - 2:00 PM & 4:00 PM - 8:00 PM
+                        {t("booking.hoursDetailed.wednesday")}
                         <br />
-                        Thursday: 11:00 AM - 2:00 PM & 4:00 PM - 8:30 PM
+                        {t("booking.hoursDetailed.thursday")}
                         <br />
-                        Friday: 11:00 AM - 2:00 PM & 4:00 PM - 9:30 PM
+                        {t("booking.hoursDetailed.friday")}
                         <br />
-                        Saturday: 4:00 PM - 9:30 PM
+                        {t("booking.hoursDetailed.saturday")}
                         <br />
-                        Sunday: 4:00 PM - 8:00 PM{" "}
-                        {/* Assurez-vous que "11:00 - 8:00pm" dans le footer est bien AM */}
+                        {t("booking.hoursDetailed.sunday")}
                         <br />
-                        Monday: Closed
+                        {t("booking.hoursDetailed.monday")}
                       </p>
                     </div>
                   </div>
                   <div className="detail-item">
                     <i className="bi bi-geo-alt-fill"></i>
                     <div>
-                      <h4>Location</h4>
-                      <p>
-                        6313 Jarry Street East
-                        <br />
-                        Saint-Léonard, Montréal, QC H1P 1W1
-                      </p>
+                      <h4>{t("booking.info.location")}</h4>
+                      <p>{t("booking.info.address")}</p>
                     </div>
                   </div>
                   <div className="detail-item">
                     <i className="bi bi-telephone-fill"></i>
                     <div>
-                      <h4>Contact</h4>
-                      <p>(514) 326-4200</p>
+                      <h4>{t("booking.info.contact")}</h4>
+                      <p>{t("booking.info.phone")}</p>
                     </div>
                   </div>
                 </div>
@@ -221,9 +217,9 @@ export default function Booking() {
               {/* OPTION 1: Custom form redirecting to OpenTable (RECOMMENDED AND ENABLED) */}
               <div className="custom-booking-form-container">
                 <div className="reservation-header">
-                  <h4>Make a Reservation</h4>
+                  <h4>{t("booking.makeReservation")}</h4>
                   <div className="opentable-badge">
-                    <span>Powered by</span>
+                    <span>{t("booking.poweredBy")}</span>
                     <Image
                       src="/assets/images/opentable-logo.png" // VERIFY THIS PATH
                       alt="OpenTable"
@@ -244,7 +240,9 @@ export default function Booking() {
                 >
                   <div className="row">
                     <div className="col-md-4 form-group">
-                      <label htmlFor="booking-party-size">Guests</label>
+                      <label htmlFor="booking-party-size">
+                        {t("booking.form.guests")}
+                      </label>
                       <select
                         id="booking-party-size"
                         className="form-select"
@@ -254,13 +252,18 @@ export default function Booking() {
                       >
                         {partySizes.map((size) => (
                           <option key={size} value={size}>
-                            {size} {parseInt(size) === 1 ? "Guest" : "Guests"}
+                            {size}{" "}
+                            {parseInt(size) === 1
+                              ? t("booking.form.guest")
+                              : t("booking.form.guests_plural")}
                           </option>
                         ))}
                       </select>
                     </div>
                     <div className="col-md-4 form-group">
-                      <label htmlFor="booking-date">Date</label>
+                      <label htmlFor="booking-date">
+                        {t("booking.form.date")}
+                      </label>
                       <input
                         id="booking-date"
                         type="date"
@@ -272,7 +275,9 @@ export default function Booking() {
                       />
                     </div>
                     <div className="col-md-4 form-group">
-                      <label htmlFor="booking-time">Time</label>
+                      <label htmlFor="booking-time">
+                        {t("booking.form.time")}
+                      </label>
                       <input
                         id="booking-time"
                         type="time"
@@ -291,7 +296,7 @@ export default function Booking() {
                   )}
                   <div className="popular-times-container mt-3">
                     <label className="popular-times-label">
-                      Popular Times:
+                      {t("booking.form.popularTimes")}
                     </label>
                     <div className="popular-times">
                       {popularTimes.map((timeOption) => (
@@ -310,31 +315,11 @@ export default function Booking() {
                   </div>
                   <div className="text-center">
                     <button type="submit" className="app-btn mt-3">
-                      Check Availability
+                      {t("booking.checkAvailability")}
                     </button>
                   </div>
                 </form>
               </div>
-
-              {/*
-                OPTION 2: Embed OpenTable Widget directly on your page.
-                Uncomment this block if you want to use it.
-                The script in useEffect will handle loading it.
-              */}
-              {/*
-              <div className="opentable-direct-widget-container mt-5 pt-4 border-top">
-                <h4 className="text-center mb-3">Or Book Directly Here:</h4>
-                <div
-                  ref={openTableContainerRef}
-                  id={OPENTABLE_WIDGET_CONTAINER_ID}
-                  style={{ minHeight: "450px", border: "1px solid #eee", borderRadius: "8px", overflow: "hidden" }}
-                >
-                  <div style={{ textAlign: "center", padding: "20px", color: "#aaa", }}>
-                    Loading OpenTable reservation module...
-                  </div>
-                </div>
-              </div>
-              */}
             </div>
           </div>
         </div>
